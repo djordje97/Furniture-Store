@@ -1,0 +1,6 @@
+C:\Users\Djole\Desktop\C#\PoP\PoP\bin\Debug\PoP.exe.config
+C:\Users\Djole\Desktop\C#\PoP\PoP\bin\Debug\PoP.exe
+C:\Users\Djole\Desktop\C#\PoP\PoP\bin\Debug\PoP.pdb
+C:\Users\Djole\Desktop\C#\PoP\PoP\obj\Debug\PoP.csprojResolveAssemblyReference.cache
+C:\Users\Djole\Desktop\C#\PoP\PoP\obj\Debug\PoP.exe
+C:\Users\Djole\Desktop\C#\PoP\PoP\obj\Debug\PoP.pdb
