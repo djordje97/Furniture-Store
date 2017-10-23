@@ -87,7 +87,7 @@ namespace PoP
                 Console.WriteLine("=== Meni namestaja ===");
                 Console.WriteLine("1. Izlistaj namestaj");
                 Console.WriteLine("2.Dodaj novi namestaj");
-                Console.WriteLine("3.Izmeni postojeci nametaj");
+                Console.WriteLine("3.Izmeni postojeci namestaj");
                 Console.WriteLine("4. Obrisi postojeci ");
                 Console.WriteLine("0. Povratak u glavni meni ");
                 izbor = int.Parse(Console.ReadLine());
@@ -169,23 +169,36 @@ namespace PoP
         private static void IzmenaNamestaja()
         {
             Console.WriteLine("Unesite sifru namestaj za izmenu: ");
-            string sifra =Console.ReadLine();
+            string sifra = Console.ReadLine();
             Namestaj nIzmena = new Namestaj();
             foreach (Namestaj n in Namestaj)
             {
-                if (n.Sifra == sifra )
+                if (n.Sifra == sifra)
                 {
                     nIzmena = n;
                 }
             }
+            Console.WriteLine("Izaberite parametar za izmenu: ");
+            Console.WriteLine(" 1. Izmena cene\n 2.Izmena naziva\n 3.Izmena sifre\n 4.Izmena kolicine");
+            int izbor = int.Parse(Console.ReadLine());
+            switch (izbor) {
+                case 1:
             Console.WriteLine("Unesite cenu za  izmenu: ");
             nIzmena.JedinicnaCena = double.Parse(Console.ReadLine());
+                    break;
+                case 2:
             Console.WriteLine("Unesite naziv za  izmenu: ");
             nIzmena.Naziv = Console.ReadLine();
+                    break;
+                case 3:
             Console.WriteLine("Unesite Sifru za  izmenu: ");
-            nIzmena.Sifra =Console.ReadLine();
+            nIzmena.Sifra = Console.ReadLine();
+                    break;
+                case 4:
             Console.WriteLine("Unesite kolicinu za  izmenu: ");
             nIzmena.KolicinaUMagacinu = int.Parse(Console.ReadLine());
+                    break;
+        }
             IspisMenijaNamestaja();
         }
         private static void BrisanjeNamestaja()
@@ -196,7 +209,7 @@ namespace PoP
             {
                 if (n.Sifra == sifra)
                 {
-                    Namestaj.Remove(n);
+                    n.Obrisan = false;
                     Console.WriteLine("Uspesno brisanje namestaja");
                     break;
 
