@@ -14,7 +14,6 @@ namespace PoP.Model
         public string Sifra { get; set; }
         public double JedinicnaCena { get; set; }
         public int KolicinaUMagacinu { get; set; }
-        public string Tip { get; set; }
         public TipNamestaja TipNamestaja { get; set; }
     }
 }

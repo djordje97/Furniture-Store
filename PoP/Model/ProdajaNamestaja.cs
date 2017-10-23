@@ -13,7 +13,7 @@ namespace PoP.Model
         public DateTime DatumProdaje { get; set; }
         public int BrojRacuna { get; set; }
         public String Kupac { get; set; }
-        public double PDV { get; set; }
+        public const double PDV = 0.02;
         public List<DodatnaUsluga> DodatneUsluge { get; set; }
         public double UkupanIznos { get; set; }
 

@@ -4,3 +4,9 @@ C:\Users\Djole\Desktop\C#\PoP\PoP\bin\Debug\PoP.pdb
 C:\Users\Djole\Desktop\C#\PoP\PoP\obj\Debug\PoP.csprojResolveAssemblyReference.cache
 C:\Users\Djole\Desktop\C#\PoP\PoP\obj\Debug\PoP.exe
 C:\Users\Djole\Desktop\C#\PoP\PoP\obj\Debug\PoP.pdb
+C:\Users\Djole\Desktop\Git projekat repozitorijum\POP-SF-42-2016\PoP\obj\Debug\PoP.csprojResolveAssemblyReference.cache
+C:\Users\Djole\Desktop\Git projekat repozitorijum\POP-SF-42-2016\PoP\obj\Debug\PoP.exe
+C:\Users\Djole\Desktop\Git projekat repozitorijum\POP-SF-42-2016\PoP\obj\Debug\PoP.pdb
+C:\Users\Djole\Desktop\Git projekat repozitorijum\POP-SF-42-2016\PoP\bin\Debug\PoP.exe.config
+C:\Users\Djole\Desktop\Git projekat repozitorijum\POP-SF-42-2016\PoP\bin\Debug\PoP.exe
+C:\Users\Djole\Desktop\Git projekat repozitorijum\POP-SF-42-2016\PoP\bin\Debug\PoP.pdb

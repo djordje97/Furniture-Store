@@ -12,7 +12,7 @@ namespace PoP.Model
         public bool Obrisana { get; set; }
         public DateTime PocetakAkcije { get; set; }
         public DateTime KrajAkcije { get; set; }
-        public double Popust { get; set; }
+        public decimal Popust { get; set; }
         public List<Namestaj> NamestajNaPopustu { get; set; }
     }
 }
