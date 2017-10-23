@@ -34,6 +34,11 @@ namespace PoP
                 Naziv = "Garnitura",
 
             };
+            var t2 = new TipNamestaja()
+            {
+                ID=TipNamestaj.Count+1,
+                Naziv="Ormani",
+            };
 
             var n1 = new Namestaj()
             {
@@ -41,11 +46,13 @@ namespace PoP
                 Naziv = "Super sofa",
                 Sifra = "1234",
                 TipNamestaja = t1,
-                KolicinaUMagacinu = 5
+                KolicinaUMagacinu = 5,
+                JedinicnaCena = 1000000
 
             };
             Namestaj.Add(n1);
             TipNamestaj.Add(t1);
+            TipNamestaj.Add(t2);
             IspisGlavnogMenija();
 
         }
@@ -94,6 +101,12 @@ namespace PoP
                 case 2:
                     DodavanjeNamestaja();
                     break;
+                case 3:
+                    IzmenaNamestaja();
+                    break;
+                case 4:
+                    BrisanjeNamestaja();
+                    break;
                 case 0:
                     IspisGlavnogMenija();
                     break;
@@ -105,17 +118,19 @@ namespace PoP
 
         private static void IzlistajNamestaj()
         {
+            Console.WriteLine("=== Ispis namestaja ===");
             for( int i=0; i < Namestaj.Count; i++)
             {
-                Console.WriteLine($"{i + 1}.{Namestaj[i].Naziv},cena: {Namestaj[i].JedinicnaCena}\n");
+                if (!Namestaj[i].Obrisan)
+                {
+                    Console.WriteLine($"{i + 1}. Sifra:{Namestaj[i].Sifra} \tNaziv:{Namestaj[i].Naziv},\tCena: {Namestaj[i].JedinicnaCena}\n");
+                }
             }
             IspisMenijaNamestaja();
         }
         private static void DodavanjeNamestaja()
         {
             Console.WriteLine("Izabrali ste dodavanje namestaja,molimo da unesete odgovarajuce podatke:");
-            Console.WriteLine("Unesite id namestaja: ");
-            int id = int.Parse(Console.ReadLine());
             Console.WriteLine("Unesite naziv namestaja: ");
             string naziv = Console.ReadLine();
             Console.WriteLine("Unesite siftu namestaja: ");
@@ -123,9 +138,9 @@ namespace PoP
             Console.WriteLine("Unesite cenu namestaja: ");
             double cena =double.Parse( Console.ReadLine());
             Console.WriteLine("Izaberite tip namestaja\n");
-            for(int i=0;i<Namestaj.Count;i++)
+            for(int i=0;i<TipNamestaj.Count;i++)
             {
-                Console.WriteLine($"{i + 1} {Namestaj[i].TipNamestaja.Naziv}");
+                Console.WriteLine($"{i + 1}. {TipNamestaj[i].Naziv}");
 
             }
             int tipID = int.Parse(Console.ReadLine());
@@ -140,17 +155,56 @@ namespace PoP
             }
             var n2 = new Namestaj()
             {
-                Id = id,
+                Id = TipNamestaj.Count+1,
                 Naziv = naziv,
                 Sifra = sifra,
                 JedinicnaCena = cena,
                 TipNamestaja = t2
             };
             Namestaj.Add(n2);
-            IspisGlavnogMenija();
+            IspisMenijaNamestaja();
             
 
         }
+        private static void IzmenaNamestaja()
+        {
+            Console.WriteLine("Unesite sifru namestaj za izmenu: ");
+            string sifra =Console.ReadLine();
+            Namestaj nIzmena = new Namestaj();
+            foreach (Namestaj n in Namestaj)
+            {
+                if (n.Sifra == sifra )
+                {
+                    nIzmena = n;
+                }
+            }
+            Console.WriteLine("Unesite cenu za  izmenu: ");
+            nIzmena.JedinicnaCena = double.Parse(Console.ReadLine());
+            Console.WriteLine("Unesite naziv za  izmenu: ");
+            nIzmena.Naziv = Console.ReadLine();
+            Console.WriteLine("Unesite Sifru za  izmenu: ");
+            nIzmena.Sifra =Console.ReadLine();
+            Console.WriteLine("Unesite kolicinu za  izmenu: ");
+            nIzmena.KolicinaUMagacinu = int.Parse(Console.ReadLine());
+            IspisMenijaNamestaja();
+        }
+        private static void BrisanjeNamestaja()
+        {
+            Console.WriteLine("Unesite sifru namestaj za brisanje: ");
+            string sifra = Console.ReadLine();
+            foreach (Namestaj n in Namestaj)
+            {
+                if (n.Sifra == sifra)
+                {
+                    Namestaj.Remove(n);
+                    Console.WriteLine("Uspesno brisanje namestaja");
+                    break;
+
+                }
+            }
+            IspisMenijaNamestaja();
+        }
     }
+
 
 }
