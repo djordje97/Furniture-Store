@@ -9,7 +9,7 @@ namespace PoP.Model
    public class ProdajaNamestaja
     {
         public int Id { get; set; }
-        public List<Namestaj> NamestajZaProdaju { get; set; }
+        public List<TipNamestaja> NamestajZaProdaju { get; set; }
         public DateTime DatumProdaje { get; set; }
         public int BrojRacuna { get; set; }
         public String Kupac { get; set; }

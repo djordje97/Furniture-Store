@@ -13,6 +13,6 @@ namespace PoP.Model
         public DateTime PocetakAkcije { get; set; }
         public DateTime KrajAkcije { get; set; }
         public decimal Popust { get; set; }
-        public List<Namestaj> NamestajNaPopustu { get; set; }
+        public List<TipNamestaja> NamestajNaPopustu { get; set; }
     }
 }
