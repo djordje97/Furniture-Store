@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfNamestaj xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Namestaj>
+    <Id>1</Id>
+    <Obrisan>false</Obrisan>
+    <Naziv>Socijalno osvetljenje</Naziv>
+    <JedinicnaCena>0</JedinicnaCena>
+    <KolicinaUMagacinu>0</KolicinaUMagacinu>
+    <TipNamestaja>1</TipNamestaja>
+  </Namestaj>
+  <Namestaj>
+    <Id>2</Id>
+    <Obrisan>false</Obrisan>
+    <Naziv>Orman delux</Naziv>
+    <Sifra>1245</Sifra>
+    <JedinicnaCena>15000</JedinicnaCena>
+    <KolicinaUMagacinu>0</KolicinaUMagacinu>
+    <TipNamestaja>1</TipNamestaja>
+  </Namestaj>
+</ArrayOfNamestaj>

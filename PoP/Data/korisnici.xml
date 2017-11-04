@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfKorisnik xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Korisnik>
+    <ID>1</ID>
+    <Obrisan>false</Obrisan>
+    <KorisnickoIme>petar1</KorisnickoIme>
+    <Lozinka>12345</Lozinka>
+    <Ime>Petar</Ime>
+    <Prezime>Petrovic</Prezime>
+    <TipKorisnika>Administrator</TipKorisnika>
+  </Korisnik>
+</ArrayOfKorisnik>
