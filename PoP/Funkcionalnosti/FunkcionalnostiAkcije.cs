@@ -29,7 +29,7 @@ namespace PoP.Funkcionalnosti
             int izbor = 0;
             do
             {
-                Console.WriteLine("=== Meni Akcija ===");
+                Console.WriteLine("\n=== Meni Akcija ===\n");
                 Console.WriteLine("1. Izlistaj Akcije");
                 Console.WriteLine("2.Dodaj novu Akciju");
                 Console.WriteLine("3.Izmeni postojecu Akciju");
@@ -178,5 +178,6 @@ namespace PoP.Funkcionalnosti
             akcijaBrisanje.Obrisana = true;
             Projekat.Instance.Akcija = akcije;
         }
+
     }
 }

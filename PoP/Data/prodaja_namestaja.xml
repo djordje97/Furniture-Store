@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProdajaNamestaja xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProdajaNamestaja>
+    <Id>1</Id>
+    <TipNamestajZaProdaju>
+      <int>1</int>
+    </TipNamestajZaProdaju>
+    <DatumProdaje>2017-11-05T18:44:19.1328848+01:00</DatumProdaje>
+    <BrojRacuna>15897</BrojRacuna>
+    <Kupac>Marko Markovic</Kupac>
+    <DodatneUsluge>
+      <int>1</int>
+    </DodatneUsluge>
+    <UkupanIznos>15000</UkupanIznos>
+    <Obrisan>false</Obrisan>
+  </ProdajaNamestaja>
+  <ProdajaNamestaja>
+    <Id>2</Id>
+    <TipNamestajZaProdaju>
+      <int>1</int>
+    </TipNamestajZaProdaju>
+    <DatumProdaje>2018-11-03T14:30:15</DatumProdaje>
+    <BrojRacuna>15789</BrojRacuna>
+    <Kupac>Mitar Mitrovic</Kupac>
+    <DodatneUsluge>
+      <int>1</int>
+    </DodatneUsluge>
+    <UkupanIznos>14000</UkupanIznos>
+    <Obrisan>false</Obrisan>
+  </ProdajaNamestaja>
+</ArrayOfProdajaNamestaja>

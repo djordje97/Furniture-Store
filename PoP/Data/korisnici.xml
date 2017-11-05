@@ -9,4 +9,13 @@
     <Prezime>Petrovic</Prezime>
     <TipKorisnika>Administrator</TipKorisnika>
   </Korisnik>
+  <Korisnik>
+    <ID>2</ID>
+    <Obrisan>false</Obrisan>
+    <KorisnickoIme>markom</KorisnickoIme>
+    <Lozinka>0000</Lozinka>
+    <Ime>Marko</Ime>
+    <Prezime>Markovic</Prezime>
+    <TipKorisnika>Prodavac</TipKorisnika>
+  </Korisnik>
 </ArrayOfKorisnik>

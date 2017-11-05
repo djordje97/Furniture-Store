@@ -16,6 +16,7 @@ namespace PoP.Model
         public const double PDV = 0.02;
         public List<int> DodatneUsluge { get; set; }
         public double UkupanIznos { get; set; }
+        public bool Obrisan { get; set; }
 
     }
 }

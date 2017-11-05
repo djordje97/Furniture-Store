@@ -23,10 +23,9 @@ namespace PoP
                 Naziv="NSFilijale",
                 Adresa="Maksima Gorkog 15,Novi Sad"
             };
-            Console.WriteLine("===Dobrodosli u salon namestaja " + salon.Naziv + " " + salon.Adresa+"==="+"\nMolimo da se prijavite\n");
-        
+            Console.WriteLine("===Dobrodosli u salon namestaja " + salon.Naziv + " " + salon.Adresa + "===" + "\nMolimo da se prijavite\n");
             login();
-
+            
         }
         public static void IspisGlavnogMenija()
         { int izbor = 0;
@@ -36,10 +35,13 @@ namespace PoP
                 Console.WriteLine("1. Rad sa namestajem");
                 Console.WriteLine("2. Rad sa tipom namestaja");
                 Console.WriteLine("3. Rad sa akcijama");
+                Console.WriteLine("4. Rad sa dodatnim uslugama");
+                Console.WriteLine("5. Rad sa prodajom");
+                Console.WriteLine("6. Rad sa korisnicima");
                 Console.WriteLine("0. Izlazak iz aplikacije\n");
                 izbor = int.Parse(Console.ReadLine());
             }
-            while (izbor < 0 || izbor > 3);
+            while (izbor < 0 || izbor > 6);
             switch (izbor)
             {
                 case 1:
@@ -50,6 +52,15 @@ namespace PoP
                     break;
                 case 3:
                     FunkcionalnostiAkcije.IspisMenijaAkcija();
+                    break;
+                case 4:
+                    FunkcionalnostiDodatneUsluge.IspisMenijaUsluga();
+                    break;
+                case 5:
+                    FunkcionalnostiProdaja.IspisMenijaProdaje();
+                    break;
+                case 6:
+                    FunkcionalnostiKorisnik.IspisMenijaKorisnik();
                     break;
                 case 0:
                     Environment.Exit(0);

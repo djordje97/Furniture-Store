@@ -31,7 +31,7 @@ namespace PoP.Model
         {
             get { return this.prodajaNamestaja=GenericSerializer.Deserialize<ProdajaNamestaja>("prodaja_namestaja.xml"); }
             set { prodajaNamestaja = value;
-                GenericSerializer.Serialize<ProdajaNamestaja>("prodaja_namestaja",prodajaNamestaja);
+                GenericSerializer.Serialize<ProdajaNamestaja>("prodaja_namestaja.xml",prodajaNamestaja);
             }
         }
 
@@ -40,7 +40,7 @@ namespace PoP.Model
         {
             get { return this.dodatneUsluge=GenericSerializer.Deserialize<DodatnaUsluga>("dodatne_usluge.xml"); }
             set { dodatneUsluge = value;
-                GenericSerializer.Serialize<DodatnaUsluga>("dodatne_usluge", dodatneUsluge);
+                GenericSerializer.Serialize<DodatnaUsluga>("dodatne_usluge.xml", dodatneUsluge);
             }
         }
 

@@ -43,7 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Funkcionalnosti\FunkcionalnostiAkcije.cs" />
+    <Compile Include="Funkcionalnosti\FunkcionalnostiDodatneUsluge.cs" />
+    <Compile Include="Funkcionalnosti\FunkcionalnostiKorisnik.cs" />
     <Compile Include="Funkcionalnosti\FunkcionalnostiNamestaj.cs" />
+    <Compile Include="Funkcionalnosti\FunkcionalnostiProdaja.cs" />
     <Compile Include="Funkcionalnosti\FunkcionalnostiTipNamestaja.cs" />
     <Compile Include="Model\Akcija.cs" />
     <Compile Include="Model\DodatnaUsluga.cs" />
@@ -63,8 +66,10 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Data\akcije.xml" />
+    <Content Include="Data\dodatne_usluge.xml" />
     <Content Include="Data\korisnici.xml" />
     <Content Include="Data\namestaj.xml" />
+    <Content Include="Data\prodaja_namestaja.xml" />
     <Content Include="Data\tip_namestaja.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
