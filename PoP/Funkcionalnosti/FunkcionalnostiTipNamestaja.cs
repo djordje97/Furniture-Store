@@ -43,15 +43,19 @@ namespace PoP.Funkcionalnosti
             {
                 case 1:
                     IzlistajTipNamestaj();
+                    IspisMenijaTipaNamestaja();
                     break;
                 case 2:
                     DodavanjeTipaNamestaja();
+                    IspisMenijaTipaNamestaja();
                     break;
                 case 3:
                     IzmenaTipaNamestaja();
+                    IspisMenijaTipaNamestaja();
                     break;
                 case 4:
                     BrisanjeTipaNamestaja();
+                    IspisMenijaTipaNamestaja();
                     break;
                 case 0:
                     Program.IspisGlavnogMenija();
@@ -78,7 +82,7 @@ namespace PoP.Funkcionalnosti
                 }
             }
             Projekat.Instance.TipNamestaja = TipoviNamestaja;
-            IspisMenijaTipaNamestaja();
+           
         }
 
         public static void IzmenaTipaNamestaja()
@@ -91,7 +95,7 @@ namespace PoP.Funkcionalnosti
             string noviNaziv = Console.ReadLine();
             n.Naziv = noviNaziv;
             Projekat.Instance.TipNamestaja =TipoviNamestaja;
-            IspisMenijaTipaNamestaja();
+            
 
 
         }
@@ -110,7 +114,7 @@ namespace PoP.Funkcionalnosti
             };
             TipoviNamestaja.Add(tn);
             Projekat.Instance.TipNamestaja = TipoviNamestaja;
-            IspisMenijaTipaNamestaja();
+            
         }
 
         public static void IzlistajTipNamestaj()
@@ -124,7 +128,7 @@ namespace PoP.Funkcionalnosti
                     Console.WriteLine($"{i + 1}. Naziv:  {TipoviNamestaja[i].Naziv}");
                 }
             }
-            IspisMenijaTipaNamestaja();
+          
         }
     }
 }

@@ -17,6 +17,13 @@ namespace PoP
         static void Main(string[] args)
 
         {
+            var salon = new Salon()
+            {
+                ID=1,
+                Naziv="NSFilijale",
+                Adresa="Maksima Gorkog 15,Novi Sad"
+            };
+            Console.WriteLine("===Dobrodosli u salon namestaja " + salon.Naziv + " " + salon.Adresa+"==="+"\nMolimo da se prijavite\n");
         
             login();
 

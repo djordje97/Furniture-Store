@@ -43,15 +43,19 @@ namespace PoP.Funkcionalnosti
             {
                 case 1:
                     IzlistajNamestaj();
+                    IspisMenijaNamestaja();
                     break;
                 case 2:
                     DodavanjeNamestaja();
+                    IspisMenijaNamestaja();
                     break;
                 case 3:
                     IzmenaNamestaja();
+                    IspisMenijaNamestaja();
                     break;
                 case 4:
                     BrisanjeNamestaja();
+                    IspisMenijaNamestaja();
                     break;
                 case 0:
                     Program.IspisGlavnogMenija();
@@ -73,7 +77,7 @@ namespace PoP.Funkcionalnosti
                     Console.WriteLine($"{ukupanNamestaj[i].Id}. Sifra:{ukupanNamestaj[i].Sifra} \tNaziv:{ukupanNamestaj[i].Naziv},\tCena: {ukupanNamestaj[i].JedinicnaCena}\n");
                 }
             }
-            IspisMenijaNamestaja();
+  
         }
 
         public static void DodavanjeNamestaja()
@@ -106,7 +110,7 @@ namespace PoP.Funkcionalnosti
             };
             ukupanNamestaj.Add(n2);
             Projekat.Instance.Namestaj = ukupanNamestaj;
-            IspisMenijaNamestaja();
+            
 
 
         }
@@ -158,7 +162,7 @@ namespace PoP.Funkcionalnosti
                     break;
             }
             Projekat.Instance.Namestaj = ukupanNamestaj;
-            IspisMenijaNamestaja();
+            
         }
         public static void BrisanjeNamestaja()
         {
@@ -176,7 +180,7 @@ namespace PoP.Funkcionalnosti
                 }
             }
             Projekat.Instance.Namestaj = ukupanNamestaj;
-            IspisMenijaNamestaja();
+            
         }
 
        

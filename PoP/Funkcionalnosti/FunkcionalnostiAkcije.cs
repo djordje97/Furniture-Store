@@ -9,9 +9,9 @@ namespace PoP.Funkcionalnosti
 {
     public class FunkcionalnostiAkcije
     {
-        public static Akcija pronadjiAkciju(int id)
+        public static Akcija pronadjiAkciju(int id, List<Akcija> Akcije)
         {
-            var Akcije = Projekat.Instance.Akcija;
+
 
             foreach (Akcija a in Akcije)
             {
@@ -42,15 +42,19 @@ namespace PoP.Funkcionalnosti
             {
                 case 1:
                     IzlistajAkcije();
+                    IspisMenijaAkcija();
                     break;
                 case 2:
                     DodavanjeAkcije();
+                    IspisMenijaAkcija();
                     break;
                 case 3:
-                    //IzmenaNamestaja();
+                    IzmenaAkcije();
+                    IspisMenijaAkcija();
                     break;
                 case 4:
-                    // BrisanjeNamestaja();
+                     BrisanjeAkcije();
+                    IspisMenijaAkcija();
                     break;
                 case 0:
                     Program.IspisGlavnogMenija();
@@ -62,22 +66,21 @@ namespace PoP.Funkcionalnosti
         }
         public static void IzlistajAkcije()
         {
-            Console.WriteLine("=== Ispis akcija ===");
+            Console.WriteLine("\n=== Ispis akcija ===\n");
             var akcije = Projekat.Instance.Akcija;
             for (int i = 0; i < akcije.Count; i++)
             {
                 if (!akcije[i].Obrisana)
                 {
-                    string ispis= $"{akcije[i].ID}. Pocetak akcije:  {akcije[i].PocetakAkcije}  Kraj akcije: {akcije[i].KrajAkcije}  Namestaj na akciji:";
+                    string ispis = $"{akcije[i].ID}. Pocetak akcije:  {akcije[i].PocetakAkcije}  Kraj akcije: {akcije[i].KrajAkcije}  Namestaj na akciji:";
 
                     for (int j = 0; j < akcije[i].NamestajNaPopustu.Count; j++)
                     {
-                        ispis+=$"{FunkcionalnostiNamestaj.pronadjiNamestaj(akcije[i].NamestajNaPopustu[j]).Naziv},";
+                        ispis += $"{FunkcionalnostiNamestaj.pronadjiNamestaj(akcije[i].NamestajNaPopustu[j]).Naziv},";
                     }
-                    Console.WriteLine(ispis+$" Popust: {akcije[i].Popust}");
+                    Console.WriteLine(ispis + $" Popust: {akcije[i].Popust}");
                 }
             }
-            IspisMenijaAkcija();
         }
         public static void DodavanjeAkcije()
         {
@@ -91,10 +94,17 @@ namespace PoP.Funkcionalnosti
             bool unos = true;
             while (unos)
             {
-                Console.WriteLine("Izaberite namestaj za akciju,za prekid unosa pritisnite 0: ");
-                var namestaj = FunkcionalnostiNamestaj.pronadjiNamestaj(int.Parse(Console.ReadLine()));
-                namestajNaAkciji.Add(namestaj.Id);
-
+                Console.WriteLine("\nIzaberite namestaj za akciju,za prekid unosa pritisnite 0: ");
+                var izbor = int.Parse(Console.ReadLine());
+                if (izbor != 0)
+                {
+                    var namestaj = FunkcionalnostiNamestaj.pronadjiNamestaj(izbor);
+                    namestajNaAkciji.Add(namestaj.Id);
+                }
+                else
+                {
+                    unos = false;
+                }
             }
             Console.WriteLine("Unesite popust: ");
             var popust = Decimal.Parse(Console.ReadLine());
@@ -104,9 +114,69 @@ namespace PoP.Funkcionalnosti
                 PocetakAkcije = pocetak,
                 KrajAkcije = kraj,
                 NamestajNaPopustu = namestajNaAkciji,
-                Popust=popust
-                
+                Popust = popust
+
             };
+            akcije.Add(nakcija);
+            Projekat.Instance.Akcija = akcije;
+        }
+        public static void IzmenaAkcije()
+        {
+            var Akcije = Projekat.Instance.Akcija;
+            IzlistajAkcije();
+            Console.WriteLine("Izaberite akciju za izmenu: ");
+            int izbor = int.Parse(Console.ReadLine());
+            var iakcija = pronadjiAkciju(izbor, Akcije);
+            Console.WriteLine("Izaberite parametar za izmenu: ");
+            Console.WriteLine(" 1.Izmena kraja akcije\n 2.Izmena namestaja na akciji\n 3.Izmena popusta\n");
+            int izmena = int.Parse(Console.ReadLine());
+            switch (izmena)
+            {
+                case 1:
+                    Console.WriteLine("Unesite novi datum za kraj akcije: ");
+                    var kraj = DateTime.Parse(Console.ReadLine());
+                    iakcija.KrajAkcije = kraj;
+                    break;
+                case 2:
+                    FunkcionalnostiNamestaj.IzlistajNamestaj();
+                    List<int> namestajNaAkciji = new List<int>();
+                    bool unos = true;
+                    while (unos)
+                    {
+                        Console.WriteLine("Unesite novi namestaj za izmenu,za prekid unosa unesite 0: ");
+                        var nizbor = int.Parse(Console.ReadLine());
+                        if (nizbor != 0)
+                        {
+                            var namestaj = FunkcionalnostiNamestaj.pronadjiNamestaj(nizbor);
+                            namestajNaAkciji.Add(namestaj.Id);
+                        }
+                        else
+                        {
+                            unos = false;
+                        }
+                    }
+                    iakcija.NamestajNaPopustu = namestajNaAkciji;
+                    break;
+                case 3:
+                    Console.WriteLine("Unesite novi popust za izmenu: ");
+                    var npopust= Decimal.Parse( Console.ReadLine());
+                    iakcija.Popust = npopust;
+                    break;
+                default:
+                    Console.WriteLine("Pogresan unos!");
+                    IspisMenijaAkcija();
+                    break;
+            }
+            Projekat.Instance.Akcija = Akcije;
+        }
+        public static void BrisanjeAkcije()
+        {var akcije = Projekat.Instance.Akcija;
+            IzlistajAkcije();
+            Console.WriteLine("\nIzaberite akciju za brisanje: ");
+            var izbor = int.Parse( Console.ReadLine());
+            var akcijaBrisanje = pronadjiAkciju(izbor, akcije);
+            akcijaBrisanje.Obrisana = true;
+            Projekat.Instance.Akcija = akcije;
         }
     }
 }
