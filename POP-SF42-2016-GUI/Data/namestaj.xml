@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfNamestaj xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Namestaj>
+    <Id>1</Id>
+    <Obrisan>false</Obrisan>
+    <Naziv>Socijalno osvetljenje</Naziv>
+    <JedinicnaCena>6000</JedinicnaCena>
+    <KolicinaUMagacinu>15</KolicinaUMagacinu>
+    <IdTipaNamestaja>1</IdTipaNamestaja>
+  </Namestaj>
+</ArrayOfNamestaj>

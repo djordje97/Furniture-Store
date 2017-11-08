@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoP", "PoP\PoP.csproj", "{0C186A18-39C2-46C0-A5D3-F04426AF0DF9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POP-SF42-2016-GUI", "POP-SF42-2016-GUI\POP-SF42-2016-GUI.csproj", "{D71123B9-DD4C-41E5-AC73-1EE6FEE98B7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0C186A18-39C2-46C0-A5D3-F04426AF0DF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C186A18-39C2-46C0-A5D3-F04426AF0DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C186A18-39C2-46C0-A5D3-F04426AF0DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C186A18-39C2-46C0-A5D3-F04426AF0DF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D71123B9-DD4C-41E5-AC73-1EE6FEE98B7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D71123B9-DD4C-41E5-AC73-1EE6FEE98B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D71123B9-DD4C-41E5-AC73-1EE6FEE98B7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D71123B9-DD4C-41E5-AC73-1EE6FEE98B7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05929A5E-AC17-49C7-BE5B-FE96DADEEB2B}
 	EndGlobalSection
 EndGlobal
