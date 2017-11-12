@@ -8,17 +8,6 @@
     <Popust>1230</Popust>
     <NamestajNaPopustu>
       <int>1</int>
-      <int>2</int>
-    </NamestajNaPopustu>
-  </Akcija>
-  <Akcija>
-    <ID>2</ID>
-    <Obrisana>true</Obrisana>
-    <PocetakAkcije>2018-01-01T00:00:00</PocetakAkcije>
-    <KrajAkcije>2018-05-01T12:40:00</KrajAkcije>
-    <Popust>15000</Popust>
-    <NamestajNaPopustu>
-      <int>2</int>
     </NamestajNaPopustu>
   </Akcija>
 </ArrayOfAkcija>

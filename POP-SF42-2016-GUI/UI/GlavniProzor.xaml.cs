@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PoP.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,11 +20,177 @@ namespace POP_SF42_2016_GUI.UI
     /// </summary>
     public partial class GlavniProzor : Window
     {
+        public static string TrenutnoAktivno;
         public GlavniProzor()
+            
         {
+            
             InitializeComponent();
+            ProveraprijavljenogKorisnika();
+
         }
 
-      
+        private void NamestajMeni(object sender, RoutedEventArgs e)
+        {
+            TrenutnoAktivno = "Namestaj";
+            OsveziPrikazNamestaj();
+           
+
+        }
+
+
+        private void DodatneUslugeMeni(object sender, RoutedEventArgs e)
+        {
+            TrenutnoAktivno = "DodatneUsluge";
+            OsveziPrikazDodatnaUsluga();
+
+
+        }
+        private void TipoviNamestajaMeni(object sender, RoutedEventArgs e)
+        {
+            TrenutnoAktivno = "TipoviNamestaja";
+            OsveziPrikazTipNamestaja();
+
+
+        }
+
+        private void ProdajaMeni(object sender, RoutedEventArgs e)
+        {
+            TrenutnoAktivno = "Prodaja";
+            OsveziPrikazProdaja();
+
+        }
+
+        private void AkcijeMeni(object sender, RoutedEventArgs e)
+        {
+            TrenutnoAktivno = "Akcije";
+            OsveziPrikazAkcije();
+
+        }
+
+        private void KorisniciMeni(object sender, RoutedEventArgs e)
+        {
+            TrenutnoAktivno = "Korisnici";
+            OsveziPrikazKorisnik();
+
+        }
+
+        private void ProveraprijavljenogKorisnika()
+        {
+            var korisnik = Korisnik.PronadjiKorisnika(MainWindow.loggedUser);
+            if (korisnik.TipKorisnika!=TipKorisnika.Administrator)
+            {
+                btnAkcije.Visibility = Visibility.Hidden;
+                btnDodatneUsluge.Visibility = Visibility.Hidden;
+                btnKorisnici.Visibility = Visibility.Hidden;
+                btnNamestaj.Visibility = Visibility.Hidden;
+                btnTipoviNamestaja.Visibility=Visibility.Hidden;
+                btnAkcije.Visibility = Visibility.Hidden;
+            }
+           
+         
+        }
+        public void OsveziPrikazNamestaj()
+        {
+
+            lbPrikaz.Items.Clear();
+            foreach (var item in Projekat.Instance.Namestaj)
+            {
+                lbPrikaz.Items.Add(item);
+
+            }
+            lbPrikaz.SelectedIndex = 0;
+        }
+        public void OsveziPrikazTipNamestaja()
+        {
+
+            lbPrikaz.Items.Clear();
+            foreach (var item in Projekat.Instance.TipNamestaja)
+            {
+                lbPrikaz.Items.Add(item);
+
+            }
+            lbPrikaz.SelectedIndex = 0;
+        }
+
+        public void OsveziPrikazKorisnik()
+        {
+
+            lbPrikaz.Items.Clear();
+            foreach (var item in Projekat.Instance.Korisnici)
+            {
+                lbPrikaz.Items.Add(item);
+
+            }
+            lbPrikaz.SelectedIndex = 0;
+        }
+
+        public void OsveziPrikazProdaja()
+        {
+
+            lbPrikaz.Items.Clear();
+            foreach (var item in Projekat.Instance.ProdajaNamestaja)
+            {
+                lbPrikaz.Items.Add(item);
+
+            }
+            lbPrikaz.SelectedIndex = 0;
+        }
+
+        public void OsveziPrikazAkcije()
+        {
+
+            lbPrikaz.Items.Clear();
+            foreach (var item in Projekat.Instance.Akcija)
+            {
+                lbPrikaz.Items.Add(item);
+
+            }
+            lbPrikaz.SelectedIndex = 0;
+        }
+
+        public void OsveziPrikazDodatnaUsluga ()
+        {
+
+            lbPrikaz.Items.Clear();
+            foreach (var item in Projekat.Instance.DodatneUsluge)
+            {
+                lbPrikaz.Items.Add(item);
+
+            }
+            lbPrikaz.SelectedIndex = 0;
+        }
+
+        private void Dodaj(object sender, RoutedEventArgs e)
+        {
+            switch (TrenutnoAktivno)
+            {
+                case"Namestaj":
+                    Namestaj noviNamestaj = new Namestaj();
+                    NamestajDodavanjeIzmena ndi = new NamestajDodavanjeIzmena(noviNamestaj);
+                    ndi.ShowDialog();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void Izmena(object sender, RoutedEventArgs e)
+        {
+            switch (TrenutnoAktivno)
+            {
+                case "Namestaj":
+                    Namestaj namestajIzmena = lbPrikaz.SelectedItem as Namestaj;
+                    NamestajDodavanjeIzmena ndi = new NamestajDodavanjeIzmena(namestajIzmena, NamestajDodavanjeIzmena.Operacija.IZMENA);
+                    if (ndi.ShowDialog()==true)
+                    {
+                        OsveziPrikazNamestaj();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

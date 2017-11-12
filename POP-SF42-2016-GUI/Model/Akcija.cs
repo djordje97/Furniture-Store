@@ -14,5 +14,39 @@ namespace PoP.Model
         public DateTime KrajAkcije { get; set; }
         public decimal Popust { get; set; }
         public List<int> NamestajNaPopustu { get; set; }
+
+        public override string ToString()
+        {
+            if (!Obrisana)
+            {
+
+
+                string ispis = $"{ID}. {PocetakAkcije} {KrajAkcije} {Popust} ";
+
+                for (int i = 0; i < NamestajNaPopustu.Count; i++)
+                {
+                    ispis += Namestaj.PronadjiNamestaj(NamestajNaPopustu[i]).Naziv + " ,";
+
+                }
+                return ispis;
+            }
+            return null;
+            
+        }
+
+        public static Akcija PronadjiAkciju(int id)
+        {
+            foreach (var akcija in Projekat.Instance.Akcija)
+            {
+                if (akcija.ID == id)
+                {
+                    return akcija;
+                }
+
+            }
+            return null;
+        }
     }
+
+ 
 }

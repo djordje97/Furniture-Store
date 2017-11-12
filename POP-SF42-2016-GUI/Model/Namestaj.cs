@@ -19,9 +19,27 @@ namespace PoP.Model
 
         public override string ToString()
         {
-            string ispis="";
-           return ispis+=$"{Naziv},{JedinicnaCena},{TipNamestaja.PronadjiTip(IdTipaNamestaja).Naziv}";
+            if (!Obrisan)
+            {
+                string ispis = "";
+                return ispis += $"{Naziv},{JedinicnaCena},{TipNamestaja.PronadjiTip(IdTipaNamestaja).Naziv}";
+            }
+            return null;
+           
         
+        }
+
+        public static Namestaj PronadjiNamestaj(int id)
+        {
+            foreach (var namestaj in Projekat.Instance.Namestaj)
+            {
+                if (namestaj.Id == id)
+                {
+                    return namestaj;
+                }
+
+            }
+            return null;
         }
     }
 }

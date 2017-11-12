@@ -41,18 +41,16 @@ namespace POP_SF42_2016_GUI
             var korisnici = Projekat.Instance.Korisnici;
             foreach (var korisnik in korisnici)
             {
-                if (tbUsername.Text == "" || pfPassword.Password == "")
+                var userName = tbUsername.Text;
+                var password = pfPassword.Password;
+                if (userName== "" || password == "")
                 {
                     MessageBox.Show("Morate uneti sve podatke!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-                else if (tbUsername.Text != korisnik.KorisnickoIme || pfPassword.Password != korisnik.Lozinka)
+                else if (userName == korisnik.KorisnickoIme && password == korisnik.Lozinka)
                 {
-                    MessageBox.Show("Uneti podaci nisu tacni", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-                else if (tbUsername.Text == korisnik.KorisnickoIme && pfPassword.Password == korisnik.Lozinka)
-                {
+                    loggedUser = userName;
                     var glavni= new GlavniProzor();
                     this.Close();
                     glavni.ShowDialog();
@@ -60,7 +58,9 @@ namespace POP_SF42_2016_GUI
                 }
 
             }
-            
+            MessageBox.Show("Uneti podaci nisu tacni", "Greska", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+
         }
 
         private void izadji(object sender, RoutedEventArgs e)

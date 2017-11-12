@@ -57,6 +57,9 @@
     <Compile Include="UI\GlavniProzor.xaml.cs">
       <DependentUpon>GlavniProzor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\NamestajDodavanjeIzmena.xaml.cs">
+      <DependentUpon>NamestajDodavanjeIzmena.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\GenericSerializer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -71,6 +74,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UI\GlavniProzor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\NamestajDodavanjeIzmena.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

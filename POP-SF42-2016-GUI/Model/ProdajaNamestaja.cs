@@ -18,5 +18,40 @@ namespace PoP.Model
         public double UkupanIznos { get; set; }
         public bool Obrisan { get; set; }
 
+        public override string ToString()
+        {
+            if (!Obrisan)
+            {
+                var ispis = $"{Id}. {DatumProdaje} {BrojRacuna} {Kupac} ";
+                for (int i = 0; i < TipNamestajZaProdaju.Count; i++)
+                {
+                    ispis += TipNamestaja.PronadjiTip(TipNamestajZaProdaju[i]).Naziv + " ,";
+
+                }
+
+                for (int i = 0; i < TipNamestajZaProdaju.Count; i++)
+                {
+                    ispis += DodatnaUsluga.PronadjiUslugu(TipNamestajZaProdaju[i]).NazivUsluge + " ,";
+
+                }
+                return ispis;
+            }
+            return null;
+
+
+        }
+        public static ProdajaNamestaja PronadjiProdaju(int id)
+        {
+            foreach (var prodaja in Projekat.Instance.ProdajaNamestaja)
+            {
+                if (prodaja.Id == id)
+                {
+                    return prodaja;
+                }
+
+            }
+            return null;
+        }
+
     }
 }

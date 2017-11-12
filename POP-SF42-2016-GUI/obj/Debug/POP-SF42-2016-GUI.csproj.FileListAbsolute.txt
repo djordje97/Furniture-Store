@@ -15,3 +15,5 @@ C:\Users\Djole\Desktop\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-G
 C:\Users\Djole\Desktop\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\POP-SF42-2016-GUI.pdb
 C:\Users\Djole\Desktop\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\UI\GlavniProzor.g.cs
 C:\Users\Djole\Desktop\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\UI\GlavniProzor.baml
+C:\Users\Djole\Desktop\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\UI\NamestajDodavanjeIzmena.g.cs
+C:\Users\Djole\Desktop\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\UI\NamestajDodavanjeIzmena.baml

@@ -12,6 +12,16 @@ namespace PoP.Model
         public bool Obrisan { get; set; }
         public string Naziv { get; set; }
 
+        public override string ToString()
+        {
+            if (!Obrisan)
+            {
+                return $"{ID}. {Naziv}";
+
+            }
+            return null;
+        }
+
         public static TipNamestaja PronadjiTip(int id)
         {
             foreach (var tip in Projekat.Instance.TipNamestaja)
