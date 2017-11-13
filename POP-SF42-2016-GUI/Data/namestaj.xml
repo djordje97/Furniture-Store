@@ -4,8 +4,18 @@
     <Id>1</Id>
     <Obrisan>false</Obrisan>
     <Naziv>Socijalno osvetljenje</Naziv>
+    <Sifra>4545</Sifra>
     <JedinicnaCena>6000</JedinicnaCena>
-    <KolicinaUMagacinu>15</KolicinaUMagacinu>
+    <KolicinaUMagacinu>43</KolicinaUMagacinu>
+    <IdTipaNamestaja>1</IdTipaNamestaja>
+  </Namestaj>
+  <Namestaj>
+    <Id>2</Id>
+    <Obrisan>true</Obrisan>
+    <Naziv>aa</Naziv>
+    <Sifra>sss</Sifra>
+    <JedinicnaCena>789</JedinicnaCena>
+    <KolicinaUMagacinu>30</KolicinaUMagacinu>
     <IdTipaNamestaja>1</IdTipaNamestaja>
   </Namestaj>
 </ArrayOfNamestaj>

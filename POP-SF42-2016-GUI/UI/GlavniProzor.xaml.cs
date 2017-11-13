@@ -167,9 +167,17 @@ namespace POP_SF42_2016_GUI.UI
             {
                 case"Namestaj":
                     Namestaj noviNamestaj = new Namestaj();
-                    NamestajDodavanjeIzmena ndi = new NamestajDodavanjeIzmena(noviNamestaj);
+                    NamestajDodavanjeIzmena ndi = new NamestajDodavanjeIzmena(noviNamestaj, NamestajDodavanjeIzmena.Operacija.DODAVANJE);
                     ndi.ShowDialog();
+                    OsveziPrikazNamestaj();
                     break;
+                case "TipoviNamestaja":
+                    TipNamestaja noviTip = new TipNamestaja();
+                    TipNamestajaDodavanejIzmena tdi = new TipNamestajaDodavanejIzmena(noviTip, TipNamestajaDodavanejIzmena.Operacija.DODAVANJE);
+                    tdi.ShowDialog();
+                    OsveziPrikazTipNamestaja();
+                    break;
+                 
 
                 default:
                     break;
@@ -183,10 +191,36 @@ namespace POP_SF42_2016_GUI.UI
                 case "Namestaj":
                     Namestaj namestajIzmena = lbPrikaz.SelectedItem as Namestaj;
                     NamestajDodavanjeIzmena ndi = new NamestajDodavanjeIzmena(namestajIzmena, NamestajDodavanjeIzmena.Operacija.IZMENA);
-                    if (ndi.ShowDialog()==true)
+                    ndi.ShowDialog();
+                    OsveziPrikazNamestaj();
+                    break;
+                case "TipoviNamestaja":
+                    TipNamestaja tipIzmena = lbPrikaz.SelectedItem as TipNamestaja;
+                    TipNamestajaDodavanejIzmena tdi = new TipNamestajaDodavanejIzmena(tipIzmena, TipNamestajaDodavanejIzmena.Operacija.IZMENA);
+                    tdi.ShowDialog();
+                    OsveziPrikazTipNamestaja();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Brisanje(object sender, RoutedEventArgs e)
+        {
+            switch (TrenutnoAktivno)
+            {
+                case "Namestaj":
+                    var list=Projekat.Instance.Namestaj;
+                    Namestaj namestajBrisanje = lbPrikaz.SelectedItem as Namestaj;
+                    foreach (var namestaj in list)
                     {
-                        OsveziPrikazNamestaj();
+                       if(namestaj.Id == namestajBrisanje.Id)
+                        {
+                            namestaj.Obrisan = true;
+                        }
                     }
+                    Projekat.Instance.Namestaj = list;
+                    OsveziPrikazNamestaj();
                     break;
                 default:
                     break;

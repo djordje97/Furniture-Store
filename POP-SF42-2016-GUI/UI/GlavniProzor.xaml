@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       
         mc:Ignorable="d"
-        Title="Glavni Prozor" Height="504.935" Width="843.863" BorderThickness="0" Margin="0" HorizontalContentAlignment="Center" Foreground="White">
+        Title="Glavni Prozor" Height="504.935" Width="843.863" BorderThickness="0" Margin="0" HorizontalContentAlignment="Center" Foreground="White" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid HorizontalAlignment="Left" Height="478" VerticalAlignment="Top" Width="170" Background="#FF313541" Margin="0,0,0,-4">
         <Button Name="btnNamestaj" Content="Namestaj" HorizontalAlignment="Left" Height="52" Margin="16,122,0,0" VerticalAlignment="Top" Width="143" Background="#FF313541" BorderBrush="#FF313541" Foreground="White" FontSize="18" FontFamily="Sylfaen" Click="NamestajMeni" />
         <Button  Name="btnTipoviNamestaja" Content="Tipovi Namestaja" HorizontalAlignment="Left" Height="52" Margin="16,236,0,0" VerticalAlignment="Top" Width="147"  Background="#FF313541" BorderBrush="#FF313541" Foreground="White" FontSize="18" FontFamily="Sylfaen" Click="TipoviNamestajaMeni" />
@@ -14,7 +14,7 @@
         <Button  Name="btnAkcije" Content="Akcije" HorizontalAlignment="Left" Margin="16,350,0,0" VerticalAlignment="Top" Width="147" Height="52"  Background="#FF313541" BorderBrush="#FF313541" Foreground="White" FontSize="18" FontFamily="Sylfaen" Click="AkcijeMeni"/>
         <Button  Name="btnKorisnici" Content="Korisnici" HorizontalAlignment="Left" Height="46" Margin="16,407,0,0" VerticalAlignment="Top" Width="147"  Background="#FF313541" BorderBrush="#FF313541" Foreground="White" FontSize="18" FontFamily="Sylfaen" Click="KorisniciMeni"/>
         <Label Content="Meni" HorizontalAlignment="Left" Height="50" Margin="0,45,0,0" VerticalAlignment="Top" Width="169" BorderBrush="White" FontSize="24" BorderThickness="0,0,0,5" HorizontalContentAlignment="Center" Foreground="White"/>
-        <Grid HorizontalAlignment="Left" Height="478" Margin="169,0,-666,0" VerticalAlignment="Top" Width="667" Background="#FF0066CC">
+        <Grid HorizontalAlignment="Left" Height="478" Margin="169,0,-668,0" VerticalAlignment="Top" Width="669" Background="#FF0066CC">
             <Grid.RowDefinitions>
                 <RowDefinition Height="93*"/>
                 <RowDefinition Height="310*"/>
@@ -25,12 +25,12 @@
             <Grid HorizontalAlignment="Left" Height="311" Margin="0,95,-1,-311" VerticalAlignment="Top" Width="606" Background="#FF0066CC"/>
             <Button Name="btnDodaj" Content="Dodaj" HorizontalAlignment="Left" Height="36" Margin="75,19,0,0" VerticalAlignment="Top" Width="106" Grid.Row="2" Click="Dodaj"/>
             <Button  Name="btnIzmeni" Content="Izmeni" HorizontalAlignment="Left" Height="36" Margin="270,19,0,0" VerticalAlignment="Top" Width="106" Grid.Row="2" Click="Izmena" />
-            <Button  Name="btnObrisi" Content="Obrisi" HorizontalAlignment="Left" Height="36" Margin="455,19,0,0" VerticalAlignment="Top" Width="106" Grid.Row="2"/>
+            <Button  Name="btnObrisi" Content="Obrisi" HorizontalAlignment="Left" Height="36" Margin="455,19,0,0" VerticalAlignment="Top" Width="106" Grid.Row="2" Click="Brisanje"/>
             <Button Name="btnPretraga" Content="Pretrazi" HorizontalAlignment="Left" Grid.Row="0" Margin="219,12,0,51" Width="66"/>
             <Label Content="Sortiraj po:" HorizontalAlignment="Left" Height="29" Margin="299,13,0,0" VerticalAlignment="Top" Width="77" Foreground="White" FontSize="14"/>
             <ComboBox x:Name="dropBoxSortiradnje" HorizontalAlignment="Left" Height="21" Margin="376,20,0,0" VerticalAlignment="Top" Width="124"/>
             <Button x:Name="btnSortiraj" Content="Sortiraj" HorizontalAlignment="Left" Height="28" Margin="505,14,0,0" VerticalAlignment="Top" Width="71"/>
-            <ListBox  Name="lbPrikaz" HorizontalAlignment="Left" Height="310" Grid.Row="1" VerticalAlignment="Top" Width="667"/>
+            <ListBox  Name="lbPrikaz" HorizontalAlignment="Left" Height="310" Grid.Row="1" VerticalAlignment="Top" Width="669"/>
             <Label Content="Pretrazi po:" HorizontalAlignment="Left" Height="28" Margin="10,55,0,0" VerticalAlignment="Top" Width="84" Foreground="White" FontSize="14"/>
             <ComboBox x:Name="dropBoxPretraga" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="89,61,0,0"/>
         </Grid>

@@ -27,49 +27,87 @@ namespace POP_SF42_2016_GUI.UI
         };
         private Namestaj namestaj;
         private Operacija operacija;
-        public NamestajDodavanjeIzmena(Namestaj namestaj ,Operacija operacija=Operacija.DODAVANJE)
+        public NamestajDodavanjeIzmena(Namestaj namestaj ,Operacija operacija)
         {
             InitializeComponent();
-            this.namestaj = namestaj;
-            this.operacija = operacija;
-            tbNazivNamestaja.Text = namestaj.Naziv;
-            tbSifraNamestaja.Text = namestaj.Sifra;
-            tbCenaNamestaja.Text = namestaj.Sifra;
-            tbKolicinaNamestaja.Text = namestaj.KolicinaUMagacinu.ToString();
-            var list = Projekat.Instance.TipNamestaja;
-            for (int i = 0; i < list.Count; i++) 
+            InicijalizujVrednosti(namestaj,operacija);
+          
+        }
+    
+        private void InicijalizujVrednosti(Namestaj namestaj ,Operacija operacija)
+        {
+            try
             {
-                cbTipNamestaja.Items.Add(list[i].Naziv);
+                this.namestaj = namestaj;
+                this.operacija = operacija;
+                tbNazivNamestaja.Text = namestaj.Naziv;
+                tbSifraNamestaja.Text = namestaj.Sifra;
+                if (namestaj.JedinicnaCena == 0)
+                    tbCenaNamestaja.Text = "";
+                else
+                    tbCenaNamestaja.Text = namestaj.JedinicnaCena.ToString();
+                if (namestaj.KolicinaUMagacinu == 0)
+                    tbKolicinaNamestaja.Text = "";
+                else
+                    tbKolicinaNamestaja.Text = namestaj.KolicinaUMagacinu.ToString();
+                foreach (var tipNamestaja in Projekat.Instance.TipNamestaja)
+                {
+                    cbTipNamestaja.Items.Add(tipNamestaja);
+                }
+                foreach (TipNamestaja tipNamestaja in cbTipNamestaja.Items)
+                {
+                    if (tipNamestaja.ID == namestaj.IdTipaNamestaja)
+                    {
+                        cbTipNamestaja.SelectedItem = tipNamestaja;
+                        break;
+                    }
+                }
+            }catch (FormatException)
+            {
+                MessageBox.Show("Kolicina i cena moraju biti broj!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
-
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
-            var list = Projekat.Instance.Namestaj;
-            namestaj.Id = Projekat.Instance.Namestaj.Count + 1;
-            namestaj.Naziv = tbNazivNamestaja.Text;
-            namestaj.Sifra = tbSifraNamestaja.Text;
-            namestaj.JedinicnaCena =double.Parse(tbCenaNamestaja.Text);
-            namestaj.KolicinaUMagacinu = int.Parse(tbKolicinaNamestaja.Text);
-            TipNamestaja tip = null;
-            foreach (var item in Projekat.Instance.TipNamestaja)
-            {   
-                if(item.Naziv == cbTipNamestaja.SelectedValue.ToString())
-                {
-                     tip = item;
-
-                }
-
-            }
-            namestaj.IdTipaNamestaja = tip.ID;
-            this.DialogResult = true;
-            if (operacija == Operacija.DODAVANJE)
+            try
             {
-               list.Add(namestaj);
-             
+                var lista = Projekat.Instance.Namestaj;
+                var izabraniTip = (TipNamestaja)cbTipNamestaja.SelectedItem;
+                switch (operacija)
+                {
+                    case Operacija.DODAVANJE:
+                        var noviNamestaj = new Namestaj()
+                        {
+                            Id = lista.Count + 1,
+                            Naziv = tbNazivNamestaja.Text,
+                            Sifra = tbSifraNamestaja.Text,
+                            KolicinaUMagacinu = int.Parse(tbKolicinaNamestaja.Text),
+                            JedinicnaCena = double.Parse(tbCenaNamestaja.Text),
+                            IdTipaNamestaja = izabraniTip.ID
+                        };
+                        lista.Add(noviNamestaj);
+                        break;
+                    case Operacija.IZMENA:
+                        foreach (var n in lista)
+                        {
+                            if (n.Id == namestaj.Id)
+                            {
+                                n.Naziv = tbNazivNamestaja.Text;
+                                n.Sifra = tbSifraNamestaja.Text;
+                                n.KolicinaUMagacinu = int.Parse(tbKolicinaNamestaja.Text);
+                                n.JedinicnaCena = double.Parse(tbCenaNamestaja.Text);
+                                n.IdTipaNamestaja = izabraniTip.ID;
+                            }
+                        }
+                        break;
+                }
+                Projekat.Instance.Namestaj = lista;
+                Close();
             }
-            Projekat.Instance.Namestaj = list;
-            Close();
+            catch(FormatException)
+            {
+                MessageBox.Show("Kolicina i cena moraju biti broj!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

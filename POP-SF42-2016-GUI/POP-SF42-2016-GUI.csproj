@@ -60,6 +60,9 @@
     <Compile Include="UI\NamestajDodavanjeIzmena.xaml.cs">
       <DependentUpon>NamestajDodavanjeIzmena.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\TipNamestajaDodavanejIzmena.xaml.cs">
+      <DependentUpon>TipNamestajaDodavanejIzmena.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\GenericSerializer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -78,6 +81,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\NamestajDodavanjeIzmena.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\TipNamestajaDodavanejIzmena.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

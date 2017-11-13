@@ -16,7 +16,7 @@ namespace PoP.Model
         {
             if (!Obrisan)
             {
-                return $"{ID}. {Naziv}";
+                return Naziv;
 
             }
             return null;

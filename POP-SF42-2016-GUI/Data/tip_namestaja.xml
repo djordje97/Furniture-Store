@@ -5,4 +5,9 @@
     <Obrisan>false</Obrisan>
     <Naziv>Ormani</Naziv>
   </TipNamestaja>
+  <TipNamestaja>
+    <ID>2</ID>
+    <Obrisan>false</Obrisan>
+    <Naziv>Komode</Naziv>
+  </TipNamestaja>
 </ArrayOfTipNamestaja>

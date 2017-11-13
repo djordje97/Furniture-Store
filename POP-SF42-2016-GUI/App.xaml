@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:POP_SF42_2016_GUI"
              StartupUri="MainWindow.xaml">
+    
     <Application.Resources>
          
     </Application.Resources>
