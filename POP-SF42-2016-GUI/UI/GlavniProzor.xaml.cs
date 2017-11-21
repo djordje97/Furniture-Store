@@ -1,6 +1,9 @@
 ﻿using PoP.Model;
+using PoP.Util;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +23,7 @@ namespace POP_SF42_2016_GUI.UI
     /// </summary>
     public partial class GlavniProzor : Window
     {
+        
         public static string TrenutnoAktivno;
         public GlavniProzor()
             
@@ -27,14 +31,16 @@ namespace POP_SF42_2016_GUI.UI
             
             InitializeComponent();
             ProveraprijavljenogKorisnika();
-
+            dgPrikaz.IsSynchronizedWithCurrentItem = true;
+          
         }
 
         private void NamestajMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "Namestaj";
-            OsveziPrikazNamestaj();
-           
+            dgPrikaz.ItemsSource = Projekat.Instance.Namestaj;
+
+
 
         }
 
@@ -42,14 +48,14 @@ namespace POP_SF42_2016_GUI.UI
         private void DodatneUslugeMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "DodatneUsluge";
-            OsveziPrikazDodatnaUsluga();
+            dgPrikaz.ItemsSource = Projekat.Instance.DodatneUsluge;
 
 
         }
         private void TipoviNamestajaMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "TipoviNamestaja";
-            OsveziPrikazTipNamestaja();
+            dgPrikaz.ItemsSource = Projekat.Instance.TipNamestaja;
 
 
         }
@@ -57,22 +63,22 @@ namespace POP_SF42_2016_GUI.UI
         private void ProdajaMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "Prodaja";
-            OsveziPrikazProdaja();
+            dgPrikaz.ItemsSource = Projekat.Instance.Prodaja;
 
         }
 
         private void AkcijeMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "Akcije";
-            OsveziPrikazAkcije();
+            dgPrikaz.ItemsSource = Projekat.Instance.Akcije;
 
         }
 
         private void KorisniciMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "Korisnici";
-            OsveziPrikazKorisnik();
-
+            dgPrikaz.ItemsSource = Projekat.Instance.Korisnici;
+   
         }
 
         private void ProveraprijavljenogKorisnika()
@@ -90,77 +96,7 @@ namespace POP_SF42_2016_GUI.UI
            
          
         }
-        public void OsveziPrikazNamestaj()
-        {
-
-            lbPrikaz.Items.Clear();
-            foreach (var item in Projekat.Instance.Namestaj)
-            {
-                lbPrikaz.Items.Add(item);
-
-            }
-            lbPrikaz.SelectedIndex = 0;
-        }
-        public void OsveziPrikazTipNamestaja()
-        {
-
-            lbPrikaz.Items.Clear();
-            foreach (var item in Projekat.Instance.TipNamestaja)
-            {
-                lbPrikaz.Items.Add(item);
-
-            }
-            lbPrikaz.SelectedIndex = 0;
-        }
-
-        public void OsveziPrikazKorisnik()
-        {
-
-            lbPrikaz.Items.Clear();
-            foreach (var item in Projekat.Instance.Korisnici)
-            {
-                lbPrikaz.Items.Add(item);
-
-            }
-            lbPrikaz.SelectedIndex = 0;
-        }
-
-        public void OsveziPrikazProdaja()
-        {
-
-            lbPrikaz.Items.Clear();
-            foreach (var item in Projekat.Instance.ProdajaNamestaja)
-            {
-                lbPrikaz.Items.Add(item);
-
-            }
-            lbPrikaz.SelectedIndex = 0;
-        }
-
-        public void OsveziPrikazAkcije()
-        {
-
-            lbPrikaz.Items.Clear();
-            foreach (var item in Projekat.Instance.Akcija)
-            {
-                lbPrikaz.Items.Add(item);
-
-            }
-            lbPrikaz.SelectedIndex = 0;
-        }
-
-        public void OsveziPrikazDodatnaUsluga ()
-        {
-
-            lbPrikaz.Items.Clear();
-            foreach (var item in Projekat.Instance.DodatneUsluge)
-            {
-                lbPrikaz.Items.Add(item);
-
-            }
-            lbPrikaz.SelectedIndex = 0;
-        }
-
+       
         private void Dodaj(object sender, RoutedEventArgs e)
         {
             switch (TrenutnoAktivno)
@@ -169,16 +105,19 @@ namespace POP_SF42_2016_GUI.UI
                     Namestaj noviNamestaj = new Namestaj();
                     NamestajDodavanjeIzmena ndi = new NamestajDodavanjeIzmena(noviNamestaj, NamestajDodavanjeIzmena.Operacija.DODAVANJE);
                     ndi.ShowDialog();
-                    OsveziPrikazNamestaj();
                     break;
                 case "TipoviNamestaja":
                     TipNamestaja noviTip = new TipNamestaja();
                     TipNamestajaDodavanejIzmena tdi = new TipNamestajaDodavanejIzmena(noviTip, TipNamestajaDodavanejIzmena.Operacija.DODAVANJE);
                     tdi.ShowDialog();
-                    OsveziPrikazTipNamestaja();
                     break;
-                 
-
+                case "DodatneUsluge":
+                    DodatnaUsluga usluga = new DodatnaUsluga();
+                    DodatneUslugeDodavanjeIzmena ddi = new DodatneUslugeDodavanjeIzmena(usluga,DodatneUslugeDodavanjeIzmena.Operacija.DODAVANJE);
+                    ddi.ShowDialog();
+                    break;
+                
+             
                 default:
                     break;
             }
@@ -189,17 +128,42 @@ namespace POP_SF42_2016_GUI.UI
             switch (TrenutnoAktivno)
             {
                 case "Namestaj":
-                    Namestaj namestajIzmena = lbPrikaz.SelectedItem as Namestaj;
+                    Namestaj namestajIzmena = dgPrikaz.SelectedItem as Namestaj;
+                    Namestaj namestajKopija = (Namestaj)namestajIzmena.Clone();
                     NamestajDodavanjeIzmena ndi = new NamestajDodavanjeIzmena(namestajIzmena, NamestajDodavanjeIzmena.Operacija.IZMENA);
-                    ndi.ShowDialog();
-                    OsveziPrikazNamestaj();
+                    if (ndi.ShowDialog() != true) 
+                    {
+
+
+                        int index = Projekat.Instance.Namestaj.IndexOf(namestajIzmena);
+                        Projekat.Instance.Namestaj[index]= namestajKopija;
+                    }
                     break;
                 case "TipoviNamestaja":
-                    TipNamestaja tipIzmena = lbPrikaz.SelectedItem as TipNamestaja;
+                    TipNamestaja tipIzmena = dgPrikaz.SelectedItem as TipNamestaja;
+                    TipNamestaja kopija = (TipNamestaja)tipIzmena.Clone();
                     TipNamestajaDodavanejIzmena tdi = new TipNamestajaDodavanejIzmena(tipIzmena, TipNamestajaDodavanejIzmena.Operacija.IZMENA);
-                    tdi.ShowDialog();
-                    OsveziPrikazTipNamestaja();
+                    if (tdi.ShowDialog() != true)
+                    {
+
+
+                        int index = Projekat.Instance.TipNamestaja.IndexOf(tipIzmena);
+                        Projekat.Instance.TipNamestaja[index] = kopija;
+                    }
                     break;
+                case "DodatneUsluge":
+                    DodatnaUsluga usluga = dgPrikaz.SelectedItem as DodatnaUsluga;
+                    DodatnaUsluga kopijaUsluge = (DodatnaUsluga)usluga.Clone();
+                    DodatneUslugeDodavanjeIzmena ddi = new DodatneUslugeDodavanjeIzmena(usluga, DodatneUslugeDodavanjeIzmena.Operacija.IZMENA);
+                    if (ddi.ShowDialog() != true)
+                    {
+
+
+                        int index = Projekat.Instance.DodatneUsluge.IndexOf(usluga);
+                        Projekat.Instance.DodatneUsluge[index] = kopijaUsluge;
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -211,16 +175,39 @@ namespace POP_SF42_2016_GUI.UI
             {
                 case "Namestaj":
                     var list=Projekat.Instance.Namestaj;
-                    Namestaj namestajBrisanje = lbPrikaz.SelectedItem as Namestaj;
+                    Namestaj namestajBrisanje = dgPrikaz.SelectedItem as Namestaj;
                     foreach (var namestaj in list)
                     {
-                       if(namestaj.Id == namestajBrisanje.Id)
+                        if (namestaj.Id == namestajBrisanje.Id)
                         {
                             namestaj.Obrisan = true;
                         }
                     }
-                    Projekat.Instance.Namestaj = list;
-                    OsveziPrikazNamestaj();
+                    GenericSerializer.Serialize("namestaj.xml", list);
+                    break;
+                case "TipoviNamestaja":
+                 var lista = Projekat.Instance.TipNamestaja;
+                    TipNamestaja tip= dgPrikaz.SelectedItem as TipNamestaja;
+                    foreach (var tipN in lista)
+                    {
+                        if (tipN.Id == tip.Id)
+                        {
+                            tipN.Obrisan = true;
+                        }
+                    }
+                    GenericSerializer.Serialize("tip_namestaja.xml", lista);
+                    break;
+                case "DodatneUsluge":
+                    var listaUsluga = Projekat.Instance.DodatneUsluge;
+                    DodatnaUsluga uslugaBrisanje = dgPrikaz.SelectedItem as DodatnaUsluga;
+                    foreach (var usluga in listaUsluga)
+                    {
+                        if (usluga.Id== uslugaBrisanje.Id)
+                        {
+                            usluga.Obrisan = true;
+                        }
+                    }
+                    GenericSerializer.Serialize("dodatne_uslge.xml", listaUsluga);
                     break;
                 default:
                     break;

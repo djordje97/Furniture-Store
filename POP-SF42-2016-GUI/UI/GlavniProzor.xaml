@@ -8,7 +8,7 @@
         Title="Glavni Prozor" Height="504.935" Width="843.863" BorderThickness="0" Margin="0" HorizontalContentAlignment="Center" Foreground="White" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid HorizontalAlignment="Left" Height="478" VerticalAlignment="Top" Width="170" Background="#FF313541" Margin="0,0,0,-4">
         <Button Name="btnNamestaj" Content="Namestaj" HorizontalAlignment="Left" Height="52" Margin="16,122,0,0" VerticalAlignment="Top" Width="143" Background="#FF313541" BorderBrush="#FF313541" Foreground="White" FontSize="18" FontFamily="Sylfaen" Click="NamestajMeni" />
-        <Button  Name="btnTipoviNamestaja" Content="Tipovi Namestaja" HorizontalAlignment="Left" Height="52" Margin="16,236,0,0" VerticalAlignment="Top" Width="147"  Background="#FF313541" BorderBrush="#FF313541" Foreground="White" FontSize="18" FontFamily="Sylfaen" Click="TipoviNamestajaMeni" />
+        <Button  Name="btnTipoviNamestaja" Content="Tipovi Namestaja" HorizontalAlignment="Left" Height="52" Margin="12,231,0,0" VerticalAlignment="Top" Width="147"  Background="#FF313541" BorderBrush="#FF313541" Foreground="White" FontSize="18" FontFamily="Sylfaen" Click="TipoviNamestajaMeni" />
         <Button  Name="btnDodatneUsluge" Content="Dodatne usluge" HorizontalAlignment="Left" Height="52" Margin="16,179,0,0" VerticalAlignment="Top" Width="147"  Background="#FF313541" BorderBrush="#FF313541" Foreground="White" FontSize="18" FontFamily="Sylfaen" Click="DodatneUslugeMeni"/>
         <Button  Name="btnProdaja" Content="Prodaja" HorizontalAlignment="Left" Height="52" Margin="16,293,0,0" VerticalAlignment="Top" Width="147"  Background="#FF313541" BorderBrush="#FF313541" Foreground="White" FontSize="18" FontFamily="Sylfaen" Click="ProdajaMeni"/>
         <Button  Name="btnAkcije" Content="Akcije" HorizontalAlignment="Left" Margin="16,350,0,0" VerticalAlignment="Top" Width="147" Height="52"  Background="#FF313541" BorderBrush="#FF313541" Foreground="White" FontSize="18" FontFamily="Sylfaen" Click="AkcijeMeni"/>
@@ -30,7 +30,7 @@
             <Label Content="Sortiraj po:" HorizontalAlignment="Left" Height="29" Margin="299,13,0,0" VerticalAlignment="Top" Width="77" Foreground="White" FontSize="14"/>
             <ComboBox x:Name="dropBoxSortiradnje" HorizontalAlignment="Left" Height="21" Margin="376,20,0,0" VerticalAlignment="Top" Width="124"/>
             <Button x:Name="btnSortiraj" Content="Sortiraj" HorizontalAlignment="Left" Height="28" Margin="505,14,0,0" VerticalAlignment="Top" Width="71"/>
-            <ListBox  Name="lbPrikaz" HorizontalAlignment="Left" Height="310" Grid.Row="1" VerticalAlignment="Top" Width="669"/>
+            <DataGrid ColumnWidth="*" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserReorderColumns="False"  Name="dgPrikaz" HorizontalAlignment="Left" Height="310" Grid.Row="1" VerticalAlignment="Top" Width="669" />
             <Label Content="Pretrazi po:" HorizontalAlignment="Left" Height="28" Margin="10,55,0,0" VerticalAlignment="Top" Width="84" Foreground="White" FontSize="14"/>
             <ComboBox x:Name="dropBoxPretraga" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="89,61,0,0"/>
         </Grid>

@@ -4,29 +4,137 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PoP.Model;
+using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace PoP.Model
 {
-   public class Namestaj
+   public class Namestaj  : INotifyPropertyChanged,ICloneable
     {
-        public int Id { get; set; }
-        public bool Obrisan { get; set; }
-        public string Naziv { get; set; }
-        public string Sifra { get; set; }
-        public double JedinicnaCena { get; set; }
-        public int KolicinaUMagacinu { get; set; }
-        public int IdTipaNamestaja { get; set; }
+
+
+        private int id;
+        private string naziv;
+        private double cena;
+        private int tipNamestajaId;
+        private bool obrisan;
+        private string sifra;
+        private int kolicina;
+        private TipNamestaja tipNamestaja;
+        [XmlIgnore]
+        public TipNamestaja TipNamestaja
+        {
+            get {
+                if (tipNamestaja == null)
+                {
+                    tipNamestaja=TipNamestaja.PronadjiTip(TipNamestajaId);
+                }
+                return tipNamestaja;
+
+            }
+            set
+            {
+                tipNamestaja = value;
+                TipNamestajaId = tipNamestaja.Id;
+                OnPropertyChanged("TipNamestaja");
+            }
+        }
+
+
+        public int Kolicina
+        {
+            get { return kolicina; }
+            set {
+                kolicina = value;
+                OnPropertyChanged("Kolicina");
+            }
+        }
+
+
+        public string Sifra
+        {
+            get { return sifra; }
+            set {
+                sifra = value;
+                OnPropertyChanged("Sifra");
+            }
+        }
+
+
+        public bool Obrisan
+        {
+            get { return obrisan; }
+            set {
+                obrisan = value;
+                OnPropertyChanged("Obrisan");
+            }
+        }
+
+
+        public int TipNamestajaId
+        {
+            get { return tipNamestajaId; }
+            set {
+                tipNamestajaId = value;
+                OnPropertyChanged("TipNamestajaId");
+            }
+        }
+
+
+        public double Cena
+        {
+            get { return cena; }
+            set {
+                cena = value;
+                OnPropertyChanged("Cena");
+            }
+        }
+
+
+        public string Naziv
+        {
+            get { return naziv; }
+            set {
+                naziv = value;
+            }
+        }
+
+
+        public int Id
+        {
+            get { return id; }
+            set {
+                id = value;
+                OnPropertyChanged("Id");
+
+            }
+        }
+
+
+     
+
+       
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public override string ToString()
         {
             if (!Obrisan)
             {
                 string ispis = "";
-                return ispis += $"{Naziv},{JedinicnaCena},{TipNamestaja.PronadjiTip(IdTipaNamestaja).Naziv}";
+                return ispis += $"{Naziv},{Cena},{TipNamestaja.PronadjiTip(TipNamestajaId).Naziv}";
             }
             return null;
            
         
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if(PropertyChanged!=null)
+            {
+                PropertyChanged(this,new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         public static Namestaj PronadjiNamestaj(int id)
@@ -40,6 +148,18 @@ namespace PoP.Model
 
             }
             return null;
+        }
+
+        public object Clone()
+        {
+            Namestaj kopija = new Namestaj();
+            kopija.Id = Id;
+            kopija.Naziv = Naziv;
+            kopija.Kolicina = Kolicina;
+            kopija.Sifra = Sifra;
+            kopija.Cena = Cena;
+            kopija.TipNamestaja = TipNamestaja;
+            return kopija;
         }
     }
 }

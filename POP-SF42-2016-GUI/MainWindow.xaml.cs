@@ -41,14 +41,14 @@ namespace POP_SF42_2016_GUI
             var korisnici = Projekat.Instance.Korisnici;
             foreach (var korisnik in korisnici)
             {
-                var userName = tbUsername.Text;
-                var password = pfPassword.Password;
+                var userName = tbUsername.Text.Trim();
+                var password = pfPassword.Password.Trim();
                 if (userName== "" || password == "")
                 {
                     MessageBox.Show("Morate uneti sve podatke!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-                else if (userName == korisnik.KorisnickoIme && password == korisnik.Lozinka)
+                else if (userName == korisnik.Korisnicko_Ime && password == korisnik.Lozinka)
                 {
                     loggedUser = userName;
                     var glavni= new GlavniProzor();

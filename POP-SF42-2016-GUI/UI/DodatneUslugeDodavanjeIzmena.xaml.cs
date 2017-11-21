@@ -17,40 +17,43 @@ using System.Windows.Shapes;
 namespace POP_SF42_2016_GUI.UI
 {
     /// <summary>
-    /// Interaction logic for TipNamestajaDodavanejIzmena.xaml
+    /// Interaction logic for DodatneUslugeDodavanjeIzmena.xaml
     /// </summary>
-    public partial class TipNamestajaDodavanejIzmena : Window
+    public partial class DodatneUslugeDodavanjeIzmena : Window
     {
         public enum Operacija
         {
             DODAVANJE,
             IZMENA
         };
-        private TipNamestaja tipNamestaja;
+       private DodatnaUsluga dodatneUsluga;
         private Operacija operacija;
-        public TipNamestajaDodavanejIzmena(TipNamestaja tipNamestaja,Operacija operacija)
+
+
+        public DodatneUslugeDodavanjeIzmena(DodatnaUsluga dodatneUsluga,Operacija operacija)
+
         {
-            InitializeComponent();
-            this.tipNamestaja = tipNamestaja;
-            this.operacija = operacija;
-            tbNazivTipa.DataContext = tipNamestaja;
             
+            InitializeComponent();
+            this.operacija = operacija;
+            this.dodatneUsluga = dodatneUsluga;
+            tbNazivUsluge.DataContext = dodatneUsluga;
+            tbCenaUsluge.DataContext = dodatneUsluga;
         }
-
-
 
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-            var lista = Projekat.Instance.TipNamestaja;
-            
-                if (operacija == Operacija.DODAVANJE)
-                {
+            var lista = Projekat.Instance.DodatneUsluge;
 
-                tipNamestaja.Id = lista.Count + 1;     
-                     lista.Add(tipNamestaja);
-                 }
-            GenericSerializer.Serialize("tip_namestaja.xml", lista);
+            if (operacija == Operacija.DODAVANJE)
+            {
+                dodatneUsluga.Id = lista.Count + 1;
+                lista.Add(dodatneUsluga);
+            }
+
+
+            GenericSerializer.Serialize("dodatne_usluge.xml", lista);
             Close();
         }
     }

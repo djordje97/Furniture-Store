@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/namestaj.xml")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/menu.png")]
 
 
