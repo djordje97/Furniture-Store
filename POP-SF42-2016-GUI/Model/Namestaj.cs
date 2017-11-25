@@ -122,7 +122,7 @@ namespace PoP.Model
             if (!Obrisan)
             {
                 string ispis = "";
-                return ispis += $"{Naziv},{Cena},{TipNamestaja.PronadjiTip(TipNamestajaId).Naziv}";
+                return ispis += $"{Naziv}";
             }
             return null;
            

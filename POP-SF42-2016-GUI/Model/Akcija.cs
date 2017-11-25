@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace PoP.Model
 {
-    public class Akcija : INotifyPropertyChanged
+    public class Akcija : INotifyPropertyChanged,ICloneable
     {
         private int id;
 
@@ -66,11 +66,11 @@ namespace PoP.Model
             }
         }
 
-        private List<int> namestajPopustId;
+        private int namestajPopustId;
 
 
 
-        public List<int> NamestajPopustId
+        public int NamestajPopustId
         {
             get { return namestajPopustId; }
             set {
@@ -78,21 +78,21 @@ namespace PoP.Model
                 OnPropertyChanged("NamestajPopustId");
             }
         }
-        private ObservableCollection<Namestaj> namestajPopust;
+        private Namestaj namestajPopust;
         [XmlIgnore]
-        public ObservableCollection<Namestaj> NamestajPopust
+        public Namestaj NamestajPopust
         {
             get {
                 if (namestajPopust == null)
-                {   for(int i=0;i<namestajPopustId.Count;id++)
-                    namestajPopust.Add(Namestaj.PronadjiNamestaj(namestajPopustId[i]));
+                {
+                    namestajPopust = Namestaj.PronadjiNamestaj(NamestajPopustId);
                 }
                 return namestajPopust;
             }
             set {
                 namestajPopust = value;
-                for (int i = 0; i < namestajPopust.Count; i++)
-                    namestajPopustId.Add(namestajPopust[i].Id);
+                namestajPopustId = namestajPopust.Id;
+                OnPropertyChanged("NamestajPopust");
             }
         }
 
@@ -105,13 +105,7 @@ namespace PoP.Model
             {
 
 
-                string ispis = $"{Id}. {PocetakAkcije} {KrajAkcije} {Popust} ";
-
-                for (int i = 0; i < namestajPopust.Count; i++)
-                {
-                    ispis +=namestajPopust[i].Naziv + " ,";
-
-                }
+                string ispis = $"{Id}. {PocetakAkcije} {KrajAkcije} {Popust} {namestajPopust.Naziv}";
                 return ispis;
             }
             return null;
@@ -136,6 +130,17 @@ namespace PoP.Model
 
             }
             return null;
+        }
+
+        public object Clone()
+        {
+            Akcija kopija = new Akcija();
+            kopija.Id = Id;
+            kopija.PocetakAkcije = PocetakAkcije;
+            kopija.KrajAkcije = KrajAkcije;
+            kopija.NamestajPopust = NamestajPopust;
+            kopija.Popust= Popust;
+            return kopija;
         }
     }
 

@@ -2,12 +2,18 @@
 <ArrayOfAkcija xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Akcija>
     <Id>1</Id>
-    <Obrisana>false</Obrisana>
-    <PocetakAkcije>2017-11-04T17:49:09.8790856+01:00</PocetakAkcije>
-    <KrajAkcije>2018-12-26T00:00:00</KrajAkcije>
-    <Popust>1230</Popust>
-    <NamestajPopustu>
-      <int>1</int>
-    </NamestajPopustu>
+    <Obrisan>false</Obrisan>
+    <PocetakAkcije>2017-11-25T00:00:00</PocetakAkcije>
+    <KrajAkcije>2017-11-30T00:00:00</KrajAkcije>
+    <Popust>3500</Popust>
+    <NamestajPopustId>3</NamestajPopustId>
+  </Akcija>
+  <Akcija>
+    <Id>2</Id>
+    <Obrisan>false</Obrisan>
+    <PocetakAkcije>2017-11-30T00:00:00</PocetakAkcije>
+    <KrajAkcije>2017-12-11T00:00:00</KrajAkcije>
+    <Popust>1400</Popust>
+    <NamestajPopustId>5</NamestajPopustId>
   </Akcija>
 </ArrayOfAkcija>

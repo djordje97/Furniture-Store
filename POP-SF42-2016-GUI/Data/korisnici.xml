@@ -7,15 +7,24 @@
     <Lozinka>12345</Lozinka>
     <Ime>Petar</Ime>
     <Prezime>Petrovic</Prezime>
-    <TipKorisnika>Administrator</TipKorisnika>
+    <TipKorisnika>Prodavac</TipKorisnika>
   </Korisnik>
   <Korisnik>
     <Id>2</Id>
     <Obrisan>false</Obrisan>
-    <Korisnicko_Ime>markom</Korisnicko_Ime>
-    <Lozinka>0000</Lozinka>
-    <Ime>Marko</Ime>
-    <Prezime>Markovic</Prezime>
+    <Korisnicko_Ime>a</Korisnicko_Ime>
+    <Lozinka>a</Lozinka>
+    <Ime>a</Ime>
+    <Prezime>a</Prezime>
+    <TipKorisnika>Administrator</TipKorisnika>
+  </Korisnik>
+  <Korisnik>
+    <Id>0</Id>
+    <Obrisan>false</Obrisan>
+    <Korisnicko_Ime>b</Korisnicko_Ime>
+    <Lozinka>b</Lozinka>
+    <Ime>b</Ime>
+    <Prezime>b</Prezime>
     <TipKorisnika>Prodavac</TipKorisnika>
   </Korisnik>
 </ArrayOfKorisnik>

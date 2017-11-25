@@ -54,8 +54,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UI\AkcijaDodavanjeIzmena.xaml.cs">
+      <DependentUpon>AkcijaDodavanjeIzmena.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\DodatneUslugeDodavanjeIzmena.xaml.cs">
       <DependentUpon>DodatneUslugeDodavanjeIzmena.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DodavanjeIzmenaKorisnik.xaml.cs">
+      <DependentUpon>DodavanjeIzmenaKorisnik.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\GlavniProzor.xaml.cs">
       <DependentUpon>GlavniProzor.xaml</DependentUpon>
@@ -79,7 +85,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\AkcijaDodavanjeIzmena.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\DodatneUslugeDodavanjeIzmena.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\DodavanjeIzmenaKorisnik.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

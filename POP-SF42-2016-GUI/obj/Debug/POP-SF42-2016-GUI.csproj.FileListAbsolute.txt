@@ -44,3 +44,7 @@ C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF
 C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\POP-SF42-2016-GUI.csproj.CoreCompileInputs.cache
 C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\POP-SF42-2016-GUI.exe
 C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\POP-SF42-2016-GUI.pdb
+C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\UI\DodavanjeIzmenaKorisnik.g.cs
+C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\UI\DodavanjeIzmenaKorisnik.baml
+C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\UI\AkcijaDodavanjeIzmena.g.cs
+C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\UI\AkcijaDodavanjeIzmena.baml

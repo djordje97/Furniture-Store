@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace PoP.Model
 {
@@ -12,7 +13,7 @@ namespace PoP.Model
         Administrator,
         Prodavac
     }
-    public class Korisnik : INotifyPropertyChanged
+    public class Korisnik : INotifyPropertyChanged,ICloneable
     {
         private int id;
 
@@ -92,6 +93,10 @@ namespace PoP.Model
         }
 
 
+    
+
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public override string ToString()
@@ -101,6 +106,10 @@ namespace PoP.Model
                 return $"{Ime} {Prezime} {Korisnicko_Ime} {Lozinka} {TipKorisnika}";
             }
             return null;
+        }
+        public Korisnik()
+        {
+            tipKorisnika = TipKorisnika.Prodavac;
         }
 
         public static Korisnik PronadjiKorisnika(string userName)
@@ -121,6 +130,17 @@ namespace PoP.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        public object Clone()
+        {
+            Korisnik kopija = new Korisnik();
+            kopija.Ime = Ime;
+            kopija.Prezime = Prezime;
+            kopija.Korisnicko_Ime = Korisnicko_Ime;
+            kopija.Lozinka = Lozinka;
+            kopija.TipKorisnika = TipKorisnika;
+            return kopija;
         }
     }
 }

@@ -27,12 +27,7 @@
             <Button  Name="btnIzmeni" Content="Izmeni" HorizontalAlignment="Left" Height="36" Margin="270,19,0,0" VerticalAlignment="Top" Width="106" Grid.Row="2" Click="Izmena" />
             <Button  Name="btnObrisi" Content="Obrisi" HorizontalAlignment="Left" Height="36" Margin="455,19,0,0" VerticalAlignment="Top" Width="106" Grid.Row="2" Click="Brisanje"/>
             <Button Name="btnPretraga" Content="Pretrazi" HorizontalAlignment="Left" Grid.Row="0" Margin="219,12,0,51" Width="66"/>
-            <Label Content="Sortiraj po:" HorizontalAlignment="Left" Height="29" Margin="299,13,0,0" VerticalAlignment="Top" Width="77" Foreground="White" FontSize="14"/>
-            <ComboBox x:Name="dropBoxSortiradnje" HorizontalAlignment="Left" Height="21" Margin="376,20,0,0" VerticalAlignment="Top" Width="124"/>
-            <Button x:Name="btnSortiraj" Content="Sortiraj" HorizontalAlignment="Left" Height="28" Margin="505,14,0,0" VerticalAlignment="Top" Width="71"/>
-            <DataGrid ColumnWidth="*" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserReorderColumns="False"  Name="dgPrikaz" HorizontalAlignment="Left" Height="310" Grid.Row="1" VerticalAlignment="Top" Width="669" />
-            <Label Content="Pretrazi po:" HorizontalAlignment="Left" Height="28" Margin="10,55,0,0" VerticalAlignment="Top" Width="84" Foreground="White" FontSize="14"/>
-            <ComboBox x:Name="dropBoxPretraga" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="89,61,0,0"/>
+            <DataGrid ColumnWidth="*" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserReorderColumns="False"  Name="dgPrikaz" HorizontalAlignment="Left" Height="310" Grid.Row="1" VerticalAlignment="Top" Width="669" />
         </Grid>
 
 

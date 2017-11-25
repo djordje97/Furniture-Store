@@ -4,8 +4,8 @@
     <Kolicina>0</Kolicina>
     <Sifra>1458</Sifra>
     <Obrisan>true</Obrisan>
-    <TipNamestajaId>0</TipNamestajaId>
-    <Cena>0</Cena>
+    <TipNamestajaId>1</TipNamestajaId>
+    <Cena>15000</Cena>
     <Naziv>Socijalno osvetljenje</Naziv>
     <Id>1</Id>
   </Namestaj>
@@ -13,7 +13,7 @@
     <Kolicina>150</Kolicina>
     <Sifra>sss</Sifra>
     <Obrisan>true</Obrisan>
-    <TipNamestajaId>0</TipNamestajaId>
+    <TipNamestajaId>2</TipNamestajaId>
     <Cena>0</Cena>
     <Naziv>aa</Naziv>
     <Id>2</Id>
@@ -22,16 +22,16 @@
     <Kolicina>15</Kolicina>
     <Sifra>1245</Sifra>
     <Obrisan>false</Obrisan>
-    <TipNamestajaId>0</TipNamestajaId>
+    <TipNamestajaId>1</TipNamestajaId>
     <Cena>40</Cena>
     <Naziv>Orman delux</Naziv>
     <Id>3</Id>
   </Namestaj>
   <Namestaj>
-    <Kolicina>0</Kolicina>
+    <Kolicina>40</Kolicina>
     <Sifra>1454</Sifra>
-    <Obrisan>false</Obrisan>
-    <TipNamestajaId>0</TipNamestajaId>
+    <Obrisan>true</Obrisan>
+    <TipNamestajaId>2</TipNamestajaId>
     <Cena>400</Cena>
     <Naziv>Komoda 1</Naziv>
     <Id>4</Id>
@@ -40,7 +40,7 @@
     <Kolicina>400</Kolicina>
     <Sifra>1458</Sifra>
     <Obrisan>false</Obrisan>
-    <TipNamestajaId>0</TipNamestajaId>
+    <TipNamestajaId>1</TipNamestajaId>
     <Cena>300</Cena>
     <Naziv>Sofa</Naziv>
     <Id>5</Id>
