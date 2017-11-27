@@ -95,6 +95,11 @@ namespace PoP.Model
                 OnPropertyChanged("NamestajPopust");
             }
         }
+        public Akcija()
+        {
+            pocetakAkcije = DateTime.Now;
+            krajAkcije = DateTime.Now;
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using POP_SF42_2016_GUI.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace PoP.Model
 {
@@ -23,37 +25,32 @@ namespace PoP.Model
                 OnPropertyChanged("Id");
             }
         }
-        private List<int> namestajProdajaId;
+        private List<int> stavkaProdajeId;
 
-        public List<int> NamestajProdajaId
-
-        {
-            get { return namestajProdajaId; }
-            set {
-                namestajProdajaId = value;
-                OnPropertyChanged("NamestajProdajaId");
-            }
-        }
-        private ObservableCollection<Namestaj> namestajProdaja;
-
-        public ObservableCollection<Namestaj> NamestajProdaja
+        public List<int> StavkaProdajeId
 
         {
-            get {
-                if (namestajProdaja == null)
-                {
-                    for (int i = 0; i < namestajProdajaId.Count; id++)
-                        namestajProdaja.Add(Namestaj.PronadjiNamestaj(namestajProdajaId[i]));
-                }
-                return namestajProdaja;
-            }
-            set {
-                namestajProdaja = value;
-                for (int i = 0; i < namestajProdaja.Count; i++)
-                    namestajProdajaId.Add(namestajProdaja[i].Id);
-            }
+            get { return stavkaProdajeId; }
+            set { stavkaProdajeId = value; }
         }
 
+     private ObservableCollection<StavkaProdaje> stavkeProdaje;
+        [XmlIgnore]
+        public ObservableCollection<StavkaProdaje> StavkeProdaje
+        {
+            get
+            {
+                if (stavkeProdaje == null)
+                    stavkeProdaje = StavkaProdaje.PronadjiStavke(stavkaProdajeId);
+                return stavkeProdaje;
+            }
+            set
+            {
+                stavkeProdaje = value;
+                for (int i = 0; i < stavkeProdaje.Count; i++)
+                    stavkaProdajeId.Add(stavkeProdaje[i].Id);
+            }
+        }
 
         private DateTime datumProdaje;
 
@@ -93,46 +90,24 @@ namespace PoP.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private List<int> dodatnaUslugaId;
-
-        public List<int> DodatnaUslugaId
-        {
-            get { return dodatnaUslugaId; }
-            set {
-                dodatnaUslugaId = value;
-                OnPropertyChanged("DodatnaUslugaId");
-            }
-        }
-        private ObservableCollection<DodatnaUsluga> dodatnaUsluga;
-
-        public ObservableCollection<DodatnaUsluga> DodatnaUsluga
-        {
-            get
-            {
-                if (dodatnaUsluga == null)
-                {
-                    for (int i = 0; i < dodatnaUslugaId.Count; id++)
-                        dodatnaUsluga.Add(Model.DodatnaUsluga.PronadjiUslugu(dodatnaUslugaId[i]));
-                }
-                return dodatnaUsluga;
-            }
-            set {
-                dodatnaUsluga = value;
-                for (int i = 0; i < dodatnaUsluga.Count; i++)
-                    dodatnaUslugaId.Add(dodatnaUsluga[i].Id);
-                OnPropertyChanged("DodatnaUsluga");
-            }
-        }
-
+  
 
         private double ukupanIznos;
 
         public double UkupanIznos
         {
             get { return ukupanIznos; }
-            set {
+            set
+            {
                 ukupanIznos = value;
-                OnPropertyChanged("UkupanIznos");
+                if(stavkeProdaje!=null)
+               for (int i = 0; i < StavkeProdaje.Count; i++)
+                    ukupanIznos = stavkeProdaje[i].Cena;
+                else
+                     ukupanIznos = 0;
+                  
+
+
             }
         }
 
@@ -148,22 +123,21 @@ namespace PoP.Model
         }
       
 
-        public override string ToString()
+       public override string ToString()
         {
             if (!Obrisan)
             {
                 var ispis = $"{Id}. {DatumProdaje} {BrojRacuna} {Kupac} ";
-                for (int i = 0; i < namestajProdaja.Count; i++)
-                {
-                    ispis += namestajProdaja[i].Naziv + " ,";
+                //for (int i = 0; i < stavkeProdaje.Count; i++)
+              //  {
+              //      ispis += stavkeProdaje[i].NamestajProdaja.Naziv + " ,";
 
-                }
+              //  }
+                //            for (int i = 0; i < stavkeProdaje.Count; i++)
+             //   {
+               //     ispis += stavkeProdaje[i].DodatneUsluga.Naziv + " ,";
 
-                for (int i = 0; i < dodatnaUsluga.Count; i++)
-                {
-                    ispis += dodatnaUsluga[i].Naziv + " ,";
-
-                }
+              //  }
                 return ispis;
             }
             return null;

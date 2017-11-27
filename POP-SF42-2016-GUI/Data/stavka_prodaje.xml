@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfStavkaProdaje xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <StavkeProdaje>
+    <Id>1</Id>
+    <Kolicina>3</Kolicina>
+    <NamestajProdajaId>1</NamestajProdajaId>
+    <DodatneUslugaId>1</DodatneUslugaId>
+    <Obrisan>false</Obrisan>
+    <Cena>5</Cena>
+  </StavkeProdaje>
+</ArrayOfStavkaProdaje>

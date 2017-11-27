@@ -38,10 +38,7 @@ namespace POP_SF42_2016_GUI.UI
             tbPrezime.DataContext = korisnik;
             tbKorisnickoIme.DataContext = korisnik;
             tbLozinka.DataContext=korisnik;
-            var tip = new List<TipKorisnika>();
-            tip.Add(TipKorisnika.Administrator);
-            tip.Add(TipKorisnika.Prodavac);
-            cbTipKorisnika.ItemsSource = tip;
+            cbTipKorisnika.ItemsSource = Enum.GetValues(typeof(TipKorisnika)).Cast<TipKorisnika>();
             cbTipKorisnika.DataContext = korisnik;
         }
 

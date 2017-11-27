@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\StavkaProdaje.cs" />
     <Compile Include="UI\AkcijaDodavanjeIzmena.xaml.cs">
       <DependentUpon>AkcijaDodavanjeIzmena.xaml</DependentUpon>
     </Compile>
@@ -68,6 +69,9 @@
     </Compile>
     <Compile Include="UI\NamestajDodavanjeIzmena.xaml.cs">
       <DependentUpon>NamestajDodavanjeIzmena.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ProdajaWindow.xaml.cs">
+      <DependentUpon>ProdajaWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\TipNamestajaDodavanejIzmena.xaml.cs">
       <DependentUpon>TipNamestajaDodavanejIzmena.xaml</DependentUpon>
@@ -102,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\NamestajDodavanjeIzmena.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ProdajaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,11 +156,20 @@
     <Resource Include="Data\akcije.xml" />
     <Resource Include="Data\dodatne_usluge.xml" />
     <Resource Include="Data\korisnici.xml" />
-    <Resource Include="Data\prodaja_namestaja.xml" />
+    <Resource Include="Data\prodaja_namestaja.xml">
+      <SubType>Designer</SubType>
+    </Resource>
     <Resource Include="Data\tip_namestaja.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Data\namestaj.xml" />
+    <Resource Include="Data\namestaj.xml">
+      <SubType>Designer</SubType>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\stavka_prodaje.xml">
+      <SubType>Designer</SubType>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

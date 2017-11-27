@@ -7,7 +7,7 @@
     <Lozinka>12345</Lozinka>
     <Ime>Petar</Ime>
     <Prezime>Petrovic</Prezime>
-    <TipKorisnika>Prodavac</TipKorisnika>
+    <TipKorisnika>Administrator</TipKorisnika>
   </Korisnik>
   <Korisnik>
     <Id>2</Id>

@@ -1,7 +1,10 @@
 ﻿using PoP.Model;
+using PoP.Util;
+using POP_SF42_2016_GUI.Model;
 using POP_SF42_2016_GUI.UI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,14 +30,8 @@ namespace POP_SF42_2016_GUI
         {
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             InitializeComponent();
-          
-
-            
+ 
         }
-
-     
-
-
       
         private void Login(object sender, RoutedEventArgs e)
         {

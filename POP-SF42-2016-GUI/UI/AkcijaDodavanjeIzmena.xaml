@@ -9,7 +9,7 @@
         Title="AkcijaDodavanjeIzmena" Height="340" Width="543" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Background="#FF0066CC">
         <Label Content="Pocetak akcije:" HorizontalAlignment="Left" Height="33" Margin="69,46,0,0" VerticalAlignment="Top" Width="122" Foreground="White" FontSize="16"/>
-        <DatePicker x:Name="dpPocetak"  SelectedDate="{Binding Path=PocetakAkcije,StringFormat=dd/MM/yyyy}" HorizontalAlignment="Left" Height="33" Margin="191,46,0,0" VerticalAlignment="Top" Width="145" FirstDayOfWeek="Monday"/>
+        <DatePicker x:Name="dpPocetak"   SelectedDate="{Binding Path=PocetakAkcije, StringFormat=dd/MM/yyyy}" HorizontalAlignment="Left" Height="33" Margin="191,46,0,0" VerticalAlignment="Top" Width="145" FirstDayOfWeek="Monday"/>
         <Label Content="Kraj akcije:" HorizontalAlignment="Left" Height="33" Margin="69,94,0,0" VerticalAlignment="Top" Width="122" FontSize="16" Foreground="White"/>
         <DatePicker x:Name="dpKraj" SelectedDate="{Binding Path=KrajAkcije,StringFormat=dd/MM/yyyy}" HorizontalAlignment="Left" Height="33" Margin="191,94,0,0" VerticalAlignment="Top" Width="145"/>
         <Label Content="Namestaj:" HorizontalAlignment="Left" Height="33" Margin="88,132,0,0" VerticalAlignment="Top" Width="103" FontSize="16" Foreground="White"/>

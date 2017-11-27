@@ -2,6 +2,7 @@
 using PoP.Util;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace POP_SF42_2016_GUI.UI
     /// </summary>
     public partial class GlavniProzor : Window
     {
-        
+        ICollectionView view;
         public static string TrenutnoAktivno;
         public GlavniProzor()
             
@@ -38,7 +39,9 @@ namespace POP_SF42_2016_GUI.UI
         private void NamestajMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "Namestaj";
-            dgPrikaz.ItemsSource = Projekat.Instance.Namestaj;
+            view = CollectionViewSource.GetDefaultView(Projekat.Instance.Namestaj);
+            view.Filter = NamestajIspis;
+            dgPrikaz.ItemsSource = view;
 
 
 
@@ -49,6 +52,7 @@ namespace POP_SF42_2016_GUI.UI
         {
             TrenutnoAktivno = "DodatneUsluge";
             dgPrikaz.ItemsSource = Projekat.Instance.DodatneUsluge;
+            
 
 
         }
@@ -96,6 +100,10 @@ namespace POP_SF42_2016_GUI.UI
            
          
         }
+        public bool NamestajIspis(object obj)
+        {
+            return ((Namestaj)obj).Obrisan == false;
+        }
        
         private void Dodaj(object sender, RoutedEventArgs e)
         {
@@ -125,6 +133,11 @@ namespace POP_SF42_2016_GUI.UI
                     Akcija akcija = new Akcija();
                     AkcijaDodavanjeIzmena dia = new AkcijaDodavanjeIzmena(akcija, AkcijaDodavanjeIzmena.Operacija.DODAVANJE);
                     dia.ShowDialog();
+                    break;
+                case "Prodaja":
+                    ProdajaNamestaja prodaja = new ProdajaNamestaja();
+                    ProdajaWindow pwd = new ProdajaWindow(prodaja,ProdajaWindow.Operacija.DODAVANJE);
+                    pwd.ShowDialog();
                     break;
                 default:
                     break;
