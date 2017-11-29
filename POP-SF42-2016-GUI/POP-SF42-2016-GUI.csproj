@@ -73,6 +73,9 @@
     <Compile Include="UI\ProdajaWindow.xaml.cs">
       <DependentUpon>ProdajaWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\StavkeWindow.xaml.cs">
+      <DependentUpon>StavkeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\TipNamestajaDodavanejIzmena.xaml.cs">
       <DependentUpon>TipNamestajaDodavanejIzmena.xaml</DependentUpon>
     </Compile>
@@ -110,6 +113,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\ProdajaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\StavkeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -7,19 +7,16 @@
         mc:Ignorable="d"
         Title="ProdajaWindow" Height="618" Width="760" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Background="#FF0066CC">
-        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="40" Margin="211,537,0,0" VerticalAlignment="Top" Width="130" IsDefault="True"/>
+        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="40" Margin="211,537,0,0" VerticalAlignment="Top" Width="130" IsDefault="True" Click="Potvrdi"/>
         <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="40" Margin="381,537,0,0" VerticalAlignment="Top" Width="130" IsCancel="True"/>
-        <DataGrid x:Name="dgNamestaj" CanUserResizeColumns="False" CanUserAddRows="False" ColumnWidth="*" SelectionMode="Single" IsReadOnly="True" HorizontalAlignment="Left" Height="239" Margin="52,208,0,0" VerticalAlignment="Top" Width="544"/>
-        <Button x:Name="btnPreuzmi" Content="Preuzmi" HorizontalAlignment="Left" Height="35" Margin="601,229,0,0" VerticalAlignment="Top" Width="112"/>
-        <Label Content="Kupac:" HorizontalAlignment="Left" Height="31" Margin="199,24,0,0" VerticalAlignment="Top" Width="103" FontSize="16" Foreground="White"/>
-        <TextBox x:Name="tbKupac" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Margin="302,24,0,0"/>
+        <DataGrid x:Name="dgStavke" ItemsSource="{Binding Source=StavkeProdaje}" AutoGenerateColumns="False"  CanUserResizeColumns="False" CanUserAddRows="False" ColumnWidth="*" SelectionMode="Single"  HorizontalAlignment="Left" Height="218" Margin="52,208,0,0" VerticalAlignment="Top" Width="544" AutoGeneratingColumn="dgStavke_AutoGeneratingColumn"/>
+        <Button x:Name="btnPreuzmi" Content="Dodaj" HorizontalAlignment="Left" Height="35" Margin="601,229,0,0" VerticalAlignment="Top" Width="112" Click="DodajStavku"/>
+        <Label Content="Kupac:"  HorizontalAlignment="Left" Height="31" Margin="199,24,0,0" VerticalAlignment="Top" Width="103" FontSize="16" Foreground="White"/>
+        <TextBox x:Name="tbKupac" Text="{Binding Path=Kupac}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Margin="302,24,0,0"/>
         <Label Content="Datum:" HorizontalAlignment="Left" Height="30" Margin="226,84,0,0" VerticalAlignment="Top" Width="76" FontSize="16" Foreground="White"/>
-        <DatePicker x:Name="dpDatum" HorizontalAlignment="Left" Height="30" Margin="302,84,0,0" VerticalAlignment="Top" Width="154"/>
-        <Label Content="Usluga:" HorizontalAlignment="Left" Height="32" Margin="211,151,0,0" VerticalAlignment="Top" Width="91" FontSize="16" Foreground="White"/>
-        <ComboBox x:Name="cbUsluga" HorizontalAlignment="Left" Height="32" Margin="302,151,0,0" VerticalAlignment="Top" Width="154"/>
-        <Label Content="Kolicina:" HorizontalAlignment="Left" Height="31" Margin="232,464,0,0" VerticalAlignment="Top" Width="70" FontSize="16" Foreground="White"/>
-        <TextBox x:Name="tbKolicina" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="302,464,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="62" />
-        <Button x:Name="btnPovecajKolicinu" Content="+" HorizontalAlignment="Left" Height="31" Margin="381,464,0,0" VerticalAlignment="Top" Width="59" FontSize="16" Click="PovecajKolicinu"/>
+        <DatePicker x:Name="dpDatum" SelectedDate="{Binding Path=DatumProdaje}" HorizontalAlignment="Left" Height="30" Margin="302,84,0,0" VerticalAlignment="Top" Width="154"/>
+        <Label Content="Stavke prodaje:" HorizontalAlignment="Left" Margin="185,152,0,0" VerticalAlignment="Top" Width="156" FontSize="20" Foreground="White" Height="44"/>
+        <Button x:Name="btnUkloni" Content="Ukloni" HorizontalAlignment="Left" Height="35" Margin="601,290,0,0" VerticalAlignment="Top" Width="112" Click="UkloniStavku"/>
 
     </Grid>
 </Window>

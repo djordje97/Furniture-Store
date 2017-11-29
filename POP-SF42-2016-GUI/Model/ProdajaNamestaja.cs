@@ -10,10 +10,14 @@ using System.Xml.Serialization;
 
 namespace PoP.Model
 {
-   public class ProdajaNamestaja : INotifyPropertyChanged
+   public class ProdajaNamestaja : INotifyPropertyChanged,ICloneable
     {
     
-        
+        public ProdajaNamestaja()
+        {
+            datumProdaje = DateTime.Today;
+            stavkeProdaje = new ObservableCollection<StavkaProdaje>();
+        }
         private int id;
 
 
@@ -31,7 +35,9 @@ namespace PoP.Model
 
         {
             get { return stavkaProdajeId; }
-            set { stavkaProdajeId = value; }
+            set { stavkaProdajeId = value;
+                OnPropertyChanged("StavkaProdajeId");
+                    }
         }
 
      private ObservableCollection<StavkaProdaje> stavkeProdaje;
@@ -49,6 +55,7 @@ namespace PoP.Model
                 stavkeProdaje = value;
                 for (int i = 0; i < stavkeProdaje.Count; i++)
                     stavkaProdajeId.Add(stavkeProdaje[i].Id);
+                OnPropertyChanged("StavkeProdaje");
             }
         }
 
@@ -101,12 +108,12 @@ namespace PoP.Model
             {
                 ukupanIznos = value;
                 if(stavkeProdaje!=null)
-               for (int i = 0; i < StavkeProdaje.Count; i++)
-                    ukupanIznos = stavkeProdaje[i].Cena;
+               for (int i = 0; i < stavkeProdaje.Count; i++)
+                    ukupanIznos += stavkeProdaje[i].Cena;
                 else
                      ukupanIznos = 0;
-                  
 
+                OnPropertyChanged("UkupanIznos");
 
             }
         }
@@ -164,5 +171,15 @@ namespace PoP.Model
             }
         }
 
+        public object Clone()
+        {
+            ProdajaNamestaja kopija = new ProdajaNamestaja();
+            kopija.Id = id;
+            kopija.Kupac = kupac;
+            kopija.UkupanIznos = ukupanIznos;
+            kopija.BrojRacuna = brojRacuna;
+            kopija.StavkeProdaje = stavkeProdaje;
+            return kopija;
+        }
     }
 }

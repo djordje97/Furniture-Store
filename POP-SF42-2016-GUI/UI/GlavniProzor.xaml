@@ -27,7 +27,7 @@
             <Button  Name="btnIzmeni" Content="Izmeni" HorizontalAlignment="Left" Height="36" Margin="270,19,0,0" VerticalAlignment="Top" Width="106" Grid.Row="2" Click="Izmena" />
             <Button  Name="btnObrisi" Content="Obrisi" HorizontalAlignment="Left" Height="36" Margin="455,19,0,0" VerticalAlignment="Top" Width="106" Grid.Row="2" Click="Brisanje"/>
             <Button Name="btnPretraga" Content="Pretrazi" HorizontalAlignment="Left" Grid.Row="0" Margin="219,12,0,51" Width="66"/>
-            <DataGrid ColumnWidth="*" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserReorderColumns="False"  Name="dgPrikaz" HorizontalAlignment="Left" Height="310" Grid.Row="1" VerticalAlignment="Top" Width="669" />
+            <DataGrid ColumnWidth="*" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserReorderColumns="False"  Name="dgPrikaz" HorizontalAlignment="Left" Height="310" Grid.Row="1" VerticalAlignment="Top" Width="669" AutoGeneratingColumn="dgPrikaz_AutoGeneratingColumn"  />
         </Grid>
 
 

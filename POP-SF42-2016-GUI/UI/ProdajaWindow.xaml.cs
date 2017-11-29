@@ -1,4 +1,6 @@
 ﻿using PoP.Model;
+using PoP.Util;
+using POP_SF42_2016_GUI.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,17 +34,48 @@ namespace POP_SF42_2016_GUI.UI
             InitializeComponent();
             this.prodaja = prodaja;
             this.operacija = operacija;
-            dgNamestaj.ItemsSource = Projekat.Instance.Namestaj;
+            dgStavke.ItemsSource = prodaja.StavkeProdaje;
             tbKupac.DataContext = prodaja;
             dpDatum.DataContext = prodaja;
-            tbKolicina.DataContext = prodaja;
-            cbUsluga.ItemsSource = Projekat.Instance.DodatneUsluge;
-            cbUsluga.SelectedItem = prodaja;
     }
 
-        private void PovecajKolicinu(object sender, RoutedEventArgs e)
+        private void DodajStavku(object sender, RoutedEventArgs e)
         {
-            tbKolicina.DataContext = prodaja.StavkeProdaje[0].Kolicina + 1;
+            StavkaProdaje stavka = new StavkaProdaje();
+            StavkeWindow st = new StavkeWindow(stavka,StavkeWindow.Operacija.DODAVANJE);
+            if (st.ShowDialog() == true)
+                prodaja.StavkeProdaje.Add(st.Stavka);
+        }
+
+        private void Potvrdi(object sender, RoutedEventArgs e)
+        {
+            Random rn = new Random();
+            this.DialogResult = true;
+            var lista = Projekat.Instance.Prodaja;
+            if (operacija == Operacija.DODAVANJE)
+            {
+                prodaja.Id = lista.Count + 1;
+                prodaja.BrojRacuna = rn.Next(100,10000);
+                lista.Add(prodaja);
+            }
+            GenericSerializer.Serialize("prodaja_namestaja.xml", lista);
+            this.Close();
+        }
+
+        private void dgStavke_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if((string)e.Column.Header== "DodatnaUslugaId" || (string)e.Column.Header == "NamestajProdajaId" || (string)e.Column.Header == "Id"
+                ||(string)e.Column.Header == "Obrisan")
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void UkloniStavku(object sender, RoutedEventArgs e)
+        {
+            StavkaProdaje izabrana = dgStavke.SelectedItem as StavkaProdaje;
+            prodaja.StavkeProdaje.Remove(izabrana);
+
         }
     }
 }

@@ -62,7 +62,7 @@ namespace PoP.Model
         {
             if (!Obrisan)
             {
-                return $"{Id} {Naziv} {Cena}";
+                return $"{Naziv}";
             }
             return null;
         }

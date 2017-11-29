@@ -70,38 +70,38 @@ namespace POP_SF42_2016_GUI.Model
             
         }
 
-        private int dodatneUslugaId;
+        private int dodatnaUslugaId;
 
-        public int DodatneUslugaId
+        public int DodatnaUslugaId
 
         {
-            get { return dodatneUslugaId; }
+            get { return dodatnaUslugaId; }
             set
             {
-                dodatneUslugaId = value;
+                dodatnaUslugaId = value;
                 OnPropertyChanged("DodatneUslugaId");
             }
         }
 
-        private DodatnaUsluga dodatneUsluga;
+        private DodatnaUsluga dodatneUsluge;
         [XmlIgnore]
-        public DodatnaUsluga DodatneUsluga
+        public DodatnaUsluga DodatneUsluge
         {
             get
             {
-                if (dodatneUsluga == null)
+                if (dodatneUsluge == null)
                 {
                  
-                        dodatneUsluga=DodatnaUsluga.PronadjiUslugu(DodatneUslugaId);
+                        dodatneUsluge=DodatnaUsluga.PronadjiUslugu(DodatnaUslugaId);
                 }
-                return dodatneUsluga;
+                return dodatneUsluge;
             }
             set
             {
-                dodatneUsluga = value;
+                dodatneUsluge = value;
               
-                    dodatneUslugaId=dodatneUsluga.Id;
-                OnPropertyChanged("DodatneUsluga");
+                    dodatnaUslugaId=dodatneUsluge.Id;
+                OnPropertyChanged("DodatneUsluge");
             }
         }
         private bool obrisan;
@@ -128,7 +128,9 @@ namespace POP_SF42_2016_GUI.Model
             set
             {
                cena = value;
-               cena = namestajProdaja.Cena*kolicina+dodatneUsluga.Cena;
+                if(namestajProdaja!=null)
+                cena = namestajProdaja.Cena*kolicina+dodatneUsluge.Cena;
+                OnPropertyChanged("Cena");
             }
         }
         public override string ToString()
@@ -151,13 +153,18 @@ namespace POP_SF42_2016_GUI.Model
             return null;
         }
         public static ObservableCollection<StavkaProdaje> PronadjiStavke(List<int> id)
-        { ObservableCollection<StavkaProdaje> stavke=new ObservableCollection<StavkaProdaje>();
-            for(int i = 0; i < id.Count; i++)
-            { 
-              
-                  stavke.Add(PronadjiStavku(id[i]));
+        {
+            ObservableCollection<StavkaProdaje> stavke = new ObservableCollection<StavkaProdaje>();
+            if (id != null)
+            {
+                for (int i = 0; i < id.Count; i++)
+                {
+
+                    stavke.Add(PronadjiStavku(id[i]));
+                }
+                return stavke;
             }
-            return stavke;
+            return null;
         }
     }
 }

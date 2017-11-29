@@ -206,6 +206,16 @@ namespace POP_SF42_2016_GUI.UI
                         Projekat.Instance.Akcije[index] = kopijaAkcije;
                     }
                     break;
+                case "Prodaja":
+                    ProdajaNamestaja prodaja = dgPrikaz.SelectedItem as ProdajaNamestaja;
+                    ProdajaNamestaja kopijaProdaje = (ProdajaNamestaja)prodaja.Clone();
+                    ProdajaWindow pw = new ProdajaWindow(prodaja, ProdajaWindow.Operacija.IZMENA);
+                    if (pw.ShowDialog() != true)
+                    {
+                        int index = Projekat.Instance.Prodaja.IndexOf(prodaja);
+                        Projekat.Instance.Prodaja[index] = kopijaProdaje;
+                    }
+                    break;
                 default:
                     break;
             }
@@ -250,8 +260,25 @@ namespace POP_SF42_2016_GUI.UI
                         akcijaBrisanje.Obrisan = true;
                     GenericSerializer.Serialize("akcije.xml", listaAkcija);
                     break;
-                        default:
+                case "Prodaja":
+                    var listaProdaja = Projekat.Instance.Prodaja;
+                    ProdajaNamestaja prodajaBrisanje = dgPrikaz.SelectedItem as ProdajaNamestaja;
+                    if (MessageBox.Show("Da li ste sigurni?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        prodajaBrisanje.Obrisan = true;
+                    GenericSerializer.Serialize("prodaja_namestaja.xml", listaProdaja);
                     break;
+                default:
+                    break;
+            }
+        }
+
+        private void dgPrikaz_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if ((string)e.Column.Header == "Id" || (string)e.Column.Header == "Obrisan" ||(string)e.Column.Header== "NamestajProdajaId" || (string)e.Column.Header== "DodatneUslugaId"
+                || (string)e.Column.Header == "StavkaProdajeId" || (string)e.Column.Header == "TipNamestajaId" || (string)e.Column.Header == "NamestajPopustId")
+
+            {
+                e.Cancel = true;
             }
         }
     }
