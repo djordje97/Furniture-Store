@@ -33,7 +33,10 @@ namespace POP_SF42_2016_GUI.UI
             InitializeComponent();
             ProveraprijavljenogKorisnika();
             dgPrikaz.IsSynchronizedWithCurrentItem = true;
-          
+            btnIzlistajStavke.Visibility = Visibility.Hidden;
+            btnObrisi.Visibility = Visibility.Visible;
+
+
         }
 
         private void NamestajMeni(object sender, RoutedEventArgs e)
@@ -42,8 +45,9 @@ namespace POP_SF42_2016_GUI.UI
             view = CollectionViewSource.GetDefaultView(Projekat.Instance.Namestaj);
             view.Filter = NamestajIspis;
             dgPrikaz.ItemsSource = view;
-
-
+            btnIzmeni.Content = "Izmeni";
+            btnIzlistajStavke.Visibility = Visibility.Hidden;
+            btnObrisi.Visibility = Visibility.Visible;
 
         }
 
@@ -52,37 +56,47 @@ namespace POP_SF42_2016_GUI.UI
         {
             TrenutnoAktivno = "DodatneUsluge";
             dgPrikaz.ItemsSource = Projekat.Instance.DodatneUsluge;
-            
-
+            btnIzmeni.Content = "Izmeni";
+            btnIzlistajStavke.Visibility = Visibility.Hidden;
+            btnObrisi.Visibility = Visibility.Visible;
 
         }
         private void TipoviNamestajaMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "TipoviNamestaja";
             dgPrikaz.ItemsSource = Projekat.Instance.TipNamestaja;
-
-
+            btnIzmeni.Content = "Izmeni";
+            btnIzlistajStavke.Visibility = Visibility.Hidden;
+            btnObrisi.Visibility = Visibility.Visible;
         }
 
         private void ProdajaMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "Prodaja";
             dgPrikaz.ItemsSource = Projekat.Instance.Prodaja;
-
+            btnIzmeni.Content = "Storniraj";
+            btnObrisi.Visibility = Visibility.Hidden;
+            btnIzlistajStavke.Visibility = Visibility.Visible;
+          
         }
 
         private void AkcijeMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "Akcije";
             dgPrikaz.ItemsSource = Projekat.Instance.Akcije;
-
+            btnIzmeni.Content = "Izmeni";
+            btnIzlistajStavke.Visibility = Visibility.Hidden;
+            btnObrisi.Visibility = Visibility.Visible;
         }
 
         private void KorisniciMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "Korisnici";
             dgPrikaz.ItemsSource = Projekat.Instance.Korisnici;
-   
+            btnIzmeni.Content = "Izmeni";
+            btnIzlistajStavke.Visibility = Visibility.Hidden;
+            btnObrisi.Visibility = Visibility.Visible;
+
         }
 
         private void ProveraprijavljenogKorisnika()
@@ -275,11 +289,19 @@ namespace POP_SF42_2016_GUI.UI
         private void dgPrikaz_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if ((string)e.Column.Header == "Id" || (string)e.Column.Header == "Obrisan" ||(string)e.Column.Header== "NamestajProdajaId" || (string)e.Column.Header== "DodatneUslugaId"
-                || (string)e.Column.Header == "StavkaProdajeId" || (string)e.Column.Header == "TipNamestajaId" || (string)e.Column.Header == "NamestajPopustId")
+                || (string)e.Column.Header == "StavkaProdajeId" || (string)e.Column.Header == "TipNamestajaId" || (string)e.Column.Header == "NamestajPopustId"
+                || (string)e.Column.Header == "StavkeProdaje")
 
             {
                 e.Cancel = true;
             }
+        }
+
+        private void Izlistaj(object sender, RoutedEventArgs e)
+        {
+            ProdajaNamestaja pn = dgPrikaz.SelectedItem as ProdajaNamestaja;
+            IzlistajStavke izs = new IzlistajStavke(pn);
+            izs.ShowDialog();
         }
     }
 }

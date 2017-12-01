@@ -34,10 +34,12 @@ namespace PoP.Model
         public List<int> StavkaProdajeId
 
         {
-            get { return stavkaProdajeId; }
+            get {
+                return stavkaProdajeId;
+            }
             set { stavkaProdajeId = value;
                 OnPropertyChanged("StavkaProdajeId");
-                    }
+              }
         }
 
      private ObservableCollection<StavkaProdaje> stavkeProdaje;
@@ -53,8 +55,8 @@ namespace PoP.Model
             set
             {
                 stavkeProdaje = value;
-                for (int i = 0; i < stavkeProdaje.Count; i++)
-                    stavkaProdajeId.Add(stavkeProdaje[i].Id);
+                if (stavkeProdaje != null)
+                stavkaProdajeId = StavkaProdaje.PronadjiIdove(stavkeProdaje);
                 OnPropertyChanged("StavkeProdaje");
             }
         }
@@ -107,11 +109,11 @@ namespace PoP.Model
             set
             {
                 ukupanIznos = value;
-                if(stavkeProdaje!=null)
-               for (int i = 0; i < stavkeProdaje.Count; i++)
-                    ukupanIznos += stavkeProdaje[i].Cena;
-                else
-                     ukupanIznos = 0;
+              //  if(stavkeProdaje!=null)
+              // for (int i = 0; i < stavkeProdaje.Count; i++)
+               //     ukupanIznos += stavkeProdaje[i].Cena;
+               // else
+                 //    ukupanIznos = 0;
 
                 OnPropertyChanged("UkupanIznos");
 

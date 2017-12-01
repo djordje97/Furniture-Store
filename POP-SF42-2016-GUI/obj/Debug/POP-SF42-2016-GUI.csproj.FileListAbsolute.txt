@@ -52,3 +52,5 @@ C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF
 C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\UI\ProdajaWindow.baml
 C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\UI\StavkeWindow.g.cs
 C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\UI\StavkeWindow.baml
+C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\UI\IzlistajStavke.g.cs
+C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\obj\Debug\UI\IzlistajStavke.baml

@@ -76,6 +76,7 @@ namespace POP_SF42_2016_GUI.UI
             {
                 Stavka.Id = lista.Count + 1;
                 Stavka.NamestajProdaja = dgNamestaj.SelectedItem as Namestaj;
+                Stavka.Cena = Stavka.DodatneUsluge.Cena + Stavka.NamestajProdaja.Cena * Stavka.Kolicina;
                 lista.Add(Stavka);
 
             }

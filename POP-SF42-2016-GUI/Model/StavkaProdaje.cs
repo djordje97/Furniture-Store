@@ -100,7 +100,7 @@ namespace POP_SF42_2016_GUI.Model
             {
                 dodatneUsluge = value;
               
-                    dodatnaUslugaId=dodatneUsluge.Id;
+                    dodatnaUslugaId = dodatneUsluge.Id;
                 OnPropertyChanged("DodatneUsluge");
             }
         }
@@ -128,8 +128,6 @@ namespace POP_SF42_2016_GUI.Model
             set
             {
                cena = value;
-                if(namestajProdaja!=null)
-                cena = namestajProdaja.Cena*kolicina+dodatneUsluge.Cena;
                 OnPropertyChanged("Cena");
             }
         }
@@ -163,6 +161,19 @@ namespace POP_SF42_2016_GUI.Model
                     stavke.Add(PronadjiStavku(id[i]));
                 }
                 return stavke;
+            }
+            return null;
+        }
+        public  static List<int> PronadjiIdove(ObservableCollection<StavkaProdaje> stavke)
+        {
+            var lista = new List<int>();
+            if (stavke != null)
+            {
+                for (int i = 0; i < stavke.Count; i++)
+                {
+                    lista.Add(stavke[i].Id);
+                }
+                return lista;
             }
             return null;
         }

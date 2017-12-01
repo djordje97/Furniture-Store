@@ -67,6 +67,9 @@
     <Compile Include="UI\GlavniProzor.xaml.cs">
       <DependentUpon>GlavniProzor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\IzlistajStavke.xaml.cs">
+      <DependentUpon>IzlistajStavke.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\NamestajDodavanjeIzmena.xaml.cs">
       <DependentUpon>NamestajDodavanjeIzmena.xaml</DependentUpon>
     </Compile>
@@ -105,6 +108,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\GlavniProzor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\IzlistajStavke.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

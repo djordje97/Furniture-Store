@@ -34,7 +34,7 @@ namespace POP_SF42_2016_GUI.UI
             InitializeComponent();
             this.prodaja = prodaja;
             this.operacija = operacija;
-            dgStavke.ItemsSource = prodaja.StavkeProdaje;
+            dgStavke.DataContext = prodaja.StavkeProdaje;
             tbKupac.DataContext = prodaja;
             dpDatum.DataContext = prodaja;
     }
@@ -56,6 +56,7 @@ namespace POP_SF42_2016_GUI.UI
             {
                 prodaja.Id = lista.Count + 1;
                 prodaja.BrojRacuna = rn.Next(100,10000);
+                prodaja.UkupanIznos = prodaja.StavkeProdaje.Sum(item => item.Cena);
                 lista.Add(prodaja);
             }
             GenericSerializer.Serialize("prodaja_namestaja.xml", lista);

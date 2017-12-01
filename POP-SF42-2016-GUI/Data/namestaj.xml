@@ -23,7 +23,7 @@
     <Sifra>1245</Sifra>
     <Obrisan>false</Obrisan>
     <TipNamestajaId>1</TipNamestajaId>
-    <Cena>40</Cena>
+    <Cena>4000</Cena>
     <Naziv>Orman delux</Naziv>
     <Id>3</Id>
   </Namestaj>
@@ -37,7 +37,7 @@
     <Id>4</Id>
   </Namestaj>
   <Namestaj>
-    <Kolicina>400</Kolicina>
+    <Kolicina>7500</Kolicina>
     <Sifra>1458</Sifra>
     <Obrisan>false</Obrisan>
     <TipNamestajaId>1</TipNamestajaId>

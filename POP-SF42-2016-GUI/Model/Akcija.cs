@@ -91,7 +91,7 @@ namespace PoP.Model
             }
             set {
                 namestajPopust = value;
-                namestajPopustId = namestajPopust.Id;
+                NamestajPopustId = namestajPopust.Id;
                 OnPropertyChanged("NamestajPopust");
             }
         }
