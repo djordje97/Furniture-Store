@@ -1,5 +1,6 @@
 ﻿using PoP.Model;
 using PoP.Util;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,8 +51,8 @@ namespace POP_SF42_2016_GUI.UI
             if (operacija == Operacija.DODAVANJE)
             {
                 korisnik.Id = lista.Count + 1;
-                
-                lista.Add(korisnik);
+               
+               lista.Add(korisnik);
             }
 
             GenericSerializer.Serialize("korisnici.xml", lista);

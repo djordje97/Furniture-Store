@@ -10,4 +10,9 @@
     <Naziv>Komode</Naziv>
     <Id>2</Id>
   </TipNamestaja>
+  <TipNamestaja>
+    <Obrisan>true</Obrisan>
+    <Naziv>Fotelje</Naziv>
+    <Id>3</Id>
+  </TipNamestaja>
 </ArrayOfTipNamestaja>

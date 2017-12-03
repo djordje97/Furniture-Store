@@ -2,7 +2,7 @@
 <ArrayOfKorisnik xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Korisnik>
     <Id>1</Id>
-    <Obrisan>false</Obrisan>
+    <Obrisan>true</Obrisan>
     <Korisnicko_Ime>petar1</Korisnicko_Ime>
     <Lozinka>12345</Lozinka>
     <Ime>Petar</Ime>

@@ -2,6 +2,7 @@
 using PoP.Util;
 using POP_SF42_2016_GUI.Model;
 using POP_SF42_2016_GUI.UI;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,7 +36,8 @@ namespace POP_SF42_2016_GUI
       
         private void Login(object sender, RoutedEventArgs e)
         {
-            var korisnici = Projekat.Instance.Korisnici;
+              var korisnici = Projekat.Instance.Korisnici;
+            
             foreach (var korisnik in korisnici)
             {
                 var userName = tbUsername.Text.Trim();
