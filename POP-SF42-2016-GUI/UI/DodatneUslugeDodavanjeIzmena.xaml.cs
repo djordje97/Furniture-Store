@@ -1,5 +1,6 @@
 ﻿using PoP.Model;
 using PoP.Util;
+using POP_SF42_2016_GUI.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace POP_SF42_2016_GUI.UI
             DODAVANJE,
             IZMENA
         };
-       private DodatnaUsluga dodatneUsluga;
+       public DodatnaUsluga dodatneUsluga;
         private Operacija operacija;
 
 
@@ -44,16 +45,16 @@ namespace POP_SF42_2016_GUI.UI
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-            var lista = Projekat.Instance.DodatneUsluge;
+            
 
             if (operacija == Operacija.DODAVANJE)
             {
-                dodatneUsluga.Id = lista.Count + 1;
-                lista.Add(dodatneUsluga);
+                UslugeDAO.DodavanjeUsluge(dodatneUsluga);
             }
+         
 
 
-            GenericSerializer.Serialize("dodatne_usluge.xml", lista);
+           
             Close();
         }
     }

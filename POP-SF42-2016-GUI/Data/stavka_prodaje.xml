@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfStavkaProdaje xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
+  <StavkaProdaje>
+    <Id>1</Id>
+    <Kolicina>3</Kolicina>
+    <NamestajProdajaId>2</NamestajProdajaId>
+    <Obrisan>false</Obrisan>
+    <Cena>90000</Cena>
+  </StavkaProdaje>
+  <StavkaProdaje>
+    <Id>2</Id>
+    <Kolicina>3</Kolicina>
+    <NamestajProdajaId>2</NamestajProdajaId>
+    <Obrisan>false</Obrisan>
+    <Cena>90000</Cena>
+  </StavkaProdaje>
 </ArrayOfStavkaProdaje>

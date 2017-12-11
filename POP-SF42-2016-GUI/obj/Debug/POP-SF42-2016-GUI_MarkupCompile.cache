@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Djole\Desktop\Fakultet\Git projekat repozitorijum\POP-SF-42-2016\POP-SF42-2016-GUI\App.xaml
-10-1517191372
+12-663867075
 
-242028723580
-131569487696
-MainWindow.xaml;UI\AkcijaDodavanjeIzmena.xaml;UI\DodatneUslugeDodavanjeIzmena.xaml;UI\DodavanjeIzmenaKorisnik.xaml;UI\GlavniProzor.xaml;UI\IzlistajStavke.xaml;UI\NamestajDodavanjeIzmena.xaml;UI\ProdajaWindow.xaml;UI\StavkeWindow.xaml;UI\TipNamestajaDodavanejIzmena.xaml;
+31-452684405
+14-799888181
+MainWindow.xaml;UI\AkcijaDodavanjeIzmena.xaml;UI\DodatneUslugeDodavanjeIzmena.xaml;UI\DodavanjeIzmenaKorisnik.xaml;UI\GlavniProzor.xaml;UI\IzlistajStavke.xaml;UI\NamestajDodavanjeIzmena.xaml;UI\PreuzmiNamestaj.xaml;UI\PreuzmiUslugu.xaml;UI\ProdajaWindow.xaml;UI\StavkeWindow.xaml;UI\TipNamestajaDodavanejIzmena.xaml;
 
 False
 

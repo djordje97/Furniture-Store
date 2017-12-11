@@ -20,12 +20,17 @@ namespace POP_SF42_2016_GUI.UI
     /// </summary>
     public partial class IzlistajStavke : Window
     {
-        ProdajaNamestaja prodaja;
-        public IzlistajStavke(ProdajaNamestaja prodaja)
+        public ProdajaNamestaja prodaja;
+        public Akcija akcija;
+        public IzlistajStavke(ProdajaNamestaja prodaja=null,Akcija akcija=null)
         {
             InitializeComponent();
             this.prodaja = prodaja;
-            dgIspisStavki.ItemsSource = prodaja.StavkeProdaje;
+            this.akcija = akcija;
+            if (akcija == null)
+                dgIspisStavki.ItemsSource = prodaja.StavkeProdaje;
+            else
+                dgIspisStavki.ItemsSource = akcija.NamestajPopust;
             dgIspisStavki.SelectedIndex = 0;
         }
 

@@ -16,7 +16,6 @@ namespace PoP.Model
         private int id;
         private string naziv;
         private double cena;
-        private int tipNamestajaId;
         private bool obrisan;
         private string sifra;
         private int kolicina;
@@ -25,17 +24,11 @@ namespace PoP.Model
         public TipNamestaja TipNamestaja
         {
             get {
-                if (tipNamestaja == null)
-                {
-                    tipNamestaja=TipNamestaja.PronadjiTip(TipNamestajaId);
-                }
                 return tipNamestaja;
-
             }
             set
             {
                 tipNamestaja = value;
-                TipNamestajaId = tipNamestaja.Id;
                 OnPropertyChanged("TipNamestaja");
             }
         }
@@ -69,17 +62,6 @@ namespace PoP.Model
                 OnPropertyChanged("Obrisan");
             }
         }
-
-
-        public int TipNamestajaId
-        {
-            get { return tipNamestajaId; }
-            set {
-                tipNamestajaId = value;
-                OnPropertyChanged("TipNamestajaId");
-            }
-        }
-
 
         public double Cena
         {

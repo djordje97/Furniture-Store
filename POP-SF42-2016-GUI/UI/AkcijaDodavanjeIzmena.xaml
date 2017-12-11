@@ -6,18 +6,19 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:POP_SF42_2016_GUI.UI"
         mc:Ignorable="d"
-        Title="AkcijaDodavanjeIzmena" Height="340" Width="543" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="AkcijaDodavanjeIzmena" Height="460" Width="632" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Background="#FF0066CC">
         <Label Content="Pocetak akcije:" HorizontalAlignment="Left" Height="33" Margin="69,46,0,0" VerticalAlignment="Top" Width="122" Foreground="White" FontSize="16"/>
         <DatePicker x:Name="dpPocetak"   SelectedDate="{Binding Path=PocetakAkcije, StringFormat=dd/MM/yyyy}" HorizontalAlignment="Left" Height="33" Margin="191,46,0,0" VerticalAlignment="Top" Width="145" FirstDayOfWeek="Monday"/>
         <Label Content="Kraj akcije:" HorizontalAlignment="Left" Height="33" Margin="69,94,0,0" VerticalAlignment="Top" Width="122" FontSize="16" Foreground="White"/>
         <DatePicker x:Name="dpKraj" SelectedDate="{Binding Path=KrajAkcije,StringFormat=dd/MM/yyyy}" HorizontalAlignment="Left" Height="33" Margin="191,94,0,0" VerticalAlignment="Top" Width="145"/>
-        <Label Content="Namestaj:" HorizontalAlignment="Left" Height="33" Margin="88,132,0,0" VerticalAlignment="Top" Width="103" FontSize="16" Foreground="White"/>
-        <ComboBox x:Name="cbNamestaj"  SelectedItem="{Binding Path=NamestajPopust}" HorizontalAlignment="Left" Height="27" Margin="191,138,0,0" VerticalAlignment="Top" Width="150"/>
-        <Label Content="Popust:" HorizontalAlignment="Left" Height="33" Margin="98,182,0,0" VerticalAlignment="Top" Width="88" Foreground="White" FontSize="16"/>
-        <TextBox x:Name="tbPopust" Text="{Binding Path=Popust}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="33" Margin="191,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
-        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="33" Margin="155,247,0,0" VerticalAlignment="Top" Width="90" IsDefault="True" Click="Potvrdi"/>
-        <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="33" Margin="275,247,0,0" VerticalAlignment="Top" Width="90" IsCancel="True"/>
+        <Label Content="Popust:" HorizontalAlignment="Left" Height="33" Margin="140,329,0,0" VerticalAlignment="Top" Width="88" Foreground="White" FontSize="16"/>
+        <TextBox x:Name="tbPopust" Text="{Binding Path=Popust}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="33" Margin="233,329,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="33" Margin="191,388,0,0" VerticalAlignment="Top" Width="90" IsDefault="True" Click="Potvrdi"/>
+        <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="33" Margin="324,388,0,0" VerticalAlignment="Top" Width="90" IsCancel="True"/>
+        <DataGrid x:Name="dgNamestajAkcija" CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*" HorizontalAlignment="Left" Height="184" Margin="79,140,0,0" VerticalAlignment="Top" Width="386" AutoGeneratingColumn="dgNamestajAkcija_AutoGeneratingColumn"/>
+        <Button x:Name="btnDodaj" Content="Dodaj" HorizontalAlignment="Left" Height="33" Margin="485,140,0,0" VerticalAlignment="Top" Width="92" Click="btnDodaj_Click"/>
+        <Button x:Name="btnUkloni" Content="Ukloni" HorizontalAlignment="Left" Height="33" Margin="485,190,0,0" VerticalAlignment="Top" Width="92" Click="btnUkloni_Click"/>
 
     </Grid>
 </Window>

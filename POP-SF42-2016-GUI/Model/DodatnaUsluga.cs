@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -75,6 +76,33 @@ namespace PoP.Model
                     return usluga;
                 }
 
+            }
+            return null;
+        }
+        public static ObservableCollection<DodatnaUsluga> PronadjiUsluge(List<int> id)
+        {
+            ObservableCollection<DodatnaUsluga> lista = new ObservableCollection<DodatnaUsluga>();
+            if (id != null)
+            {
+                for (int i = 0; i < id.Count; i++)
+                {
+
+                    lista.Add(PronadjiUslugu(id[i]));
+                }
+                return lista;
+            }
+            return null;
+        }
+        public static List<int> PronadjiIdove(ObservableCollection<DodatnaUsluga> stavke)
+        {
+            var lista = new List<int>();
+            if (stavke != null)
+            {
+                for (int i = 0; i < stavke.Count; i++)
+                {
+                    lista.Add(stavke[i].Id);
+                }
+                return lista;
             }
             return null;
         }

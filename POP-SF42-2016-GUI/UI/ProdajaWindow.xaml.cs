@@ -35,16 +35,22 @@ namespace POP_SF42_2016_GUI.UI
             this.prodaja = prodaja;
             this.operacija = operacija;
             dgStavke.ItemsSource = prodaja.StavkeProdaje;
+            dgUsluge.ItemsSource = prodaja.DodatneUsluge;
             tbKupac.DataContext = prodaja;
             dpDatum.DataContext = prodaja;
-    }
+
+
+        }
 
         private void DodajStavku(object sender, RoutedEventArgs e)
         {
             StavkaProdaje stavka = new StavkaProdaje();
             StavkeWindow st = new StavkeWindow(stavka,StavkeWindow.Operacija.DODAVANJE);
             if (st.ShowDialog() == true)
+            {
                 prodaja.StavkeProdaje.Add(st.Stavka);
+                prodaja.StavkaProdajeId.Add(st.Stavka.Id);
+            }
         }
 
         private void Potvrdi(object sender, RoutedEventArgs e)
@@ -52,6 +58,7 @@ namespace POP_SF42_2016_GUI.UI
             Random rn = new Random();
             this.DialogResult = true;
             var lista = Projekat.Instance.Prodaja;
+            
             if (operacija == Operacija.DODAVANJE)
             {
                 prodaja.Id = lista.Count + 1;
@@ -65,7 +72,7 @@ namespace POP_SF42_2016_GUI.UI
 
         private void dgStavke_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if((string)e.Column.Header== "DodatnaUslugaId" || (string)e.Column.Header == "NamestajProdajaId" || (string)e.Column.Header == "Id"
+            if((string)e.Column.Header == "NamestajProdajaId" || (string)e.Column.Header == "Id"
                 ||(string)e.Column.Header == "Obrisan")
             {
                 e.Cancel = true;
@@ -77,6 +84,28 @@ namespace POP_SF42_2016_GUI.UI
             StavkaProdaje izabrana = dgStavke.SelectedItem as StavkaProdaje;
             prodaja.StavkeProdaje.Remove(izabrana);
 
+        }
+
+        private void btnDodajU_Click(object sender, RoutedEventArgs e)
+        {
+            PreuzmiUslugu pu = new PreuzmiUslugu();
+            if (pu.ShowDialog() == true)
+            {
+                prodaja.DodatneUsluge.Add(pu.Usluge);
+                prodaja.DodatnaUslugaId.Add(pu.Usluge.Id);
+            }
+        }
+
+        private void btnObisiU_Click(object sender, RoutedEventArgs e)
+        {
+            var izabrana = dgUsluge.SelectedItem as DodatnaUsluga;
+            prodaja.DodatneUsluge.Remove(izabrana);
+        }
+
+        private void dgUsluge_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if ((string)e.Column.Header == "Id" || (string)e.Column.Header=="Obrisan")
+                e.Cancel = true;
         }
     }
 }

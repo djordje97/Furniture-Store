@@ -70,40 +70,7 @@ namespace POP_SF42_2016_GUI.Model
             
         }
 
-        private int dodatnaUslugaId;
-
-        public int DodatnaUslugaId
-
-        {
-            get { return dodatnaUslugaId; }
-            set
-            {
-                dodatnaUslugaId = value;
-                OnPropertyChanged("DodatneUslugaId");
-            }
-        }
-
-        private DodatnaUsluga dodatneUsluge;
-        [XmlIgnore]
-        public DodatnaUsluga DodatneUsluge
-        {
-            get
-            {
-                if (dodatneUsluge == null)
-                {
-                 
-                        dodatneUsluge=DodatnaUsluga.PronadjiUslugu(DodatnaUslugaId);
-                }
-                return dodatneUsluge;
-            }
-            set
-            {
-                dodatneUsluge = value;
-              
-                    dodatnaUslugaId = dodatneUsluge.Id;
-                OnPropertyChanged("DodatneUsluge");
-            }
-        }
+      
         private bool obrisan;
 
         public bool Obrisan

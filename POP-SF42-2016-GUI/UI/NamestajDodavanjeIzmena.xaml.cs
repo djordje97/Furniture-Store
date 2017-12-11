@@ -1,7 +1,9 @@
 ﻿using PoP.Model;
 using PoP.Util;
+using POP_SF42_2016_GUI.DAO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +28,7 @@ namespace POP_SF42_2016_GUI.UI
             DODAVANJE,
             IZMENA
         };
-        private Namestaj namestaj;
+        public Namestaj namestaj;
         private Operacija operacija;
         public NamestajDodavanjeIzmena(Namestaj namestaj ,Operacija operacija)
         {
@@ -38,25 +40,22 @@ namespace POP_SF42_2016_GUI.UI
             tbCenaNamestaja.DataContext = namestaj;
             tbSifraNamestaja.DataContext = namestaj;
             tbKolicinaNamestaja.DataContext = namestaj;
-            cbTipNamestaja.ItemsSource = Projekat.Instance.TipNamestaja;
+            cbTipNamestaja.ItemsSource = TipNamestajaDAO.SviTipovi();
             cbTipNamestaja.DataContext = namestaj;
         }
-
+      
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
            
                 this.DialogResult = true;
-                var lista = Projekat.Instance.Namestaj;
                 var izabraniTip = (TipNamestaja)cbTipNamestaja.SelectedItem;
 
 
                 if (operacija == Operacija.DODAVANJE)
                 {
-                    namestaj.Id = lista.Count + 1;
-                    lista.Add(namestaj);
+                NamestajDAO.DodavanjeNamestaja(namestaj);
                 }
                 
-                GenericSerializer.Serialize("namestaj.xml",lista);
                 Close();
         }
     }

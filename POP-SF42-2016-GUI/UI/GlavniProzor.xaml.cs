@@ -1,5 +1,6 @@
 ﻿using PoP.Model;
 using PoP.Util;
+using POP_SF42_2016_GUI.DAO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,6 +34,7 @@ namespace POP_SF42_2016_GUI.UI
             InitializeComponent();
             ProveraprijavljenogKorisnika();
             dgPrikaz.IsSynchronizedWithCurrentItem = true;
+            dgPrikaz.SelectedIndex = 0;
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;
 
@@ -42,9 +44,7 @@ namespace POP_SF42_2016_GUI.UI
         private void NamestajMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "Namestaj";
-            view = CollectionViewSource.GetDefaultView(Projekat.Instance.Namestaj);
-            view.Filter = NamestajIspis;
-            dgPrikaz.ItemsSource = view;
+            NamestajIspis();
             btnIzmeni.Content = "Izmeni";
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;
@@ -55,9 +55,7 @@ namespace POP_SF42_2016_GUI.UI
         private void DodatneUslugeMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "DodatneUsluge";
-            view = CollectionViewSource.GetDefaultView(Projekat.Instance.DodatneUsluge);
-            view.Filter = UslugaIspis;
-            dgPrikaz.ItemsSource = view;
+            UslugaIspis();
             btnIzmeni.Content = "Izmeni";
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;
@@ -66,9 +64,7 @@ namespace POP_SF42_2016_GUI.UI
         private void TipoviNamestajaMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "TipoviNamestaja";
-            view = CollectionViewSource.GetDefaultView(Projekat.Instance.TipNamestaja);
-            view.Filter = TipNamestajaIspis;
-            dgPrikaz.ItemsSource =view;
+            TipNamestajaIspis();
             btnIzmeni.Content = "Izmeni";
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;
@@ -83,26 +79,25 @@ namespace POP_SF42_2016_GUI.UI
             btnIzmeni.Content = "Storniraj";
             btnObrisi.Visibility = Visibility.Hidden;
             btnIzlistajStavke.Visibility = Visibility.Visible;
+            btnIzlistajStavke.Content = "Izlistaj Stavke";
           
         }
 
         private void AkcijeMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "Akcije";
-            view = CollectionViewSource.GetDefaultView(Projekat.Instance.Akcije);
-            view.Filter = AkcijaIspis;
-            dgPrikaz.ItemsSource =view;
+            AkcijaIspis();
             btnIzmeni.Content = "Izmeni";
-            btnIzlistajStavke.Visibility = Visibility.Hidden;
+            btnIzlistajStavke.Visibility = Visibility.Visible;
+            btnIzlistajStavke.Content = "Izlistaj Namestaj";
             btnObrisi.Visibility = Visibility.Visible;
+
         }
 
         private void KorisniciMeni(object sender, RoutedEventArgs e)
         {
             TrenutnoAktivno = "Korisnici";
-            view = CollectionViewSource.GetDefaultView(Projekat.Instance.Korisnici);
-            view.Filter = KorisnikIspis;
-            dgPrikaz.ItemsSource = view;
+            KorisnikIspis();
             btnIzmeni.Content = "Izmeni";
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;
@@ -124,29 +119,45 @@ namespace POP_SF42_2016_GUI.UI
            
          
         }
-        public bool NamestajIspis(object obj)
+        public void NamestajIspis()
         {
-            return ((Namestaj)obj).Obrisan == false;
+            view = CollectionViewSource.GetDefaultView(NamestajDAO.SavNamestaj());
+            dgPrikaz.ItemsSource = view;
         }
-        public bool TipNamestajaIspis(object obj)
+        public void TipNamestajaIspis()
         {
-            return ((TipNamestaja)obj).Obrisan == false;
+            view = CollectionViewSource.GetDefaultView(TipNamestajaDAO.SviTipovi());
+            dgPrikaz.ItemsSource = view;
         }
-        public bool KorisnikIspis(object obj)
+        public void KorisnikIspis()
         {
-            return ((Korisnik)obj).Obrisan == false;
+            
+            view = CollectionViewSource.GetDefaultView(KorisnikDAO.SviKorisnici());
+            dgPrikaz.ItemsSource = view;
         }
-        public bool UslugaIspis(object obj)
+        public void UslugaIspis()
         {
-            return ((DodatnaUsluga)obj).Obrisan == false;
+            view = CollectionViewSource.GetDefaultView(UslugeDAO.SveUsluge());
+            dgPrikaz.ItemsSource = view;
         }
         public bool ProdajaIspis(object obj)
         {
             return ((ProdajaNamestaja)obj).Obrisan == false;
         }
-        public bool AkcijaIspis(object obj)
+        public void AkcijaIspis()
         {
-            return ((Akcija)obj).Obrisan == false;
+            var akcije = AkcijaDAO.SveAkcije();
+            var trenutni = akcije[0];
+            for(int i = 0; i < akcije.Count; i++)
+            {
+                if (akcije[i].PocetakAkcije == trenutni.PocetakAkcije && akcije[i].KrajAkcije == trenutni.KrajAkcije)
+                {
+                    akcije.Remove(trenutni);
+                    trenutni = akcije[i];
+                }
+            }
+            view = CollectionViewSource.GetDefaultView(akcije);
+            dgPrikaz.ItemsSource = view;
         }
 
 
@@ -159,26 +170,31 @@ namespace POP_SF42_2016_GUI.UI
                     Namestaj noviNamestaj = new Namestaj();
                     NamestajDodavanjeIzmena ndi = new NamestajDodavanjeIzmena(noviNamestaj, NamestajDodavanjeIzmena.Operacija.DODAVANJE);
                     ndi.ShowDialog();
+                    NamestajIspis();
                     break;
                 case "TipoviNamestaja":
                     TipNamestaja noviTip = new TipNamestaja();
                     TipNamestajaDodavanejIzmena tdi = new TipNamestajaDodavanejIzmena(noviTip, TipNamestajaDodavanejIzmena.Operacija.DODAVANJE);
                     tdi.ShowDialog();
+                    TipNamestajaIspis();
                     break;
                 case "DodatneUsluge":
                     DodatnaUsluga usluga = new DodatnaUsluga();
                     DodatneUslugeDodavanjeIzmena ddi = new DodatneUslugeDodavanjeIzmena(usluga,DodatneUslugeDodavanjeIzmena.Operacija.DODAVANJE);
                     ddi.ShowDialog();
+                    UslugaIspis();
                     break;
                 case "Korisnici":
                     Korisnik korisnik = new Korisnik();
                     DodavanjeIzmenaKorisnik dik = new DodavanjeIzmenaKorisnik(korisnik, DodavanjeIzmenaKorisnik.Operacija.DODAVANJE);
                     dik.ShowDialog();
+                    KorisnikIspis();
                     break;
                 case "Akcije":
                     Akcija akcija = new Akcija();
                     AkcijaDodavanjeIzmena dia = new AkcijaDodavanjeIzmena(akcija, AkcijaDodavanjeIzmena.Operacija.DODAVANJE);
                     dia.ShowDialog();
+                    AkcijaIspis();
                     break;
                 case "Prodaja":
                     ProdajaNamestaja prodaja = new ProdajaNamestaja();
@@ -197,60 +213,57 @@ namespace POP_SF42_2016_GUI.UI
                 case "Namestaj":
                     Namestaj namestajIzmena = dgPrikaz.SelectedItem as Namestaj;
                     Namestaj namestajKopija = (Namestaj)namestajIzmena.Clone();
-                    NamestajDodavanjeIzmena ndi = new NamestajDodavanjeIzmena(namestajIzmena, NamestajDodavanjeIzmena.Operacija.IZMENA);
-                    if (ndi.ShowDialog() != true) 
+                    NamestajDodavanjeIzmena ndi = new NamestajDodavanjeIzmena(namestajKopija, NamestajDodavanjeIzmena.Operacija.IZMENA);
+                    if (ndi.ShowDialog() == true) 
                     {
+                        NamestajDAO.IzmenaNamestaja(ndi.namestaj);
 
-
-                        int index = Projekat.Instance.Namestaj.IndexOf(namestajIzmena);
-                        Projekat.Instance.Namestaj[index]= namestajKopija;
                     }
+                    NamestajIspis();
                     break;
                 case "TipoviNamestaja":
                     TipNamestaja tipIzmena = dgPrikaz.SelectedItem as TipNamestaja;
                     TipNamestaja kopija = (TipNamestaja)tipIzmena.Clone();
-                    TipNamestajaDodavanejIzmena tdi = new TipNamestajaDodavanejIzmena(tipIzmena, TipNamestajaDodavanejIzmena.Operacija.IZMENA);
-                    if (tdi.ShowDialog() != true)
+                    TipNamestajaDodavanejIzmena tdi = new TipNamestajaDodavanejIzmena(kopija, TipNamestajaDodavanejIzmena.Operacija.IZMENA);
+                    if (tdi.ShowDialog() == true)
                     {
-
-
-                        int index = Projekat.Instance.TipNamestaja.IndexOf(tipIzmena);
-                        Projekat.Instance.TipNamestaja[index] = kopija;
+                        TipNamestajaDAO.IzmenaTipa(tdi.tipNamestaja);
                     }
+                    TipNamestajaIspis();
                     break;
                 case "DodatneUsluge":
                     DodatnaUsluga usluga = dgPrikaz.SelectedItem as DodatnaUsluga;
                     DodatnaUsluga kopijaUsluge = (DodatnaUsluga)usluga.Clone();
-                    DodatneUslugeDodavanjeIzmena ddi = new DodatneUslugeDodavanjeIzmena(usluga, DodatneUslugeDodavanjeIzmena.Operacija.IZMENA);
-                    if (ddi.ShowDialog() != true)
+                    DodatneUslugeDodavanjeIzmena ddi = new DodatneUslugeDodavanjeIzmena(kopijaUsluge, DodatneUslugeDodavanjeIzmena.Operacija.IZMENA);
+                    if (ddi.ShowDialog() == true)
                     {
 
 
-                        int index = Projekat.Instance.DodatneUsluge.IndexOf(usluga);
-                        Projekat.Instance.DodatneUsluge[index] = kopijaUsluge;
+                        UslugeDAO.IzmenaUsluge(ddi.dodatneUsluga);
                     }
+                    UslugaIspis();
                     break;
                 case "Korisnici":
                     Korisnik korisnik= dgPrikaz.SelectedItem as Korisnik;
                     Korisnik kopijaKorisnika = (Korisnik)korisnik.Clone();
-                    DodavanjeIzmenaKorisnik dik = new DodavanjeIzmenaKorisnik(korisnik, DodavanjeIzmenaKorisnik.Operacija.IZMENA);
-                    if (dik.ShowDialog() != true)
+                    DodavanjeIzmenaKorisnik dik = new DodavanjeIzmenaKorisnik(kopijaKorisnika, DodavanjeIzmenaKorisnik.Operacija.IZMENA);
+                    if (dik.ShowDialog() == true)
                     {
 
 
-                        int index = Projekat.Instance.Korisnici.IndexOf(korisnik);
-                        Projekat.Instance.Korisnici[index] = kopijaKorisnika;
+                        KorisnikDAO.IzmenaKorisnika(dik.korisnik);
                     }
+                    KorisnikIspis();
                     break;
                 case "Akcije":
                     Akcija akcija = dgPrikaz.SelectedItem as Akcija;
                     Akcija kopijaAkcije = (Akcija)akcija.Clone();
-                    AkcijaDodavanjeIzmena dia = new AkcijaDodavanjeIzmena(akcija, AkcijaDodavanjeIzmena.Operacija.IZMENA);
-                    if (dia.ShowDialog() != true)
+                    AkcijaDodavanjeIzmena dia = new AkcijaDodavanjeIzmena(kopijaAkcije, AkcijaDodavanjeIzmena.Operacija.IZMENA);
+                    if (dia.ShowDialog() == true)
                     {
-                        int index = Projekat.Instance.Akcije.IndexOf(akcija);
-                        Projekat.Instance.Akcije[index] = kopijaAkcije;
+                        AkcijaDAO.IzmenaAkcije(dia.akcija);
                     }
+                    AkcijaIspis();
                     break;
                 case "Prodaja":
                     ProdajaNamestaja prodaja = dgPrikaz.SelectedItem as ProdajaNamestaja;
@@ -274,42 +287,36 @@ namespace POP_SF42_2016_GUI.UI
                 case "Namestaj":
                     var list=Projekat.Instance.Namestaj;
                     Namestaj namestajBrisanje = dgPrikaz.SelectedItem as Namestaj;
-                    if(MessageBox.Show("Da li ste sigurni?","Potvrda",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
-                    namestajBrisanje.Obrisan = true;
-                    GenericSerializer.Serialize("namestaj.xml", list);
-                    view.Refresh();
+                    if (MessageBox.Show("Da li ste sigurni?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        NamestajDAO.BrisanjeNamestaja(namestajBrisanje);
+                    NamestajIspis();
                     break;
                 case "TipoviNamestaja":
                  var lista = Projekat.Instance.TipNamestaja;
                     TipNamestaja tip= dgPrikaz.SelectedItem as TipNamestaja;
                     if (MessageBox.Show("Da li ste sigurni?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        tip.Obrisan = true;
-                    GenericSerializer.Serialize("tip_namestaja.xml", lista);
-                    view.Refresh();
+                        TipNamestajaDAO.BrisanjeTipa(tip);
+                    TipNamestajaIspis();
                     break;
                 case "DodatneUsluge":
-                    var listaUsluga = Projekat.Instance.DodatneUsluge;
                     DodatnaUsluga uslugaBrisanje = dgPrikaz.SelectedItem as DodatnaUsluga;
                     if (MessageBox.Show("Da li ste sigurni?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        uslugaBrisanje.Obrisan = true;
-                    GenericSerializer.Serialize("dodatne_uslge.xml", listaUsluga);
-                    view.Refresh();
+                    UslugeDAO.BrisanjeUsluge(uslugaBrisanje);
+                    UslugaIspis();
                     break;
                 case "Korisnici":
                     var listaKorisnika = Projekat.Instance.Korisnici;
                     var korisnikBrisanje = dgPrikaz.SelectedItem as Korisnik;
                     if (MessageBox.Show("Da li ste sigurni?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        korisnikBrisanje.Obrisan = true;
-                    GenericSerializer.Serialize("korisnici.xml", listaKorisnika);
-                    view.Refresh();
+                        KorisnikDAO.BrisanjeKorisnika(korisnikBrisanje);
+                        KorisnikIspis();
                     break;
                 case "Akcije":
                     var listaAkcija = Projekat.Instance.Akcije;
                     Akcija akcijaBrisanje = dgPrikaz.SelectedItem as Akcija;
                     if (MessageBox.Show("Da li ste sigurni?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        akcijaBrisanje.Obrisan = true;
-                    GenericSerializer.Serialize("akcije.xml", listaAkcija);
-                    view.Refresh();
+                        AkcijaDAO.BrisanjeAkcije(akcijaBrisanje);
+                    AkcijaIspis();
                     break;
                 case "Prodaja":
                     var listaProdaja = Projekat.Instance.Prodaja;
@@ -328,7 +335,7 @@ namespace POP_SF42_2016_GUI.UI
         {
             if ((string)e.Column.Header == "Id" || (string)e.Column.Header == "Obrisan" ||(string)e.Column.Header== "NamestajProdajaId" || (string)e.Column.Header== "DodatneUslugaId"
                 || (string)e.Column.Header == "StavkaProdajeId" || (string)e.Column.Header == "TipNamestajaId" || (string)e.Column.Header == "NamestajPopustId"
-                || (string)e.Column.Header == "StavkeProdaje")
+                || (string)e.Column.Header == "StavkeProdaje" || (string)e.Column.Header == "NamestajPopust"  || (string)e.Column.Header == "DodatnaUslugaId" || (string)e.Column.Header == "DodatneUsluge")
 
             {
                 e.Cancel = true;
@@ -338,8 +345,18 @@ namespace POP_SF42_2016_GUI.UI
         private void Izlistaj(object sender, RoutedEventArgs e)
         {
             ProdajaNamestaja pn = dgPrikaz.SelectedItem as ProdajaNamestaja;
-            IzlistajStavke izs = new IzlistajStavke(pn);
-            izs.ShowDialog();
+            Akcija a = dgPrikaz.SelectedItem as Akcija;
+            if(a == null)
+            {
+                IzlistajStavke izs = new IzlistajStavke(pn,null);
+                izs.ShowDialog();
+            }
+            else
+            {
+                IzlistajStavke izs = new IzlistajStavke(null,a);
+                izs.ShowDialog();
+            }
+               
         }
     }
 }

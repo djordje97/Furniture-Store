@@ -78,20 +78,15 @@ namespace PoP.Model
                 OnPropertyChanged("NamestajPopustId");
             }
         }
-        private Namestaj namestajPopust;
+        private ObservableCollection<Namestaj> namestajPopust;
         [XmlIgnore]
-        public Namestaj NamestajPopust
+        public ObservableCollection<Namestaj> NamestajPopust
         {
             get {
-                if (namestajPopust == null)
-                {
-                    namestajPopust = Namestaj.PronadjiNamestaj(NamestajPopustId);
-                }
                 return namestajPopust;
             }
             set {
                 namestajPopust = value;
-                NamestajPopustId = namestajPopust.Id;
                 OnPropertyChanged("NamestajPopust");
             }
         }
@@ -99,6 +94,8 @@ namespace PoP.Model
         {
             pocetakAkcije = DateTime.Now;
             krajAkcije = DateTime.Now;
+            namestajPopust = new ObservableCollection<Namestaj>();
+            
         }
 
 
@@ -110,7 +107,7 @@ namespace PoP.Model
             {
 
 
-                string ispis = $"{Id}. {PocetakAkcije} {KrajAkcije} {Popust} {namestajPopust.Naziv}";
+                string ispis = $"{Id}. {PocetakAkcije} {KrajAkcije} {Popust} ";
                 return ispis;
             }
             return null;
