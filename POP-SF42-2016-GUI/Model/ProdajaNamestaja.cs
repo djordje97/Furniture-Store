@@ -16,10 +16,8 @@ namespace PoP.Model
         public ProdajaNamestaja()
         {
            datumProdaje = DateTime.Today;
-           stavkeProdaje = new ObservableCollection<StavkaProdaje>();
-           stavkaProdajeId = new List<int>();
+            stavkeProdaje = new ObservableCollection<StavkaProdaje>();
            dodatneUsluge = new ObservableCollection<DodatnaUsluga>();
-           dodatnaUslugaId = new List<int>();
         }
         private int id;
 
@@ -32,22 +30,6 @@ namespace PoP.Model
                 OnPropertyChanged("Id");
             }
         }
-        private List<int> stavkaProdajeId;
- 
-        public List<int> StavkaProdajeId
-
-        {
-            get
-            {
-                return stavkaProdajeId;
-            }
-            set
-
-            {
-                stavkaProdajeId = value;
-                OnPropertyChanged("StavkaProdajeId");
-            }
-        }
 
      private ObservableCollection<StavkaProdaje> stavkeProdaje;
         [XmlIgnore]
@@ -55,19 +37,12 @@ namespace PoP.Model
         {
             get
             {
-                if (stavkeProdaje.Count==0)
-                {
-                    stavkeProdaje = StavkaProdaje.PronadjiStavke(stavkaProdajeId);
-                }
-        
-                return stavkeProdaje;
+           
+               return stavkeProdaje;
             }
             set
             {
                 stavkeProdaje = value;
-                if (stavkeProdaje != null)
-
-                    stavkaProdajeId = StavkaProdaje.PronadjiIdove(stavkeProdaje);
                 OnPropertyChanged("StavkeProdaje");
             }
         }
@@ -138,18 +113,6 @@ namespace PoP.Model
                 OnPropertyChanged("Obrisan");
             }
         }
-        private List<int> dodatnaUslugaId;
-
-        public List<int> DodatnaUslugaId
-
-        {
-            get { return dodatnaUslugaId; }
-            set
-            {
-                dodatnaUslugaId = value;
-                OnPropertyChanged("DodatneUslugaId");
-            }
-        }
 
         private ObservableCollection<DodatnaUsluga> dodatneUsluge;
         [XmlIgnore]
@@ -157,19 +120,12 @@ namespace PoP.Model
         {
             get
             {
-                if (dodatneUsluge.Count==0)
-                {
-
-                    dodatneUsluge = DodatnaUsluga.PronadjiUsluge(DodatnaUslugaId);
-                }
+          
                 return dodatneUsluge;
             }
             set
             {
                 dodatneUsluge = value;
-
-                if (dodatneUsluge != null)
-                    dodatnaUslugaId = DodatnaUsluga.PronadjiIdove(dodatneUsluge);
                 OnPropertyChanged("DodatneUsluge");
             }
         }
@@ -211,9 +167,11 @@ namespace PoP.Model
             ProdajaNamestaja kopija = new ProdajaNamestaja();
             kopija.Id = id;
             kopija.Kupac = kupac;
+            kopija.DatumProdaje = DatumProdaje;
             kopija.UkupanIznos = ukupanIznos;
             kopija.BrojRacuna = brojRacuna;
             kopija.StavkeProdaje = stavkeProdaje;
+            kopija.DodatneUsluge = DodatneUsluge;
             return kopija;
         }
     }

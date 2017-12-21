@@ -36,8 +36,7 @@ namespace POP_SF42_2016_GUI
       
         private void Login(object sender, RoutedEventArgs e)
         {
-            //var korisnici = Projekat.Instance.Korisnici;
-            var korisnici = KorisnikDAO.SviKorisnici();
+            var korisnici = Projekat.Instance.Korisnici;
             foreach (var korisnik in korisnici)
             {
                 var userName = tbUsername.Text.Trim();

@@ -135,6 +135,7 @@ namespace PoP.Model
         public object Clone()
         {
             Korisnik kopija = new Korisnik();
+            kopija.Id = Id;
             kopija.Ime = Ime;
             kopija.Prezime = Prezime;
             kopija.Korisnicko_Ime = Korisnicko_Ime;

@@ -36,11 +36,12 @@ namespace POP_SF42_2016_GUI.UI
          
             this.namestaj = namestaj;
             this.operacija = operacija;
+            cbTipNamestaja.ItemsSource = Projekat.Instance.TipNamestaja;
+
             tbNazivNamestaja.DataContext = namestaj;
             tbCenaNamestaja.DataContext = namestaj;
             tbSifraNamestaja.DataContext = namestaj;
             tbKolicinaNamestaja.DataContext = namestaj;
-            cbTipNamestaja.ItemsSource = TipNamestajaDAO.SviTipovi();
             cbTipNamestaja.DataContext = namestaj;
         }
       
@@ -49,13 +50,11 @@ namespace POP_SF42_2016_GUI.UI
            
                 this.DialogResult = true;
                 var izabraniTip = (TipNamestaja)cbTipNamestaja.SelectedItem;
-
-
                 if (operacija == Operacija.DODAVANJE)
-                {
-                NamestajDAO.DodavanjeNamestaja(namestaj);
+                { 
+                    NamestajDAO.DodavanjeNamestaja(namestaj);
                 }
-                
+                 NamestajDAO.IzmenaNamestaja(namestaj);
                 Close();
         }
     }

@@ -47,7 +47,7 @@ namespace POP_SF42_2016_GUI.UI
             {
                AkcijaDAO.DodavanjeAkcije(akcija);
             }
-          
+            AkcijaDAO.IzmenaAkcije(akcija);
             Close();
         }
 
@@ -56,14 +56,16 @@ namespace POP_SF42_2016_GUI.UI
             PreuzmiNamestaj pn = new PreuzmiNamestaj();
             if (pn.ShowDialog() == true)
             {
-                akcija.NamestajPopust.Add(pn.Namestaj);
+                //akcija.NamestajPopust.Add(pn.Namestaj);
+                akcija = AkcijaDAO.DodavanjeNaAkciju(akcija, pn.Namestaj);
             }
         }
 
         private void btnUkloni_Click(object sender, RoutedEventArgs e)
         {
             var izabrana = dgNamestajAkcija.SelectedItem as Namestaj;
-            akcija.NamestajPopust.Remove(izabrana);
+            // akcija.NamestajPopust.Remove(izabrana);
+            akcija = AkcijaDAO.BrisanjeSaAkcije(akcija, izabrana);
         }
 
         private void dgNamestajAkcija_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

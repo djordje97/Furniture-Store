@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:POP_SF42_2016_GUI.UI"
         mc:Ignorable="d"
-        Title="IzlistajStavke" Height="335" Width="625" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="IzlistajStavke" Height="401" Width="443" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Background="#FF0066CC">
-        <DataGrid x:Name="dgIspisStavki" ColumnWidth="*" CanUserAddRows="False" CanUserResizeColumns="False" HorizontalAlignment="Left" Height="193" VerticalAlignment="Top" Width="617" AutoGeneratingColumn="dgIspisStavki_AutoGeneratingColumn"/>
-        <Button x:Name="btnIzadji" Content="Izadji" HorizontalAlignment="Left" Height="41" Margin="220,245,0,0" VerticalAlignment="Top" Width="154" Click="Izlaz"/>
+        <Button x:Name="btnIzadji" Content="Izadji" HorizontalAlignment="Left" Height="41" Margin="139,321,0,0" VerticalAlignment="Top" Width="154" Click="Izlaz"/>
+        <TextBlock x:Name="tbIspis" HorizontalAlignment="Left" Height="316" TextWrapping="Wrap" VerticalAlignment="Top" Width="437" Background="White"/>
 
     </Grid>
 </Window>

@@ -46,19 +46,12 @@ namespace POP_SF42_2016_GUI.UI
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-            var lista = KorisnikDAO.SviKorisnici();
             var tip_korisnika =(TipKorisnika) cbTipKorisnika.SelectedItem;
             if (operacija == Operacija.DODAVANJE)
             {
-                
-
-                lista.Add(korisnik);
-                KorisnikDAO.DodavanjeKorisnika(korisnik);
+               KorisnikDAO.DodavanjeKorisnika(korisnik);
             }
-      
-            
-          
-           
+            KorisnikDAO.IzmenaKorisnika(korisnik);
             Close();
         }
 

@@ -144,6 +144,7 @@ namespace PoP.Model
             kopija.Popust= Popust;
             return kopija;
         }
+
     }
 
  

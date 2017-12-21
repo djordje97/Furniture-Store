@@ -1,5 +1,6 @@
 ﻿using PoP.Model;
 using PoP.Util;
+using POP_SF42_2016_GUI.DAO;
 using POP_SF42_2016_GUI.Model;
 using System;
 using System.Collections.Generic;
@@ -48,8 +49,7 @@ namespace POP_SF42_2016_GUI.UI
             StavkeWindow st = new StavkeWindow(stavka,StavkeWindow.Operacija.DODAVANJE);
             if (st.ShowDialog() == true)
             {
-                prodaja.StavkeProdaje.Add(st.Stavka);
-                prodaja.StavkaProdajeId.Add(st.Stavka.Id);
+                prodaja=ProdajaDAO.DodajStavku(prodaja, st.Stavka);
             }
         }
 
@@ -57,16 +57,15 @@ namespace POP_SF42_2016_GUI.UI
         {
             Random rn = new Random();
             this.DialogResult = true;
-            var lista = Projekat.Instance.Prodaja;
-            
+            prodaja.UkupanIznos = prodaja.StavkeProdaje.Sum(item => item.Cena) + prodaja.DodatneUsluge.Sum(item => item.Cena);
             if (operacija == Operacija.DODAVANJE)
             {
-                prodaja.Id = lista.Count + 1;
+              
                 prodaja.BrojRacuna = rn.Next(100,10000);
-                prodaja.UkupanIznos = prodaja.StavkeProdaje.Sum(item => item.Cena);
-                lista.Add(prodaja);
+                ProdajaDAO.DodajProdaju(prodaja);
             }
-            GenericSerializer.Serialize("prodaja_namestaja.xml", lista);
+            ProdajaDAO.IzmenaProdaje(prodaja);
+           
             this.Close();
         }
 
@@ -82,7 +81,7 @@ namespace POP_SF42_2016_GUI.UI
         private void UkloniStavku(object sender, RoutedEventArgs e)
         {
             StavkaProdaje izabrana = dgStavke.SelectedItem as StavkaProdaje;
-            prodaja.StavkeProdaje.Remove(izabrana);
+            prodaja=ProdajaDAO.ObrisiStavku(prodaja, izabrana);
 
         }
 
@@ -91,8 +90,9 @@ namespace POP_SF42_2016_GUI.UI
             PreuzmiUslugu pu = new PreuzmiUslugu();
             if (pu.ShowDialog() == true)
             {
-                prodaja.DodatneUsluge.Add(pu.Usluge);
-                prodaja.DodatnaUslugaId.Add(pu.Usluge.Id);
+               
+                prodaja = ProdajaDAO.DodajUslugu(prodaja, pu.Usluge);
+              
             }
         }
 
@@ -100,6 +100,7 @@ namespace POP_SF42_2016_GUI.UI
         {
             var izabrana = dgUsluge.SelectedItem as DodatnaUsluga;
             prodaja.DodatneUsluge.Remove(izabrana);
+            prodaja = ProdajaDAO.ObrisiUslugu(prodaja, izabrana);
         }
 
         private void dgUsluge_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

@@ -27,11 +27,10 @@ namespace POP_SF42_2016_GUI.UI
             InitializeComponent();
             this.prodaja = prodaja;
             this.akcija = akcija;
-            if (akcija == null)
-                dgIspisStavki.ItemsSource = prodaja.StavkeProdaje;
-            else
-                dgIspisStavki.ItemsSource = akcija.NamestajPopust;
-            dgIspisStavki.SelectedIndex = 0;
+            if(prodaja==null)
+             tbIspis.Text= String.Format(@"\n\n\n\n{0,12}{1,8}{2,8}\n", "Namestaj", "Cena", "Akcijska cena");
+            tbIspis.Text = IspisZaAkciju();
+            
         }
 
         private void Izlaz(object sender, RoutedEventArgs e)
@@ -44,6 +43,18 @@ namespace POP_SF42_2016_GUI.UI
             if ((string)e.Column.Header == "Id" || (string)e.Column.Header == "NamestajProdajaId" ||
                 (string)e.Column.Header == "DodatnaUslugaId" || (string)e.Column.Header == "Obrisan")
                 e.Cancel = true;
+        }
+
+        private string IspisZaAkciju()
+        {
+            string zaglavlje = String.Format(@"{0,12}{1,8}{2,8}\n","Namestaj","Cena","Akcijska cena");
+            string ispis="";
+            foreach(var item in akcija.NamestajPopust)
+            {
+                string ispisi = String.Format("\n\n\n{0,12}|{1,8:f}|{2,8:f}|\n", item.Naziv, item.Cena, item.Cena - ((item.Cena * akcija.Popust) / 100));
+                ispis += ispisi;
+            }
+            return ispis;
         }
     }
 }

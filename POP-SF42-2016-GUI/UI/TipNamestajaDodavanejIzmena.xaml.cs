@@ -50,7 +50,8 @@ namespace POP_SF42_2016_GUI.UI
                 TipNamestajaDAO.DodavanjeTipa(tipNamestaja);
                
                 }
-           
+                TipNamestajaDAO.IzmenaTipa(tipNamestaja);
+
             Close();
         }
     }
