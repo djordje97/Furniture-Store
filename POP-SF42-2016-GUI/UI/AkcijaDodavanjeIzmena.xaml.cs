@@ -3,6 +3,7 @@ using PoP.Util;
 using POP_SF42_2016_GUI.DAO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,8 @@ namespace POP_SF42_2016_GUI.UI
         };
         public Akcija akcija;
         private Operacija operacija;
+        private ObservableCollection<Namestaj> dodatNamestaj = new ObservableCollection<Namestaj>();
+        private ObservableCollection<Namestaj> obrisanNamestaj = new ObservableCollection<Namestaj>();
         public AkcijaDodavanjeIzmena(Akcija akcija,Operacija operacija)
         {
             InitializeComponent();
@@ -46,8 +49,11 @@ namespace POP_SF42_2016_GUI.UI
             if(operacija == Operacija.DODAVANJE)
             {
                AkcijaDAO.DodavanjeAkcije(akcija);
+               AkcijaDAO.DodavanjeNaAkciju(akcija, dodatNamestaj);
             }
             AkcijaDAO.IzmenaAkcije(akcija);
+            AkcijaDAO.DodavanjeNaAkciju(akcija,dodatNamestaj);
+            AkcijaDAO.BrisanjeSaAkcije(akcija,obrisanNamestaj);
             Close();
         }
 
@@ -56,16 +62,18 @@ namespace POP_SF42_2016_GUI.UI
             PreuzmiNamestaj pn = new PreuzmiNamestaj();
             if (pn.ShowDialog() == true)
             {
-                //akcija.NamestajPopust.Add(pn.Namestaj);
-                akcija = AkcijaDAO.DodavanjeNaAkciju(akcija, pn.Namestaj);
+                akcija.NamestajPopust.Add(pn.Namestaj);
+                dodatNamestaj.Add(pn.Namestaj);
+               // akcija = AkcijaDAO.DodavanjeNaAkciju(akcija, pn.Namestaj);
             }
         }
 
         private void btnUkloni_Click(object sender, RoutedEventArgs e)
         {
             var izabrana = dgNamestajAkcija.SelectedItem as Namestaj;
-            // akcija.NamestajPopust.Remove(izabrana);
-            akcija = AkcijaDAO.BrisanjeSaAkcije(akcija, izabrana);
+            akcija.NamestajPopust.Remove(izabrana);
+            obrisanNamestaj.Add(izabrana);
+           // akcija = AkcijaDAO.BrisanjeSaAkcije(akcija, izabrana);
         }
 
         private void dgNamestajAkcija_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

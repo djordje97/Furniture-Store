@@ -21,15 +21,25 @@ namespace POP_SF42_2016_GUI.DAO
                 SqlCommand cmd = new SqlCommand(@"SELECT * FROM Namestaj n join TipNamestaja t on n.Tip_Namestaja=t.Id WHERE n.Obrisan=@obrisan", conn);
                 cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                 SqlDataReader reader = cmd.ExecuteReader();
-
+                double? akcijskaCena;
                 while (reader.Read())
                 {
                     TipNamestaja t = new TipNamestaja()
                     {
-                        Id = reader.GetInt32(7),
-                        Naziv = reader.GetString(8),
+                        Id = reader.GetInt32(8),
+                        Naziv = reader.GetString(9),
                         Obrisan = false,
                     };
+
+                    try
+                    {
+                       akcijskaCena=(double?)reader.GetDecimal(6);
+                    }
+                    catch (Exception)
+                    {
+
+                        akcijskaCena = null;
+                    }
 
                     Namestaj n = new Namestaj()
                     {
@@ -38,7 +48,8 @@ namespace POP_SF42_2016_GUI.DAO
                         Kolicina = reader.GetInt32(2),
                         Sifra = reader.GetString(3),
                         TipNamestaja = t,
-                        Cena=(double)reader.GetDecimal(5)
+                        Cena = (double)reader.GetDecimal(5),
+                        AkcijskaCena = akcijskaCena
                     };
                     namestaj.Add(n);
                 }
@@ -124,6 +135,7 @@ namespace POP_SF42_2016_GUI.DAO
                         Sifra = reader.GetString(3),
                         TipNamestaja = (TipNamestaja)TipNamestajaDAO.TipPoId(reader.GetInt32(4)),
                         Cena = (double)reader.GetDecimal(5)
+
                     };
                     return n;
                 }
@@ -178,7 +190,8 @@ namespace POP_SF42_2016_GUI.DAO
                         Kolicina = reader.GetInt32(2),
                         Sifra = reader.GetString(3),
                         TipNamestaja = (TipNamestaja)TipNamestajaDAO.TipPoId(reader.GetInt32(4)),
-                        Cena = (double)reader.GetDecimal(5)
+                        Cena = (double)reader.GetDecimal(5),
+                        AkcijskaCena = (double?)reader.GetDecimal(6)
                     };
                     namestaj.Add(n);
                 }

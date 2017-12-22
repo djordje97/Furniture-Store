@@ -14,7 +14,7 @@
         <Label Content="Kupac:"  HorizontalAlignment="Left" Height="31" Margin="199,29,0,0" VerticalAlignment="Top" Width="103" FontSize="16" Foreground="White"/>
         <TextBox x:Name="tbKupac" Text="{Binding Path=Kupac}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Margin="302,31,0,0"/>
         <Label Content="Datum:" HorizontalAlignment="Left" Height="30" Margin="199,76,0,0" VerticalAlignment="Top" Width="76" FontSize="16" Foreground="White"/>
-        <DatePicker x:Name="dpDatum" SelectedDate="{Binding Path=DatumProdaje}" HorizontalAlignment="Left" Height="30" Margin="302,76,0,0" VerticalAlignment="Top" Width="154"/>
+        <DatePicker x:Name="dpDatum" SelectedDate="{Binding Path=DatumProdaje}"  HorizontalAlignment="Left" Height="30" Margin="302,76,0,0" VerticalAlignment="Top" Width="154"/>
         <Label Content="Stavke prodaje:" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" Width="156" FontSize="20" Foreground="White" Height="44"/>
         <Button x:Name="btnUkloni" Content="Ukloni" HorizontalAlignment="Left" Height="35" Margin="127,360,0,0" VerticalAlignment="Top" Width="112" Click="UkloniStavku"/>
         <DataGrid x:Name="dgUsluge" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="True"  ColumnWidth="*"  HorizontalAlignment="Left" Height="167" Margin="408,185,0,0" VerticalAlignment="Top" Width="372" AutoGeneratingColumn="dgUsluge_AutoGeneratingColumn"/>

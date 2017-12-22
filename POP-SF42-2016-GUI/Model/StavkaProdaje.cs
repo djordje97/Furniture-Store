@@ -68,14 +68,20 @@ namespace POP_SF42_2016_GUI.Model
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            }   
         }
         public double Cena
         {
-            get { return cena; }
+            get {
+                if (NamestajProdaja != null)
+                    return cena = NamestajProdaja.Cena * Kolicina;
+                else
+                    return 0;
+            }
             set
             {
-               cena = value;
+                if(NamestajProdaja!=null)
+                cena = NamestajProdaja.Cena * Kolicina;
                 OnPropertyChanged("Cena");
             }
         }

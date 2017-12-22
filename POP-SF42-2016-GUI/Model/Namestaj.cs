@@ -20,6 +20,7 @@ namespace PoP.Model
         private string sifra;
         private int kolicina;
         private TipNamestaja tipNamestaja;
+
         [XmlIgnore]
         public TipNamestaja TipNamestaja
         {
@@ -92,10 +93,21 @@ namespace PoP.Model
             }
         }
 
+        private double? akcijskaCena;
 
-     
+        public double? AkcijskaCena
+        {
+            get { return akcijskaCena; }
+            set {
+                akcijskaCena = value;
+                OnPropertyChanged("AkcijskaCena");
+            }
+        }
 
-       
+
+
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

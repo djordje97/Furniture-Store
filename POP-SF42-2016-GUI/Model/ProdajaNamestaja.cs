@@ -92,10 +92,10 @@ namespace PoP.Model
 
         public double UkupanIznos
         {
-            get { return ukupanIznos; }
+            get { return ukupanIznos = stavkeProdaje.Sum(item => item.Cena) + dodatneUsluge.Sum(item => item.Cena); }
             set
             {
-                ukupanIznos = value;
+                ukupanIznos = stavkeProdaje.Sum(item => item.Cena) + dodatneUsluge.Sum(item => item.Cena); 
         
 
                 OnPropertyChanged("UkupanIznos");
@@ -165,13 +165,15 @@ namespace PoP.Model
         public object Clone()
         {
             ProdajaNamestaja kopija = new ProdajaNamestaja();
-            kopija.Id = id;
-            kopija.Kupac = kupac;
+            kopija.Id = Id;
+            kopija.Kupac = Kupac;
             kopija.DatumProdaje = DatumProdaje;
-            kopija.UkupanIznos = ukupanIznos;
-            kopija.BrojRacuna = brojRacuna;
-            kopija.StavkeProdaje = stavkeProdaje;
-            kopija.DodatneUsluge = DodatneUsluge;
+            kopija.UkupanIznos = UkupanIznos;
+            kopija.BrojRacuna = BrojRacuna;
+            ObservableCollection<StavkaProdaje> kopijaStavki =new  ObservableCollection<StavkaProdaje>(StavkeProdaje);
+            ObservableCollection<DodatnaUsluga> kopijaUsluga = new ObservableCollection<DodatnaUsluga>(DodatneUsluge);
+            kopija.StavkeProdaje = kopijaStavki;
+            kopija.DodatneUsluge = kopijaUsluga;
             return kopija;
         }
     }

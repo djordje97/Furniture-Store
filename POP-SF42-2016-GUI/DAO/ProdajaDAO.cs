@@ -31,7 +31,6 @@ namespace POP_SF42_2016_GUI.DAO
                         Kupac = reader.GetString(1),
                         BrojRacuna = reader.GetInt32(2),
                         DatumProdaje = (DateTime)reader.GetDateTime(3),
-                        UkupanIznos = (double)reader.GetDecimal(4),
                         Obrisan = false
                       
 
@@ -53,7 +52,6 @@ namespace POP_SF42_2016_GUI.DAO
                         {
                             Id = reader.GetInt32(0),
                             Kolicina = reader.GetInt32(1),
-                            Cena = (double)reader.GetDecimal(2),
                             NamestajProdaja = NamestajDAO.NametajPoId(reader.GetInt32(3)),
                             Obrisan = false 
                         };
@@ -148,67 +146,77 @@ namespace POP_SF42_2016_GUI.DAO
             }
         }
       
-        public static ProdajaNamestaja ObrisiStavku(ProdajaNamestaja p, StavkaProdaje stavka)
+        public static bool ObrisiStavku(ProdajaNamestaja p, ObservableCollection<StavkaProdaje> stavke)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cm = new SqlCommand(@" UPDATE  Stavka SET Obrisan=@obrisan WHERE Id=@id AND ProdajaId=@prodajaId", conn);
-                cm.Parameters.Add(new SqlParameter("@id", stavka.Id));
-                cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
-                cm.ExecuteNonQuery();
-
+                for (int i = 0; i < stavke.Count; i++)
+                {
+                    SqlCommand cm = new SqlCommand(@" UPDATE  Stavka SET Obrisan=@obrisan WHERE Id=@id AND ProdajaId=@prodajaId", conn);
+                    cm.Parameters.Add(new SqlParameter("@id", stavke[i].Id));
+                    cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
+                    cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
+                    cm.ExecuteNonQuery();
+                }
+                return true;
             }
-            p.StavkeProdaje.Remove(stavka);
-            return p;
+          
+            
         }
-        public static ProdajaNamestaja DodajStavku(ProdajaNamestaja p, StavkaProdaje stavka)
+        public static bool DodajStavku(ProdajaNamestaja p, ObservableCollection<StavkaProdaje> stavke)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cm = new SqlCommand(@" INSERT INTO Stavka(Kolicina,Cena,NamestajId,ProdajaId,Obrisan) VALUES (@kolicina,@cena,@namestajId,@prodajaId,@obrisan)", conn);
-                cm.Parameters.Add(new SqlParameter("@namestajId", stavka.NamestajProdaja.Id));
-                cm.Parameters.Add(new SqlParameter("@kolicina", stavka.Kolicina));
-                cm.Parameters.Add(new SqlParameter("@cena", stavka.Cena));
-                cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                cm.ExecuteNonQuery();
-
+                for (int i = 0; i < stavke.Count; i++)
+                {
+                    SqlCommand cm = new SqlCommand(@" INSERT INTO Stavka(Kolicina,Cena,NamestajId,ProdajaId,Obrisan) VALUES (@kolicina,@cena,@namestajId,@prodajaId,@obrisan)", conn);
+                    cm.Parameters.Add(new SqlParameter("@namestajId", stavke[i].NamestajProdaja.Id));
+                    cm.Parameters.Add(new SqlParameter("@kolicina", stavke[i].Kolicina));
+                    cm.Parameters.Add(new SqlParameter("@cena", stavke[i].Cena));
+                    cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
+                    cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                    cm.ExecuteNonQuery();
+                }
+                return true;
             }
-            p.StavkeProdaje.Add(stavka);
-            return p;
+            
+         
         }
-        public static ProdajaNamestaja ObrisiUslugu(ProdajaNamestaja p, DodatnaUsluga usluga)
+        public static bool ObrisiUslugu(ProdajaNamestaja p, ObservableCollection<DodatnaUsluga> usluge)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cm = new SqlCommand(@" UPDATE  ProdateUsluge SET Obrisan=@obrisan WHERE UslugeId=@id AND ProdajaId=@prodajaId", conn);
-                cm.Parameters.Add(new SqlParameter("@id", usluga.Id));
-                cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
-                cm.ExecuteNonQuery();
-
+                for (int i = 0; i < usluge.Count; i++)
+                {
+                    SqlCommand cm = new SqlCommand(@" UPDATE  ProdateUsluge SET Obrisan=@obrisan WHERE UslugeId=@id AND ProdajaId=@prodajaId", conn);
+                    cm.Parameters.Add(new SqlParameter("@id", usluge[i].Id));
+                    cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
+                    cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
+                    cm.ExecuteNonQuery();
+                }
+                return true;
             }
-            p.DodatneUsluge.Remove(usluga);
-            return p;
+          
         }
-        public static ProdajaNamestaja DodajUslugu(ProdajaNamestaja p, DodatnaUsluga usluga)
+        public static bool DodajUslugu(ProdajaNamestaja p,ObservableCollection<DodatnaUsluga> usluge)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cm = new SqlCommand(@" INSERT INTO ProdateUsluge(UslugaId,ProdajaId,Obrisan) VALUES (@uslugeId,@prodajaId,@obrisan)", conn);
-                cm.Parameters.Add(new SqlParameter("@uslugeId", usluga.Id));
-                cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                cm.ExecuteNonQuery();
-
+                for (int i = 0; i < usluge.Count; i++)
+                {
+                    SqlCommand cm = new SqlCommand(@" INSERT INTO ProdateUsluge(UslugeId,ProdajaId,Obrisan) VALUES (@uslugeId,@prodajaId,@obrisan)", conn);
+                    cm.Parameters.Add(new SqlParameter("@uslugeId", usluge[i].Id));
+                    cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
+                    cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                    cm.ExecuteNonQuery();
+                }
+                return true;
             }
-            p.DodatneUsluge.Add(usluga);
-            return p;
+    
         }
     }
 }

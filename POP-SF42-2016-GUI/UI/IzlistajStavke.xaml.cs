@@ -47,14 +47,14 @@ namespace POP_SF42_2016_GUI.UI
 
         private string IspisZaAkciju()
         {
-            string zaglavlje = String.Format(@"{0,12}{1,8}{2,8}\n","Namestaj","Cena","Akcijska cena");
+            string zaglavlje = String.Format("{0,12}|{1,8}|{2,8}\n","Namestaj","Cena","Akcijska cena\n");
             string ispis="";
             foreach(var item in akcija.NamestajPopust)
             {
-                string ispisi = String.Format("\n\n\n{0,12}|{1,8:f}|{2,8:f}|\n", item.Naziv, item.Cena, item.Cena - ((item.Cena * akcija.Popust) / 100));
+                string ispisi = String.Format("{0,12}|{1,8:f}|{2,8:f}|\n", item.Naziv, item.Cena, item.Cena - ((item.Cena * akcija.Popust) / 100));
                 ispis += ispisi;
             }
-            return ispis;
+            return zaglavlje+ispis;
         }
     }
 }

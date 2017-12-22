@@ -4,6 +4,7 @@ using POP_SF42_2016_GUI.DAO;
 using POP_SF42_2016_GUI.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,10 @@ namespace POP_SF42_2016_GUI.UI
         };
         private ProdajaNamestaja prodaja;
         private Operacija operacija;
+        private ObservableCollection<StavkaProdaje> dodatestavke = new ObservableCollection<StavkaProdaje>();
+        private ObservableCollection<DodatnaUsluga> dodateusluge = new ObservableCollection<DodatnaUsluga>();
+        private ObservableCollection<StavkaProdaje> obrisanestavke = new ObservableCollection<StavkaProdaje>();
+        private ObservableCollection<DodatnaUsluga> obrisaneusluge = new ObservableCollection<DodatnaUsluga>();
         public ProdajaWindow(ProdajaNamestaja prodaja, Operacija operacija)
         {
             InitializeComponent();
@@ -49,7 +54,8 @@ namespace POP_SF42_2016_GUI.UI
             StavkeWindow st = new StavkeWindow(stavka,StavkeWindow.Operacija.DODAVANJE);
             if (st.ShowDialog() == true)
             {
-                prodaja=ProdajaDAO.DodajStavku(prodaja, st.Stavka);
+                prodaja.StavkeProdaje.Add(st.Stavka);
+                dodatestavke.Add(st.Stavka);
             }
         }
 
@@ -57,7 +63,7 @@ namespace POP_SF42_2016_GUI.UI
         {
             Random rn = new Random();
             this.DialogResult = true;
-            prodaja.UkupanIznos = prodaja.StavkeProdaje.Sum(item => item.Cena) + prodaja.DodatneUsluge.Sum(item => item.Cena);
+            
             if (operacija == Operacija.DODAVANJE)
             {
               
@@ -65,6 +71,10 @@ namespace POP_SF42_2016_GUI.UI
                 ProdajaDAO.DodajProdaju(prodaja);
             }
             ProdajaDAO.IzmenaProdaje(prodaja);
+            ProdajaDAO.DodajStavku(prodaja, dodatestavke);
+            ProdajaDAO.DodajUslugu(prodaja, dodateusluge);
+            ProdajaDAO.ObrisiStavku(prodaja, obrisanestavke);
+            ProdajaDAO.ObrisiUslugu(prodaja, obrisaneusluge);
            
             this.Close();
         }
@@ -81,7 +91,8 @@ namespace POP_SF42_2016_GUI.UI
         private void UkloniStavku(object sender, RoutedEventArgs e)
         {
             StavkaProdaje izabrana = dgStavke.SelectedItem as StavkaProdaje;
-            prodaja=ProdajaDAO.ObrisiStavku(prodaja, izabrana);
+            prodaja.StavkeProdaje.Remove(izabrana);
+            obrisanestavke.Add(izabrana);
 
         }
 
@@ -91,7 +102,8 @@ namespace POP_SF42_2016_GUI.UI
             if (pu.ShowDialog() == true)
             {
                
-                prodaja = ProdajaDAO.DodajUslugu(prodaja, pu.Usluge);
+                prodaja.DodatneUsluge.Add(pu.Usluge);
+                dodateusluge.Add(pu.Usluge);
               
             }
         }
@@ -100,13 +112,18 @@ namespace POP_SF42_2016_GUI.UI
         {
             var izabrana = dgUsluge.SelectedItem as DodatnaUsluga;
             prodaja.DodatneUsluge.Remove(izabrana);
-            prodaja = ProdajaDAO.ObrisiUslugu(prodaja, izabrana);
+            obrisaneusluge.Add(izabrana);
         }
 
         private void dgUsluge_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if ((string)e.Column.Header == "Id" || (string)e.Column.Header=="Obrisan")
                 e.Cancel = true;
+        }
+
+        private void dpDatum_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
         }
     }
 }

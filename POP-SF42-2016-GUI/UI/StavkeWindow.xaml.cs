@@ -56,16 +56,12 @@ namespace POP_SF42_2016_GUI.UI
         private void PotvrdiUslugu(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-            var lista = Projekat.Instance.StavkeProdaje;
             if (operacija == Operacija.DODAVANJE)
             {
-                Stavka.Id = lista.Count + 1;
                 Stavka.NamestajProdaja = dgNamestaj.SelectedItem as Namestaj;
                 Stavka.Cena = (Stavka.NamestajProdaja.Cena )* Stavka.Kolicina;
-                lista.Add(Stavka);
 
             }
-            GenericSerializer.Serialize("stavka_prodaje.xml", lista);
             this.Close();
         }
 

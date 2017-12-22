@@ -17,14 +17,14 @@ namespace PoP.Model
         public ObservableCollection<TipNamestaja> TipNamestaja { get; set; }
         public ObservableCollection<Akcija> Akcije { get; set; }
         public ObservableCollection<Korisnik> Korisnici { get; set; }
-        public ObservableCollection<ProdajaNamestaja> Prodaja { get; set; } = GenericSerializer.Deserialize<ProdajaNamestaja>("prodaja_namestaja.xml");
+        public ObservableCollection<ProdajaNamestaja> Prodaja { get; set; } 
         public ObservableCollection<DodatnaUsluga> DodatneUsluge { get; set; }
-        public ObservableCollection<StavkaProdaje> StavkeProdaje { get; set; } =  GenericSerializer.Deserialize<StavkaProdaje>("stavka_prodaje.xml");
+        public ObservableCollection<StavkaProdaje> StavkeProdaje { get; set; }
 
         private Projekat()
         {
-            Namestaj = NamestajDAO.SavNamestaj();
             TipNamestaja = TipNamestajaDAO.SviTipovi();
+            Namestaj = NamestajDAO.SavNamestaj();
             Akcije = AkcijaDAO.SveAkcije();
             Korisnici = KorisnikDAO.SviKorisnici();
             DodatneUsluge = UslugeDAO.SveUsluge();

@@ -18,7 +18,7 @@
         <TextBox x:Name="tbSifraNamestaja"  Text="{Binding Path=Sifra}" HorizontalAlignment="Left" Height="27" Margin="133,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
         <TextBox x:Name="tbCenaNamestaja"  Text="{Binding Path=Cena}" HorizontalAlignment="Left" Height="26" Margin="133,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
         <TextBox x:Name="tbKolicinaNamestaja"  Text="{Binding Path=Kolicina}" HorizontalAlignment="Left" Height="28" Margin="133,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
-        <ComboBox x:Name="cbTipNamestaja" HorizontalAlignment="Left" Height="27" Margin="133,164,0,0" VerticalAlignment="Top" Width="143" SelectedItem="{Binding Path=TipNamestaja}"/>
+        <ComboBox x:Name="cbTipNamestaja" SelectedItem="{Binding Path=TipNamestaja}" HorizontalAlignment="Left" Height="27" Margin="133,164,0,0" VerticalAlignment="Top" Width="143" />
 
     </Grid>
 </Window>

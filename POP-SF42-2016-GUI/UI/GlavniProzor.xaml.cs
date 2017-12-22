@@ -253,12 +253,9 @@ namespace POP_SF42_2016_GUI.UI
                 case "Prodaja":
                     ProdajaNamestaja prodaja = dgPrikaz.SelectedItem as ProdajaNamestaja;
                     ProdajaNamestaja kopijaProdaje = (ProdajaNamestaja)prodaja.Clone();
-                    ProdajaWindow pw = new ProdajaWindow(prodaja, ProdajaWindow.Operacija.IZMENA);
-                    if (pw.ShowDialog() != true)
-                    {
-                        int index = Projekat.Instance.Prodaja.IndexOf(prodaja);
-                        Projekat.Instance.Prodaja[index] = kopijaProdaje;
-                    }
+                    ProdajaWindow pw = new ProdajaWindow(kopijaProdaje, ProdajaWindow.Operacija.IZMENA);
+                    pw.ShowDialog();
+                    view.Refresh();
                     break;
                 default:
                     break;
@@ -318,15 +315,7 @@ namespace POP_SF42_2016_GUI.UI
                     }
                     view.Refresh();
                     break;
-                case "Prodaja":
-                    var listaProdaja = Projekat.Instance.Prodaja;
-                    ProdajaNamestaja prodajaBrisanje = dgPrikaz.SelectedItem as ProdajaNamestaja;
-                    if (MessageBox.Show("Da li ste sigurni?", "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                    {
-                        prodajaBrisanje.Obrisan = true;
-                    }
-                    view.Refresh();
-                    break;
+
                 default:
                     break;
             }
