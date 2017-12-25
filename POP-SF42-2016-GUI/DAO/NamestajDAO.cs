@@ -21,7 +21,7 @@ namespace POP_SF42_2016_GUI.DAO
                 SqlCommand cmd = new SqlCommand(@"SELECT * FROM Namestaj n join TipNamestaja t on n.Tip_Namestaja=t.Id WHERE n.Obrisan=@obrisan", conn);
                 cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                 SqlDataReader reader = cmd.ExecuteReader();
-                double? akcijskaCena;
+               
                 while (reader.Read())
                 {
                     TipNamestaja t = new TipNamestaja()
@@ -31,16 +31,6 @@ namespace POP_SF42_2016_GUI.DAO
                         Obrisan = false,
                     };
 
-                    try
-                    {
-                       akcijskaCena=(double?)reader.GetDecimal(6);
-                    }
-                    catch (Exception)
-                    {
-
-                        akcijskaCena = null;
-                    }
-
                     Namestaj n = new Namestaj()
                     {
                         Id = reader.GetInt32(0),
@@ -49,7 +39,7 @@ namespace POP_SF42_2016_GUI.DAO
                         Sifra = reader.GetString(3),
                         TipNamestaja = t,
                         Cena = (double)reader.GetDecimal(5),
-                        AkcijskaCena = akcijskaCena
+                        AkcijskaCena = (double)reader.GetDecimal(6)
                     };
                     namestaj.Add(n);
                 }
@@ -61,13 +51,14 @@ namespace POP_SF42_2016_GUI.DAO
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(@" INSERT INTO Namestaj(Naziv,Kolicina,Sifra,Tip_Namestaja,Cena,Obrisan) VALUES (@naziv,@kolicina,@sifra,@tip,@cena,@Obrisan)", conn);
+                SqlCommand cmd = new SqlCommand(@" INSERT INTO Namestaj(Naziv,Kolicina,Sifra,Tip_Namestaja,Cena,AkcijskaCena,Obrisan) VALUES (@naziv,@kolicina,@sifra,@tip,@cena,@akcijskaCena,@Obrisan)", conn);
                 cmd.CommandText += "SELECT SCOPE_IDENTITY();";
                 cmd.Parameters.Add(new SqlParameter("@naziv", n.Naziv));
                 cmd.Parameters.Add(new SqlParameter("@kolicina", n.Kolicina));
                 cmd.Parameters.Add(new SqlParameter("@sifra",n.Sifra));
                 cmd.Parameters.Add(new SqlParameter("@tip", n.TipNamestaja.Id));
                 cmd.Parameters.Add(new SqlParameter("@cena", n.Cena));
+                cmd.Parameters.Add(new SqlParameter("@akcijskaCena", n.AkcijskaCena));
                 cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
 
                 int newId = int.Parse(cmd.ExecuteScalar().ToString());
@@ -89,12 +80,13 @@ namespace POP_SF42_2016_GUI.DAO
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(@" UPDATE Namestaj SET Naziv=@naziv,Kolicina=@kolicina,Sifra=@sifra,Tip_Namestaja=@tip,Cena=@cena,Obrisan=@obrisan WHERE Id=@id", conn);
+                SqlCommand cmd = new SqlCommand(@" UPDATE Namestaj SET Naziv=@naziv,Kolicina=@kolicina,Sifra=@sifra,Tip_Namestaja=@tip,Cena=@cena,AkcijskaCena=@akcijskaCena,Obrisan=@obrisan WHERE Id=@id", conn);
                 cmd.Parameters.Add(new SqlParameter("@naziv", n.Naziv));
                 cmd.Parameters.Add(new SqlParameter("@kolicina", n.Kolicina));
                 cmd.Parameters.Add(new SqlParameter("@sifra",n.Sifra));
                 cmd.Parameters.Add(new SqlParameter("@tip",n.TipNamestaja.Id));
                 cmd.Parameters.Add(new SqlParameter("@cena",n.Cena));
+                cmd.Parameters.Add(new SqlParameter("@akcijskaCena", n.AkcijskaCena));
                 cmd.Parameters.Add(new SqlParameter("@id", n.Id));
                 cmd.Parameters.Add(new SqlParameter("@obrisan", n.Obrisan));
                 cmd.ExecuteNonQuery();
@@ -191,7 +183,7 @@ namespace POP_SF42_2016_GUI.DAO
                         Sifra = reader.GetString(3),
                         TipNamestaja = (TipNamestaja)TipNamestajaDAO.TipPoId(reader.GetInt32(4)),
                         Cena = (double)reader.GetDecimal(5),
-                        AkcijskaCena = (double?)reader.GetDecimal(6)
+                        AkcijskaCena = (double)reader.GetDecimal(6)
                     };
                     namestaj.Add(n);
                 }

@@ -50,10 +50,12 @@ namespace POP_SF42_2016_GUI.UI
             {
                AkcijaDAO.DodavanjeAkcije(akcija);
                AkcijaDAO.DodavanjeNaAkciju(akcija, dodatNamestaj);
+             
             }
             AkcijaDAO.IzmenaAkcije(akcija);
             AkcijaDAO.DodavanjeNaAkciju(akcija,dodatNamestaj);
             AkcijaDAO.BrisanjeSaAkcije(akcija,obrisanNamestaj);
+            
             Close();
         }
 
@@ -64,7 +66,7 @@ namespace POP_SF42_2016_GUI.UI
             {
                 akcija.NamestajPopust.Add(pn.Namestaj);
                 dodatNamestaj.Add(pn.Namestaj);
-               // akcija = AkcijaDAO.DodavanjeNaAkciju(akcija, pn.Namestaj);
+             
             }
         }
 
@@ -73,7 +75,7 @@ namespace POP_SF42_2016_GUI.UI
             var izabrana = dgNamestajAkcija.SelectedItem as Namestaj;
             akcija.NamestajPopust.Remove(izabrana);
             obrisanNamestaj.Add(izabrana);
-           // akcija = AkcijaDAO.BrisanjeSaAkcije(akcija, izabrana);
+         
         }
 
         private void dgNamestajAkcija_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -81,5 +83,7 @@ namespace POP_SF42_2016_GUI.UI
             if ((string)e.Column.Header == "Obrisan" || (string)e.Column.Header == "Id")
                 e.Cancel = true;
         }
+
+      
     }
 }

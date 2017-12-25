@@ -14,7 +14,7 @@
         <Button  Name="btnAkcije" Content="Akcije" HorizontalAlignment="Left" Margin="16,350,0,0" VerticalAlignment="Top" Width="147" Height="52"  Background="#FF313541" BorderBrush="#FF313541" Foreground="White" FontSize="18" FontFamily="Sylfaen" Click="AkcijeMeni"/>
         <Button  Name="btnKorisnici" Content="Korisnici" HorizontalAlignment="Left" Height="46" Margin="16,407,0,0" VerticalAlignment="Top" Width="147"  Background="#FF313541" BorderBrush="#FF313541" Foreground="White" FontSize="18" FontFamily="Sylfaen" Click="KorisniciMeni"/>
         <Label Content="Meni" HorizontalAlignment="Left" Height="50" Margin="0,45,0,0" VerticalAlignment="Top" Width="169" BorderBrush="White" FontSize="24" BorderThickness="0,0,0,5" HorizontalContentAlignment="Center" Foreground="White"/>
-        <Grid HorizontalAlignment="Left" Height="478" Margin="169,0,-668,0" VerticalAlignment="Top" Width="669" Background="#FF0066CC">
+        <Grid HorizontalAlignment="Left" Height="478" Margin="169,0,-668,0" VerticalAlignment="Top" Width="669" Background="#FF0066CC" OpacityMask="#FF0066CC">
             <Grid.RowDefinitions>
                 <RowDefinition Height="93*"/>
                 <RowDefinition Height="310*"/>
@@ -27,10 +27,16 @@
             <Button  Name="btnIzmeni" Content="Izmeni" HorizontalAlignment="Left" Height="36" Margin="203,19,0,0" VerticalAlignment="Top" Width="106" Grid.Row="2" Click="Izmena" />
             <Button  Name="btnObrisi" HorizontalAlignment="Left" Height="36" Margin="370,19,0,0" VerticalAlignment="Top" Width="106" Grid.Row="2" Click="Brisanje" Content="Obrisi"/>
             <DataGrid ColumnWidth="*" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserReorderColumns="False"  Name="dgPrikaz" HorizontalAlignment="Left" Height="310" Grid.Row="1" VerticalAlignment="Top" Width="669" AutoGeneratingColumn="dgPrikaz_AutoGeneratingColumn"  />
-            <Button x:Name="btnIzlistajStavke" Content="Izlistaj stavke" HorizontalAlignment="Left" Height="36" Margin="527,19,0,0" Grid.Row="2" VerticalAlignment="Top" Width="106" Click="Izlistaj" />
-            <ComboBox x:Name="cbSortiraj" HorizontalAlignment="Left" Height="28" Margin="497,13,0,0" VerticalAlignment="Top" Width="136" SelectionChanged="cbSortiraj_SelectionChanged"/>
-            <Label Content="Sortiraj po:" HorizontalAlignment="Left" Height="31" Margin="370,13,0,0" VerticalAlignment="Top" Width="113" FontSize="16" Foreground="White"/>
+            <Button x:Name="btnIzlistajStavke" Content="Detalji" HorizontalAlignment="Left" Height="36" Margin="527,19,0,0" Grid.Row="2" VerticalAlignment="Top" Width="106" Click="Izlistaj" />
+            <ComboBox x:Name="cbSortiraj" HorizontalAlignment="Left" Height="28" Margin="89,55,0,0" VerticalAlignment="Top" Width="136" SelectionChanged="cbSortiraj_SelectionChanged"/>
+            <Label Content="Sortiraj po:" HorizontalAlignment="Left" Height="31" Margin="0,52,0,0" VerticalAlignment="Top" Width="113" FontSize="16" Foreground="White"/>
             <Button x:Name="btnPretraga" Content="Pretrazi" HorizontalAlignment="Left" Height="28" Margin="264,13,0,0" VerticalAlignment="Top" Width="78" Click="Pretrazi"/>
+            <Button x:Name="btnLogout" HorizontalAlignment="Left" Height="28" Margin="623,17,0,0" VerticalAlignment="Top" Width="36" Background="#FF0066CC" Foreground="#FF0066CC" BorderThickness="0" Click="LogOut">
+                <Image Height="28" Width="26" Source="/POP-SF42-2016-GUI;component/Resursi/Icons8-Windows-8-Computer-Hardware-Shutdown.ico" OpacityMask="#FF0066CC"/>
+            </Button>
+            <Button x:Name="btnSalon" HorizontalAlignment="Left" Margin="569,13,0,0" VerticalAlignment="Top" Width="37" Height="32" Background="#FF0066CC" BorderThickness="0" Click="btnSalon_Click">
+                <Image Height="27" Width="29" Source="/POP-SF42-2016-GUI;component/Resursi/Iconsmind-Outline-Information.ico"/>
+            </Button>
         </Grid>
 
 

@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/stavka_prodaje.xml")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dbquery/pravljenjetabela.sql")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dbquery/punjenjetabela.sql")]
 
 

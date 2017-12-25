@@ -1,0 +1,2 @@
+﻿INSERT INTO Salon (Naziv,Adresa,Broj_telefona,Email,Adresa_sajta,PIB,Maticni_broj,Broj_ziro_racuna) VALUES
+('FTN ideale','Trg Dositeja Obradovica 5,Novi Sad','015-339-4787','ftnideale@gmail.com','www.ftnideale.com','106071458',1587,'810-25-1-1687')

@@ -121,9 +121,6 @@ namespace POP_SF42_2016_GUI.UI
                 e.Cancel = true;
         }
 
-        private void dpDatum_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-
-        }
+     
     }
 }

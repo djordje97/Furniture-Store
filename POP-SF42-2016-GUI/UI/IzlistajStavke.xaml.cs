@@ -22,14 +22,25 @@ namespace POP_SF42_2016_GUI.UI
     {
         public ProdajaNamestaja prodaja;
         public Akcija akcija;
-        public IzlistajStavke(ProdajaNamestaja prodaja=null,Akcija akcija=null)
+        public IzlistajStavke(ProdajaNamestaja prodaja = null, Akcija akcija = null)
         {
             InitializeComponent();
             this.prodaja = prodaja;
             this.akcija = akcija;
-            if(prodaja==null)
-             tbIspis.Text= String.Format(@"\n\n\n\n{0,12}{1,8}{2,8}\n", "Namestaj", "Cena", "Akcijska cena");
-            tbIspis.Text = IspisZaAkciju();
+            if (prodaja!=null)
+            { 
+              //  tbIspis.Visibility = Visibility.Visible;
+                dgAkcijePrikaz.Visibility = Visibility.Hidden;
+             //   tbIspis.Text = IspisZaAkciju();
+            }
+                
+           else if(akcija!=null)
+            {
+                tbIspis.Visibility = Visibility.Hidden;
+              //  dgAkcijePrikaz.Visibility = Visibility.Visible;
+                dgAkcijePrikaz.ItemsSource = akcija.NamestajPopust;
+            }
+
             
         }
 
@@ -38,23 +49,13 @@ namespace POP_SF42_2016_GUI.UI
             this.Close();
         }
 
-        private void dgIspisStavki_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            if ((string)e.Column.Header == "Id" || (string)e.Column.Header == "NamestajProdajaId" ||
-                (string)e.Column.Header == "DodatnaUslugaId" || (string)e.Column.Header == "Obrisan")
-                e.Cancel = true;
-        }
+   
 
-        private string IspisZaAkciju()
+        private void dgAkcijePrikaz_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            string zaglavlje = String.Format("{0,12}|{1,8}|{2,8}\n","Namestaj","Cena","Akcijska cena\n");
-            string ispis="";
-            foreach(var item in akcija.NamestajPopust)
-            {
-                string ispisi = String.Format("{0,12}|{1,8:f}|{2,8:f}|\n", item.Naziv, item.Cena, item.Cena - ((item.Cena * akcija.Popust) / 100));
-                ispis += ispisi;
-            }
-            return zaglavlje+ispis;
+            if ((string)e.Column.Header == "Id" ||  (string)e.Column.Header == "Obrisan")
+                e.Cancel = true;
+
         }
     }
 }

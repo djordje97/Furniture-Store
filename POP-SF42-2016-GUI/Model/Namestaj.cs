@@ -93,9 +93,9 @@ namespace PoP.Model
             }
         }
 
-        private double? akcijskaCena;
+        private double akcijskaCena;
 
-        public double? AkcijskaCena
+        public double AkcijskaCena
         {
             get { return akcijskaCena; }
             set {
@@ -153,6 +153,7 @@ namespace PoP.Model
             kopija.Sifra = Sifra;
             kopija.Cena = Cena;
             kopija.TipNamestaja = TipNamestaja;
+            kopija.AkcijskaCena = AkcijskaCena;
             return kopija;
         }
     }

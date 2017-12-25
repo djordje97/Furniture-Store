@@ -9,9 +9,9 @@
         Title="AkcijaDodavanjeIzmena" Height="460" Width="632" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Background="#FF0066CC">
         <Label Content="Pocetak akcije:" HorizontalAlignment="Left" Height="33" Margin="69,46,0,0" VerticalAlignment="Top" Width="122" Foreground="White" FontSize="16"/>
-        <DatePicker x:Name="dpPocetak"   SelectedDate="{Binding Path=PocetakAkcije, StringFormat=dd/MM/yyyy}" HorizontalAlignment="Left" Height="33" Margin="191,46,0,0" VerticalAlignment="Top" Width="145" FirstDayOfWeek="Monday"/>
+        <DatePicker x:Name="dpPocetak"   SelectedDate="{Binding Path=PocetakAkcije}"  IsEnabled="False" FontWeight="UltraBlack" HorizontalAlignment="Left" Height="33" Margin="191,46,0,0" VerticalAlignment="Top" Width="145" FirstDayOfWeek="Monday"/>
         <Label Content="Kraj akcije:" HorizontalAlignment="Left" Height="33" Margin="69,94,0,0" VerticalAlignment="Top" Width="122" FontSize="16" Foreground="White"/>
-        <DatePicker x:Name="dpKraj" SelectedDate="{Binding Path=KrajAkcije,StringFormat=dd/MM/yyyy}" HorizontalAlignment="Left" Height="33" Margin="191,94,0,0" VerticalAlignment="Top" Width="145"/>
+        <DatePicker x:Name="dpKraj" SelectedDate="{Binding Path=KrajAkcije}" HorizontalAlignment="Left" Height="33" Margin="191,94,0,0" VerticalAlignment="Top" Width="145"/>
         <Label Content="Popust:" HorizontalAlignment="Left" Height="33" Margin="140,329,0,0" VerticalAlignment="Top" Width="88" Foreground="White" FontSize="16"/>
         <TextBox x:Name="tbPopust" Text="{Binding Path=Popust}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="33" Margin="233,329,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
         <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="33" Margin="191,388,0,0" VerticalAlignment="Top" Width="90" IsDefault="True" Click="Potvrdi"/>

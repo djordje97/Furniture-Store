@@ -74,7 +74,12 @@ namespace POP_SF42_2016_GUI.Model
         {
             get {
                 if (NamestajProdaja != null)
-                    return cena = NamestajProdaja.Cena * Kolicina;
+                {
+                    if (NamestajProdaja.AkcijskaCena != 0)
+                        return cena = NamestajProdaja.AkcijskaCena * Kolicina;
+                    else
+                        return cena = NamestajProdaja.Cena * Kolicina;
+                }
                 else
                     return 0;
             }

@@ -67,6 +67,19 @@ namespace POP_SF42_2016_GUI.DAO
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 a.Obrisan = true;
+                for(int i = 0; i < a.NamestajPopust.Count; i++)
+                {
+                    a.NamestajPopust[i].AkcijskaCena = 0;
+                    NamestajDAO.IzmenaNamestaja(a.NamestajPopust[i]);
+                    foreach(var n in Projekat.Instance.Namestaj)
+                    {
+                        if(n.Id == a.NamestajPopust[i].Id)
+                        {
+                            n.AkcijskaCena = 0;
+                        }
+                    }
+                }
+                
                 return IzmenaAkcije(a);
             }
         }
@@ -85,7 +98,16 @@ namespace POP_SF42_2016_GUI.DAO
                 a.Id = newId;
                 for (int i = 0; i < a.NamestajPopust.Count; i++)
                 {
-                    SqlCommand cm = new SqlCommand(@"INSERT INTO NaAkciji(NamestajId,AkcijaId,Obrisn) VALUES(@namestajId,@akcijaId) ", conn);
+                    a.NamestajPopust[i].AkcijskaCena = a.NamestajPopust[i].Cena - ((a.NamestajPopust[i].Cena * a.Popust) / 100);
+                    NamestajDAO.IzmenaNamestaja(a.NamestajPopust[i]);
+                    foreach(var n in Projekat.Instance.Namestaj)
+                    {
+                        if(n.Id== a.NamestajPopust[i].Id)
+                        {
+                            n.AkcijskaCena = n.Cena - ((n.Cena * a.Popust) / 100);
+                        }
+                    }
+                    SqlCommand cm = new SqlCommand(@"INSERT INTO NaAkciji(NamestajId,AkcijaId,Obrisan) VALUES(@namestajId,@akcijaId) ", conn);
                     cm.Parameters.Add(new SqlParameter("@namestajId", a.NamestajPopust[i].Id));
                     cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
                     cm.ExecuteNonQuery();
@@ -119,6 +141,18 @@ namespace POP_SF42_2016_GUI.DAO
                         item.Obrisan = a.Obrisan;
                     }
                 }
+                for (int i = 0; i < a.NamestajPopust.Count; i++)
+                {
+                    a.NamestajPopust[i].AkcijskaCena = a.NamestajPopust[i].Cena - ((a.NamestajPopust[i].Cena * a.Popust) / 100);
+                    NamestajDAO.IzmenaNamestaja(a.NamestajPopust[i]);
+                    foreach (var n in Projekat.Instance.Namestaj)
+                    {
+                        if (n.Id == a.NamestajPopust[i].Id)
+                        {
+                            n.AkcijskaCena = n.Cena - ((n.Cena * a.Popust) / 100);
+                        }
+                    }
+                }
                 return true;
             }
         }
@@ -135,6 +169,18 @@ namespace POP_SF42_2016_GUI.DAO
                     cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
                     cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
                     cm.ExecuteNonQuery();
+                }
+                foreach (var namestaj in dodat)
+                {
+                    namestaj.AkcijskaCena = namestaj.Cena - ((namestaj.Cena * a.Popust) / 100);
+                    NamestajDAO.IzmenaNamestaja(namestaj);
+                    foreach (var n in Projekat.Instance.Namestaj)
+                    {
+                        if (n.Id == namestaj.Id)
+                        {
+                            n.AkcijskaCena = n.Cena - ((n.Cena * a.Popust) / 100);
+                        }
+                    }
                 }
                 return true;
             }
@@ -154,6 +200,18 @@ namespace POP_SF42_2016_GUI.DAO
                     cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
                     cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
                     cm.ExecuteNonQuery();
+                }
+                foreach (var namestaj in obrisan)
+                {
+                    namestaj.AkcijskaCena = 0;
+                    NamestajDAO.IzmenaNamestaja(namestaj);
+                    foreach (var n in Projekat.Instance.Namestaj)
+                    {
+                        if (n.Id == namestaj.Id)
+                        {
+                            n.AkcijskaCena = 0;
+                        }
+                    }
                 }
                 return true;
             }
@@ -206,14 +264,5 @@ namespace POP_SF42_2016_GUI.DAO
             return akcije;
         }
 
-       public static bool ProveriAkciju(Akcija a,ObservableCollection<Akcija> lista)
-        {
-            for(int i = 0; i < lista.Count; i++)
-            {
-                if (a.PocetakAkcije == lista[i].PocetakAkcije && a.KrajAkcije == lista[i].KrajAkcije && a.Popust == lista[i].Popust)
-                    return false;
-            }
-            return true;
-        }
     }
 }

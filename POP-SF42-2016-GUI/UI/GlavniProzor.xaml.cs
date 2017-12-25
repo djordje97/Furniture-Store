@@ -95,7 +95,7 @@ namespace POP_SF42_2016_GUI.UI
             btnIzmeni.Content = "Storniraj";
             btnObrisi.Visibility = Visibility.Hidden;
             btnIzlistajStavke.Visibility = Visibility.Visible;
-            btnIzlistajStavke.Content = "Izlistaj Stavke";
+            
           
         }
 
@@ -108,7 +108,6 @@ namespace POP_SF42_2016_GUI.UI
             cbSortiraj.SelectedItem = null;
             btnIzmeni.Content = "Izmeni";
             btnIzlistajStavke.Visibility = Visibility.Visible;
-            btnIzlistajStavke.Content = "Izlistaj Namestaj";
             btnObrisi.Visibility = Visibility.Visible;
 
         }
@@ -428,6 +427,19 @@ namespace POP_SF42_2016_GUI.UI
                 default:
                     break;
             }
+
+        }
+
+        private void LogOut(object sender, RoutedEventArgs e)
+        {
+
+            MainWindow mw = new MainWindow();
+            this.Close();
+            mw.ShowDialog();
+        }
+
+        private void btnSalon_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }
