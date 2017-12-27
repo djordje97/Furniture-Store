@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:POP_SF42_2016_GUI.UI"
         mc:Ignorable="d"
-        Title="IzlistajStavke" Height="328" Width="489" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="IzlistajStavke"  Width="587" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Height="379">
+
     <Grid Background="#FF0066CC">
-        <Button x:Name="btnIzadji" Content="Izadji" HorizontalAlignment="Left" Height="41" Margin="173,248,0,0" VerticalAlignment="Top" Width="154" Click="Izlaz"/>
-        <TextBlock x:Name="tbIspis" HorizontalAlignment="Left" Height="217" TextWrapping="Wrap" VerticalAlignment="Top" Width="482" Background="White" FontSize="20"/>
-        <DataGrid x:Name="dgAkcijePrikaz" CanUserAddRows="False" ColumnWidth="*" Margin="0,42,1,56" AutoGeneratingColumn="dgAkcijePrikaz_AutoGeneratingColumn" />
-
-
+        <ScrollViewer Margin="0,0,0,62" Name="ScrollBar" >
+            <TextBlock Name="tbIspis"  HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="571" Background="White" FontSize="20"  />
+        </ScrollViewer>
+        <DataGrid Name="dgAkcijePrikaz" CanUserAddRows="False" ColumnWidth="*" Margin="0,0,0,134" AutoGeneratingColumn="dgAkcijePrikaz_AutoGeneratingColumn" />
+        <Button Name="btnIzadji" Content="Izadji" HorizontalAlignment="Left" Height="34" Margin="242,306,0,0" VerticalAlignment="Top" Width="104" Click="Izlaz"/>
     </Grid>
 </Window>

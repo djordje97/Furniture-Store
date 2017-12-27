@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PoP.Model
 {
-    public class Salon :INotifyPropertyChanged
+    public class Salon :INotifyPropertyChanged,ICloneable
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -18,6 +18,22 @@ namespace PoP.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        public object Clone()
+        {
+            Salon s = new Salon();
+            s.Id = Id;
+            s.Naziv = Naziv;
+            s.Adresa = Adresa;
+            s.Broj_telefona = Broj_telefona;
+            s.Adresa_sajta = Adresa_sajta;
+            s.PIB = PIB;
+            s.Maticni_broj = Maticni_broj;
+            s.Broj_ziro_racuna = Broj_ziro_racuna;
+            s.Email = Email;
+
+            return s;
         }
 
         private int id;
@@ -86,8 +102,8 @@ namespace PoP.Model
             }
         }
 
-        private int pib;
-        public int PIB
+        private string pib;
+        public string PIB
         {
             get { return pib; }
             set {

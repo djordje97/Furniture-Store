@@ -27,7 +27,7 @@ namespace POP_SF42_2016_GUI.UI
         public PreuzmiUslugu()
         {
             InitializeComponent();
-            dgUsluga.ItemsSource = UslugeDAO.SveUsluge();
+            dgUsluga.ItemsSource = Projekat.Instance.DodatneUsluge;
             dgUsluga.SelectedIndex = 0;
         }
  

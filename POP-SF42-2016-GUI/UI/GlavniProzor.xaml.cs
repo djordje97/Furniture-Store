@@ -34,6 +34,8 @@ namespace POP_SF42_2016_GUI.UI
             
             InitializeComponent();
             ProveraprijavljenogKorisnika();
+            InicijalizacijaAkcije();
+            InicijalizacijaProdaje();
             dgPrikaz.IsSynchronizedWithCurrentItem = true;
             dgPrikaz.SelectedIndex = 0;
             btnIzlistajStavke.Visibility = Visibility.Hidden;
@@ -90,6 +92,7 @@ namespace POP_SF42_2016_GUI.UI
         {
             TrenutnoAktivno = "Prodaja";
             view = CollectionViewSource.GetDefaultView(Projekat.Instance.Prodaja);
+       
             view.Filter = ProdajaFlter;
             dgPrikaz.ItemsSource = view;
             btnIzmeni.Content = "Storniraj";
@@ -141,6 +144,28 @@ namespace POP_SF42_2016_GUI.UI
             }
            
          
+        }
+        private void InicijalizacijaAkcije()
+        {
+            foreach (var akcija in Projekat.Instance.Akcije)
+            {
+                foreach (var a in akcija.NamestajPopustId)
+                    akcija.NamestajPopust.Add(Namestaj.PronadjiNamestaj(a));
+            }
+        }
+        private void InicijalizacijaProdaje()
+        {
+            foreach (var prodaja in Projekat.Instance.Prodaja)
+            {
+                foreach (var stavka in prodaja.StavkeProdaje)
+                {
+                    stavka.NamestajProdaja = Namestaj.PronadjiNamestaj(stavka.NamestajProdajaId);
+                }
+               foreach(var u in prodaja.DodatneUslugeId)
+                {
+                    prodaja.DodatneUsluge.Add(DodatnaUsluga.PronadjiUslugu(u));
+                }
+            }
         }
 
         private bool NamestajFilter(object obj)
@@ -322,7 +347,7 @@ namespace POP_SF42_2016_GUI.UI
 
         private void dgPrikaz_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if ((string)e.Column.Header == "Id" || (string)e.Column.Header == "Obrisan" ||(string)e.Column.Header== "NamestajProdajaId" || (string)e.Column.Header== "DodatneUslugaId"
+            if ((string)e.Column.Header == "Id" || (string)e.Column.Header == "Obrisan" ||(string)e.Column.Header== "NamestajProdajaId" || (string)e.Column.Header== "DodatneUslugeId"
                 || (string)e.Column.Header == "StavkaProdajeId" || (string)e.Column.Header == "TipNamestajaId" || (string)e.Column.Header == "NamestajPopustId"
                 || (string)e.Column.Header == "StavkeProdaje" || (string)e.Column.Header == "NamestajPopust"  || (string)e.Column.Header == "DodatnaUslugaId" || (string)e.Column.Header == "DodatneUsluge")
 
@@ -440,7 +465,12 @@ namespace POP_SF42_2016_GUI.UI
 
         private void btnSalon_Click(object sender, RoutedEventArgs e)
         {
+            TipKorisnika t = Korisnik.PronadjiKorisnika(MainWindow.loggedUser).TipKorisnika;
 
+            var s = Projekat.Instance.Salon;
+            Salon kopija = s.Clone() as Salon;
+            SalonProzor sp = new SalonProzor(kopija, t);
+            sp.Show();
         }
     }
 }

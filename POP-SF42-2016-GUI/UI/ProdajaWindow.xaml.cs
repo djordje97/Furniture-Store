@@ -31,10 +31,10 @@ namespace POP_SF42_2016_GUI.UI
         };
         private ProdajaNamestaja prodaja;
         private Operacija operacija;
-        private ObservableCollection<StavkaProdaje> dodatestavke = new ObservableCollection<StavkaProdaje>();
-        private ObservableCollection<DodatnaUsluga> dodateusluge = new ObservableCollection<DodatnaUsluga>();
-        private ObservableCollection<StavkaProdaje> obrisanestavke = new ObservableCollection<StavkaProdaje>();
-        private ObservableCollection<DodatnaUsluga> obrisaneusluge = new ObservableCollection<DodatnaUsluga>();
+        private ObservableCollection<StavkaProdaje> dodatestavke { get; set; } = new ObservableCollection<StavkaProdaje>();
+        private ObservableCollection<DodatnaUsluga> dodateusluge { get; set; } = new ObservableCollection<DodatnaUsluga>();
+        private ObservableCollection<StavkaProdaje> obrisanestavke { get; set; } = new ObservableCollection<StavkaProdaje>();
+        private ObservableCollection<DodatnaUsluga> obrisaneusluge { get; set; } = new ObservableCollection<DodatnaUsluga>();
         public ProdajaWindow(ProdajaNamestaja prodaja, Operacija operacija)
         {
             InitializeComponent();
@@ -93,7 +93,16 @@ namespace POP_SF42_2016_GUI.UI
             StavkaProdaje izabrana = dgStavke.SelectedItem as StavkaProdaje;
             prodaja.StavkeProdaje.Remove(izabrana);
             obrisanestavke.Add(izabrana);
-
+            if(dodatestavke.Count>1)
+            foreach(var n in dodatestavke)
+            {
+                if(n.Id== izabrana.Id)
+                {
+                    dodatestavke.Remove(n);
+                }
+            }
+            
+         
         }
 
         private void btnDodajU_Click(object sender, RoutedEventArgs e)
@@ -113,6 +122,15 @@ namespace POP_SF42_2016_GUI.UI
             var izabrana = dgUsluge.SelectedItem as DodatnaUsluga;
             prodaja.DodatneUsluge.Remove(izabrana);
             obrisaneusluge.Add(izabrana);
+            if (dodateusluge.Count > 1)
+                foreach (var n in dodateusluge)
+                {
+                    if (n.Id == izabrana.Id)
+                    {
+                        dodateusluge.Remove(n);
+                    }
+                }
+
         }
 
         private void dgUsluge_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

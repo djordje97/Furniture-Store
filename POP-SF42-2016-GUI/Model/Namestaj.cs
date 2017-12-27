@@ -21,15 +21,26 @@ namespace PoP.Model
         private int kolicina;
         private TipNamestaja tipNamestaja;
 
-        [XmlIgnore]
+        private int tipNamestajaId;
+
+        public int TipNamestajaId
+        {
+            get { return tipNamestajaId; }
+            set { tipNamestajaId = value; }
+        }
+
+
         public TipNamestaja TipNamestaja
         {
             get {
+                if (tipNamestaja == null)
+                    tipNamestaja = TipNamestaja.PronadjiTip(tipNamestajaId);
                 return tipNamestaja;
             }
             set
             {
                 tipNamestaja = value;
+                TipNamestajaId = tipNamestaja.Id;
                 OnPropertyChanged("TipNamestaja");
             }
         }

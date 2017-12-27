@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:POP_SF42_2016_GUI.UI"
         mc:Ignorable="d"
-        Title="SalonProzor" Height="325" Width="402">
+        Title="SalonProzor" Height="418" Width="516" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Background="#FF0066CC">
-
+        <Label Content="Naziv:" HorizontalAlignment="Left" Height="29" Margin="108,23,0,0" VerticalAlignment="Top" Width="66" FontSize="16" Foreground="White"/>
+        <Label Content="Adresa:" HorizontalAlignment="Left" Height="29" Margin="108,52,0,0" VerticalAlignment="Top" Width="66" FontSize="16" Foreground="White"/>
+        <Label Content="Broj telefona:" HorizontalAlignment="Left" Height="30" Margin="69,86,0,0" VerticalAlignment="Top" Width="105" FontSize="16" Foreground="White"/>
+        <Label Content="Email:" HorizontalAlignment="Left" Height="29" Margin="108,121,0,0" VerticalAlignment="Top" Width="66" FontSize="16" Foreground="White"/>
+        <Label Content="Adresa sajta:" HorizontalAlignment="Left" Height="32" Margin="69,155,0,0" VerticalAlignment="Top" Width="105" FontSize="16" Foreground="White"/>
+        <Label Content="PIB:" HorizontalAlignment="Left" Height="29" Margin="108,192,0,0" VerticalAlignment="Top" Width="66" FontSize="16" Foreground="White"/>
+        <Label Content="Maticni broj:" HorizontalAlignment="Left" Height="32" Margin="69,225,0,0" VerticalAlignment="Top" Width="105" FontSize="16" Foreground="White"/>
+        <Label Content="Ziro racun:" HorizontalAlignment="Left" Height="32" Margin="69,257,0,0" VerticalAlignment="Top" Width="105" FontSize="16" Foreground="White"/>
+        <TextBox x:Name="tbNaziv" Text="{Binding Path=Naziv}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="29" Margin="179,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="tbAdresa" Text="{Binding Path=Adresa}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="29" Margin="179,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="tbTelefon" Text="{Binding Path=Broj_telefona}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="29" Margin="179,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="tbEmail" Text="{Binding Path=Email}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="29" Margin="179,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="tbSajt" Text="{Binding Path=Adresa_sajta}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="29" Margin="179,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="tbPIB" Text="{Binding Path=PIB}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="29" Margin="179,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="tbMaticni" Text="{Binding Path=Maticni_broj}"  HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="29" Margin="179,228,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <TextBox x:Name="tbZiroRacun" Text="{Binding Path=Broj_ziro_racuna}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="29" Margin="179,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145"/>
+        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="33" Margin="147,344,0,0" VerticalAlignment="Top" Width="95" Click="Potvrdi"/>
+        <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="33" Margin="259,344,0,0" VerticalAlignment="Top" Width="95"  Click="btnOdustani_Click"/>
+        <TextBlock x:Name="tbcIspis" HorizontalAlignment="Left" Height="318" Margin="55,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="401" Background="White" FontSize="16" FontWeight="Bold"/>
     </Grid>
 </Window>

@@ -66,11 +66,11 @@ namespace PoP.Model
             }
         }
 
-        private int namestajPopustId;
+        private List<int> namestajPopustId;
 
 
 
-        public int NamestajPopustId
+        public List<int> NamestajPopustId
         {
             get { return namestajPopustId; }
             set {
@@ -95,6 +95,7 @@ namespace PoP.Model
             pocetakAkcije = DateTime.Now;
             krajAkcije = DateTime.Now;
             namestajPopust = new ObservableCollection<Namestaj>();
+            namestajPopustId = new List<int>();
             
         }
 

@@ -20,6 +20,7 @@ namespace PoP.Model
         public ObservableCollection<ProdajaNamestaja> Prodaja { get; set; } 
         public ObservableCollection<DodatnaUsluga> DodatneUsluge { get; set; }
         public ObservableCollection<StavkaProdaje> StavkeProdaje { get; set; }
+        public Salon Salon { get; set; }
 
         private Projekat()
         {
@@ -29,6 +30,7 @@ namespace PoP.Model
             Korisnici = KorisnikDAO.SviKorisnici();
             DodatneUsluge = UslugeDAO.SveUsluge();
             Prodaja = ProdajaDAO.SveProdaje();
+            Salon = SalonDAO.PrikazPodataka();
            
 
         }

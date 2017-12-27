@@ -10,14 +10,15 @@ using System.Xml.Serialization;
 
 namespace PoP.Model
 {
-   public class ProdajaNamestaja : INotifyPropertyChanged,ICloneable
+    public class ProdajaNamestaja : INotifyPropertyChanged, ICloneable
     {
-    
+
         public ProdajaNamestaja()
         {
-           datumProdaje = DateTime.Today;
+            datumProdaje = DateTime.Today;
             stavkeProdaje = new ObservableCollection<StavkaProdaje>();
-           dodatneUsluge = new ObservableCollection<DodatnaUsluga>();
+            dodatneUsluge = new ObservableCollection<DodatnaUsluga>();
+            dodatneUslugeId = new List<int>();
         }
         private int id;
 
@@ -30,15 +31,22 @@ namespace PoP.Model
                 OnPropertyChanged("Id");
             }
         }
+        private  List<int> dodatneUslugeId;
 
-     private ObservableCollection<StavkaProdaje> stavkeProdaje;
+        public  List<int> DodatneUslugeId
+        {
+            get { return dodatneUslugeId; }
+            set { dodatneUslugeId = value; }
+        }
+
+        private ObservableCollection<StavkaProdaje> stavkeProdaje;
         [XmlIgnore]
         public ObservableCollection<StavkaProdaje> StavkeProdaje
         {
             get
             {
-           
-               return stavkeProdaje;
+
+                return stavkeProdaje;
             }
             set
             {
@@ -82,8 +90,8 @@ namespace PoP.Model
             }
         }
 
-        public const double PDV = 0.02;
-
+        public const double PDV= 0.02;
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
   

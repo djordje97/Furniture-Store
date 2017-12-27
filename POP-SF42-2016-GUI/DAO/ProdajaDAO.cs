@@ -33,7 +33,6 @@ namespace POP_SF42_2016_GUI.DAO
                         DatumProdaje = (DateTime)reader.GetDateTime(3),
                         Obrisan = false
                       
-
                     };
 
                     prodaje.Add(p);
@@ -52,7 +51,8 @@ namespace POP_SF42_2016_GUI.DAO
                         {
                             Id = reader.GetInt32(0),
                             Kolicina = reader.GetInt32(1),
-                            NamestajProdaja = NamestajDAO.NametajPoId(reader.GetInt32(3)),
+                            //NamestajProdaja = NamestajDAO.NametajPoId(reader.GetInt32(3)),
+                            NamestajProdajaId = reader.GetInt32(3),
                             Obrisan = false 
                         };
                         stavke.Add(s);
@@ -71,10 +71,12 @@ namespace POP_SF42_2016_GUI.DAO
                     while (reader.Read())
                     {
 
-                        if (UslugeDAO.UslugaPoId(reader.GetInt32(0)) != null)
-                            usluge.Add(UslugeDAO.UslugaPoId(reader.GetInt32(0)));
+                        //if (UslugeDAO.UslugaPoId(reader.GetInt32(0)) != null)
+                        //   usluge.Add(UslugeDAO.UslugaPoId(reader.GetInt32(0)));
+                        prodaja.DodatneUslugeId.Add(reader.GetInt32(0));
+                        
                     }
-                    prodaja.DodatneUsluge = usluge;
+                 //prodaja.DodatneUsluge = usluge;
                     reader.Close();
                 }
             }
@@ -86,36 +88,47 @@ namespace POP_SF42_2016_GUI.DAO
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(@"INSERT INTO Prodaja(Kupac,Broj_Racuna,Datum_Prodaje,Ukupan_Iznos,Obrisan) VALUES(@kupac,@brojR,@datumProdaje,@ukupanIznos,@obrisan) ", conn);
-                cmd.CommandText += "SELECT SCOPE_IDENTITY();";
-                cmd.Parameters.Add(new SqlParameter("@kupac", p.Kupac));
-                cmd.Parameters.Add(new SqlParameter("@brojR", p.BrojRacuna));
-                cmd.Parameters.Add(new SqlParameter("@datumProdaje", p.DatumProdaje));
-                cmd.Parameters.Add(new SqlParameter("@ukupanIznos", p.UkupanIznos));
-                cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                int newId = int.Parse(cmd.ExecuteScalar().ToString());
-                p.Id = newId;
+            
+                    SqlCommand cmd = new SqlCommand(@"INSERT INTO Prodaja(Kupac,Broj_Racuna,Datum_Prodaje,Ukupan_Iznos,Obrisan) VALUES(@kupac,@brojR,@datumProdaje,@ukupanIznos,@obrisan) ", conn);
+                    cmd.CommandText += "SELECT SCOPE_IDENTITY();";
+                    cmd.Parameters.Add(new SqlParameter("@kupac", p.Kupac));
+                    cmd.Parameters.Add(new SqlParameter("@brojR", p.BrojRacuna));
+                    cmd.Parameters.Add(new SqlParameter("@datumProdaje", p.DatumProdaje));
+                    cmd.Parameters.Add(new SqlParameter("@ukupanIznos", p.UkupanIznos));
+                    cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                    int newId = int.Parse(cmd.ExecuteScalar().ToString());
+                    p.Id = newId;
 
-                for (int i = 0; i < p.StavkeProdaje.Count; i++)
-                {
-                    SqlCommand cm = new SqlCommand(@"INSERT INTO Stavke(Kolicina,Cena,NamestajId,ProdajaId,Obrisn) VALUES(@kolicina,@cena,@namestajId,@prodajaId,@obrisan) ", conn);
-                    cm.Parameters.Add(new SqlParameter("@kolicina", p.StavkeProdaje[i].Kolicina));
-                    cm.Parameters.Add(new SqlParameter("@cena", p.StavkeProdaje[i].Cena));
-                    cm.Parameters.Add(new SqlParameter("@namestajId", p.StavkeProdaje[i].NamestajProdaja.Id));
-                    cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                    cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                    cm.ExecuteNonQuery();
-                }
+                    for (int i = 0; i < p.StavkeProdaje.Count; i++)
+                    {
+                        SqlCommand cm = new SqlCommand(@"INSERT INTO Stavka(Kolicina,Cena,NamestajId,ProdajaId,Obrisn) VALUES(@kolicina,@cena,@namestajId,@prodajaId,@obrisan) ", conn);
+                        cm.Parameters.Add(new SqlParameter("@kolicina", p.StavkeProdaje[i].Kolicina));
+                        cm.Parameters.Add(new SqlParameter("@cena", p.StavkeProdaje[i].Cena));
+                        cm.Parameters.Add(new SqlParameter("@namestajId", p.StavkeProdaje[i].NamestajProdaja.Id));
+                        cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
+                        cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                        cm.ExecuteNonQuery();
+                        p.StavkeProdaje[i].NamestajProdaja.Kolicina =p.StavkeProdaje[i].NamestajProdaja.Kolicina - p.StavkeProdaje[i].Kolicina;
+                        NamestajDAO.IzmenaNamestaja(p.StavkeProdaje[i].NamestajProdaja);
+                        foreach (var namestaj in Projekat.Instance.Namestaj)
+                        {
+                            if (namestaj.Id == p.StavkeProdaje[i].NamestajProdaja.Id)
+                                namestaj.Kolicina = p.StavkeProdaje[i].NamestajProdaja.Kolicina;
+                        }
+                       
+                    }
 
-                for(int i = 0; i < p.DodatneUsluge.Count; i++)
-                {
-                    SqlCommand cm = new SqlCommand(@"INSERT INTO ProdateUsluge(UslugeId,ProdajaId,Obrisn) VALUES(@usluge,@prodajaId,@obrisan) ", conn);
-                    cm.Parameters.Add(new SqlParameter("@namestajId", p.DodatneUsluge[i].Id));
-                    cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                    cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                    cm.ExecuteNonQuery();
-                }
+                    for (int i = 0; i < p.DodatneUsluge.Count; i++)
+                    {
+                        SqlCommand cm = new SqlCommand(@"INSERT INTO ProdateUsluge(UslugeId,ProdajaId,Obrisn) VALUES(@usluge,@prodajaId,@obrisan) ", conn);
+                        cm.Parameters.Add(new SqlParameter("@namestajId", p.DodatneUsluge[i].Id));
+                        cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
+                        cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                        cm.ExecuteNonQuery();
+                    }
+              
             }
+            
             Projekat.Instance.Prodaja.Add(p);
             return p;
         }
@@ -158,6 +171,15 @@ namespace POP_SF42_2016_GUI.DAO
                     cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
                     cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
                     cm.ExecuteNonQuery();
+
+                    var n = stavke[i].NamestajProdaja;
+                    n.Kolicina += stavke[i].Kolicina;
+                    foreach(var namestaj in Projekat.Instance.Namestaj)
+                    {
+                        if (namestaj.Id == n.Id)
+                            namestaj.Kolicina = n.Kolicina;
+                    }
+                    NamestajDAO.IzmenaNamestaja(n);
                 }
                 return true;
             }
@@ -178,6 +200,17 @@ namespace POP_SF42_2016_GUI.DAO
                     cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
                     cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
                     cm.ExecuteNonQuery();
+
+
+                    foreach (var namestaj in Projekat.Instance.Namestaj)
+                    {
+                        if (namestaj.Id == stavke[i].NamestajProdaja.Id)
+                        {
+                            namestaj.Kolicina = namestaj.Kolicina - stavke[i].Kolicina;
+                            NamestajDAO.IzmenaNamestaja(namestaj);
+                        }
+
+                    }
                 }
                 return true;
             }

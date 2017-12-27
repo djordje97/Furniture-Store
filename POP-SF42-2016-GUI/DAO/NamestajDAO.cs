@@ -24,12 +24,12 @@ namespace POP_SF42_2016_GUI.DAO
                
                 while (reader.Read())
                 {
-                    TipNamestaja t = new TipNamestaja()
-                    {
-                        Id = reader.GetInt32(8),
-                        Naziv = reader.GetString(9),
-                        Obrisan = false,
-                    };
+                  //  TipNamestaja t = new TipNamestaja()
+                  //  {
+                   //     Id = reader.GetInt32(8),
+                  //      Naziv = reader.GetString(9),
+                   //     Obrisan = false,
+                  //  };
 
                     Namestaj n = new Namestaj()
                     {
@@ -37,7 +37,7 @@ namespace POP_SF42_2016_GUI.DAO
                         Naziv = reader.GetString(1),
                         Kolicina = reader.GetInt32(2),
                         Sifra = reader.GetString(3),
-                        TipNamestaja = t,
+                        TipNamestajaId = reader.GetInt32(8),
                         Cena = (double)reader.GetDecimal(5),
                         AkcijskaCena = (double)reader.GetDecimal(6)
                     };

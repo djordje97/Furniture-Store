@@ -52,10 +52,11 @@ namespace POP_SF42_2016_GUI.DAO
                     reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        if (NamestajDAO.NametajPoId(reader.GetInt32(0)) != null)
-                            namestaj.Add(NamestajDAO.NametajPoId(reader.GetInt32(0)));
+                        //  if (NamestajDAO.NametajPoId(reader.GetInt32(0)) != null)
+                        //  namestaj.Add(NamestajDAO.NametajPoId(reader.GetInt32(0)));
+                        akcija.NamestajPopustId.Add(reader.GetInt32(0));
                     }
-                    akcija.NamestajPopust = namestaj;
+                    //akcija.NamestajPopust = namestaj;
                     reader.Close();
                 }
             }
@@ -88,29 +89,35 @@ namespace POP_SF42_2016_GUI.DAO
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(@"INSERT INTO Akcija(Datum_Pocetka,Datum_Kraja,Popust,Obrisan) VALUES(@datP,@datK,@popust,@obrisan) ", conn);
-                cmd.CommandText += "SELECT SCOPE_IDENTITY();";
-                cmd.Parameters.Add(new SqlParameter("@datP", a.PocetakAkcije));
-                cmd.Parameters.Add(new SqlParameter("@datK", a.KrajAkcije));
-                cmd.Parameters.Add(new SqlParameter("@popust", a.Popust));
-                cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                int newId = int.Parse(cmd.ExecuteScalar().ToString());
-                a.Id = newId;
-                for (int i = 0; i < a.NamestajPopust.Count; i++)
+               
                 {
-                    a.NamestajPopust[i].AkcijskaCena = a.NamestajPopust[i].Cena - ((a.NamestajPopust[i].Cena * a.Popust) / 100);
-                    NamestajDAO.IzmenaNamestaja(a.NamestajPopust[i]);
-                    foreach(var n in Projekat.Instance.Namestaj)
+                    SqlCommand cmd = new SqlCommand(@"INSERT INTO Akcija(Datum_Pocetka,Datum_Kraja,Popust,Obrisan) VALUES(@datP,@datK,@popust,@obrisan) ", conn);
+                    cmd.CommandText += "SELECT SCOPE_IDENTITY();";
+                    cmd.Parameters.Add(new SqlParameter("@datP", a.PocetakAkcije));
+                    cmd.Parameters.Add(new SqlParameter("@datK", a.KrajAkcije));
+                    cmd.Parameters.Add(new SqlParameter("@popust", a.Popust));
+                    cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                    int newId = int.Parse(cmd.ExecuteScalar().ToString());
+                    a.Id = newId;
+                    for (int i = 0; i < a.NamestajPopust.Count; i++)
                     {
-                        if(n.Id== a.NamestajPopust[i].Id)
+                        
+                        SqlCommand cm = new SqlCommand(@"INSERT INTO NaAkciji(NamestajId,AkcijaId,Obrisan) VALUES(@namestajId,@akcijaId,@obrisan) ", conn);
+                        cm.Parameters.Add(new SqlParameter("@namestajId", a.NamestajPopust[i].Id));
+                        cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
+                        cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                        cm.ExecuteNonQuery();
+
+                       foreach(var namestaj in Projekat.Instance.Namestaj)
                         {
-                            n.AkcijskaCena = n.Cena - ((n.Cena * a.Popust) / 100);
+                            if (namestaj.Id == a.NamestajPopust[i].Id)
+                            {
+                                namestaj.AkcijskaCena = namestaj.Cena - ((namestaj.Cena * a.Popust) / 100);
+                                NamestajDAO.IzmenaNamestaja(namestaj);
+                            }
                         }
                     }
-                    SqlCommand cm = new SqlCommand(@"INSERT INTO NaAkciji(NamestajId,AkcijaId,Obrisan) VALUES(@namestajId,@akcijaId) ", conn);
-                    cm.Parameters.Add(new SqlParameter("@namestajId", a.NamestajPopust[i].Id));
-                    cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
-                    cm.ExecuteNonQuery();
+     
                 }
             }
             Projekat.Instance.Akcije.Add(a);
@@ -143,13 +150,13 @@ namespace POP_SF42_2016_GUI.DAO
                 }
                 for (int i = 0; i < a.NamestajPopust.Count; i++)
                 {
-                    a.NamestajPopust[i].AkcijskaCena = a.NamestajPopust[i].Cena - ((a.NamestajPopust[i].Cena * a.Popust) / 100);
-                    NamestajDAO.IzmenaNamestaja(a.NamestajPopust[i]);
-                    foreach (var n in Projekat.Instance.Namestaj)
+                  
+                    foreach (var namestaj in Projekat.Instance.Namestaj)
                     {
-                        if (n.Id == a.NamestajPopust[i].Id)
+                        if (namestaj.Id == a.NamestajPopust[i].Id)
                         {
-                            n.AkcijskaCena = n.Cena - ((n.Cena * a.Popust) / 100);
+                            namestaj.AkcijskaCena = namestaj.Cena - ((namestaj.Cena * a.Popust) / 100);
+                            NamestajDAO.IzmenaNamestaja(namestaj);
                         }
                     }
                 }

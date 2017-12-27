@@ -75,12 +75,21 @@ namespace POP_SF42_2016_GUI.UI
             var izabrana = dgNamestajAkcija.SelectedItem as Namestaj;
             akcija.NamestajPopust.Remove(izabrana);
             obrisanNamestaj.Add(izabrana);
-         
+            if (dodatNamestaj.Count > 1)
+            {
+                foreach(var n in obrisanNamestaj)
+                {
+                    if (n.Id == izabrana.Id)
+                    {
+                        dodatNamestaj.Remove(n);
+                    }
+                }
+            }
         }
 
         private void dgNamestajAkcija_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if ((string)e.Column.Header == "Obrisan" || (string)e.Column.Header == "Id")
+            if ((string)e.Column.Header == "Obrisan" || (string)e.Column.Header == "Id" || (string)e.Column.Header == "TipNamestajaId")
                 e.Cancel = true;
         }
 

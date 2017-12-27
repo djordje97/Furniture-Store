@@ -32,6 +32,14 @@ namespace POP_SF42_2016_GUI.Model
             set { kolicina = value; }
         }
 
+        private int namestajProdajaId;
+
+        public int NamestajProdajaId
+        {
+            get { return namestajProdajaId; }
+            set { namestajProdajaId = value; }
+        }
+
         private Namestaj namestajProdaja;
 
         public event PropertyChangedEventHandler PropertyChanged;
