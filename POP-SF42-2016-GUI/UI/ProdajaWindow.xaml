@@ -6,13 +6,32 @@
         xmlns:local="clr-namespace:POP_SF42_2016_GUI.UI"
         mc:Ignorable="d"
         Title="ProdajaWindow" Height="545" Width="812" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ControlTemplate x:Key="TextBoxError">
+            <DockPanel LastChildFill="True">
+                <TextBlock DockPanel.Dock="Right" Foreground="Red" FontSize="12pt">Polje ne sme biti prazno!</TextBlock>
+                <Border BorderBrush="Red" BorderThickness="1">
+                    <AdornedElementPlaceholder />
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
+        <local:ValidationConverter x:Key="converter"/>
+    </Window.Resources>
     <Grid Background="#FF0066CC">
         <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="40" Margin="248,466,0,0" VerticalAlignment="Top" Width="130" IsDefault="True" Click="Potvrdi"/>
         <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="40" Margin="393,466,0,0" VerticalAlignment="Top" Width="130" IsCancel="True"/>
         <DataGrid x:Name="dgStavke"  AutoGenerateColumns="True"  CanUserResizeColumns="False" CanUserAddRows="False" ColumnWidth="*" SelectionMode="Single"  HorizontalAlignment="Left" Height="167" Margin="10,185,0,0" VerticalAlignment="Top" Width="342" AutoGeneratingColumn="dgStavke_AutoGeneratingColumn"/>
         <Button x:Name="btnPreuzmi" Content="Dodaj" HorizontalAlignment="Left" Height="35" Margin="10,360,0,0" VerticalAlignment="Top" Width="112" Click="DodajStavku"/>
         <Label Content="Kupac:"  HorizontalAlignment="Left" Height="31" Margin="199,29,0,0" VerticalAlignment="Top" Width="103" FontSize="16" Foreground="White"/>
-        <TextBox x:Name="tbKupac" Text="{Binding Path=Kupac}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Margin="302,31,0,0"/>
+        <TextBox x:Name="tbKupac" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Margin="302,31,0,0">
+            <TextBox.Text>
+                <Binding Path="Kupac" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:StringValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <Label Content="Datum:" HorizontalAlignment="Left" Height="30" Margin="199,76,0,0" VerticalAlignment="Top" Width="76" FontSize="16" Foreground="White"/>
         <DatePicker x:Name="dpDatum" SelectedDate="{Binding Path=DatumProdaje}" IsEnabled="False" FontWeight="UltraBlack" HorizontalAlignment="Left" Height="30" Margin="302,76,0,0" VerticalAlignment="Top" Width="154"/>
         <Label Content="Stavke prodaje:" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" Width="156" FontSize="20" Foreground="White" Height="44"/>

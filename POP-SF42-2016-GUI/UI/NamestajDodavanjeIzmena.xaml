@@ -5,20 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:POP_SF42_2016_GUI.UI"
         mc:Ignorable="d"
-        Title="NamestajDodavanjeIzmena" Height="300" Width="438" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="NamestajDodavanjeIzmena" Height="334" Width="477" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ControlTemplate x:Key="TextBoxError">
+            <DockPanel LastChildFill="True">
+                <TextBlock DockPanel.Dock="Right" Foreground="Red" FontSize="12pt">Polje ne sme biti prazno!</TextBlock>
+                <Border BorderBrush="Red" BorderThickness="1">
+                    <AdornedElementPlaceholder />
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
+        <local:ValidationConverter x:Key="converter"/>
+    </Window.Resources>
     <Grid  Margin="0,0,2,0" Background="#FF0066CC">
         <Label Content="Naziv:" HorizontalAlignment="Left" Height="28" Margin="40,10,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
         <Label Content="Sifra:" HorizontalAlignment="Left" Height="27" Margin="40,43,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
         <Label Content="Cena:" HorizontalAlignment="Left" Margin="40,75,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
         <Label Content="Kolicina:" HorizontalAlignment="Left" Height="28" Margin="29,120,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
         <Label Content="Tip namestaja:" HorizontalAlignment="Left" Height="27" Margin="10,164,0,0" VerticalAlignment="Top" Width="105" FontSize="14" Foreground="White"/>
-        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="35" Margin="117,224,0,0" VerticalAlignment="Top" Width="81" IsDefault="True" Click="Potvrdi"/>
-        <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="35" Margin="230,224,0,0" VerticalAlignment="Top" Width="81" IsCancel="True"/>
-        <TextBox x:Name="tbNazivNamestaja"  Text="{Binding Path=Naziv}" HorizontalAlignment="Left" Height="28" Margin="133,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
-        <TextBox x:Name="tbSifraNamestaja"  Text="{Binding Path=Sifra}" HorizontalAlignment="Left" Height="27" Margin="133,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
-        <TextBox x:Name="tbCenaNamestaja"  Text="{Binding Path=Cena}" HorizontalAlignment="Left" Height="26" Margin="133,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
-        <TextBox x:Name="tbKolicinaNamestaja"  Text="{Binding Path=Kolicina}" HorizontalAlignment="Left" Height="28" Margin="133,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
+        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="35" Margin="133,260,0,0" VerticalAlignment="Top" Width="81" IsDefault="True" Click="Potvrdi"/>
+        <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="35" Margin="249,260,0,0" VerticalAlignment="Top" Width="81" IsCancel="True"/>
+        <TextBox x:Name="tbNazivNamestaja"  Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" HorizontalAlignment="Left" Height="28" Margin="133,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
+            <TextBox.Text>
+                <Binding Path="Naziv" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:StringValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox x:Name="tbSifraNamestaja"  Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}"  HorizontalAlignment="Left" Height="27" Margin="133,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
+            <TextBox.Text>
+                <Binding Path="Sifra" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:StringValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox x:Name="tbCenaNamestaja"   HorizontalAlignment="Left" Height="26" Margin="133,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
+            <TextBox.Text>
+                <Binding Path="Cena" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:IntValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox x:Name="tbKolicinaNamestaja"   HorizontalAlignment="Left" Height="28" Margin="133,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
+            <TextBox.Text>
+                <Binding Path="Kolicina" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:IntValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <ComboBox x:Name="cbTipNamestaja" SelectedItem="{Binding Path=TipNamestaja}" HorizontalAlignment="Left" Height="27" Margin="133,164,0,0" VerticalAlignment="Top" Width="143" />
-
+        
+        <TextBlock x:Name="tbIspisGreske" Margin="40,204,0,0" Foreground="Red" FontWeight="Bold" 
+                           Text="{Binding ElementName=tbCenaNamestaja, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}" 
+                           HorizontalAlignment="Left" Width="364" Height="23" VerticalAlignment="Top"/>
+        <TextBlock x:Name="ispis" Margin="40,232,0,0" Foreground="Red" FontWeight="Bold" 
+                           Text="{Binding ElementName=tbKolicinaNamestaja, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}"
+                           HorizontalAlignment="Left" Width="364" Height="23" VerticalAlignment="Top"/>
     </Grid>
 </Window>

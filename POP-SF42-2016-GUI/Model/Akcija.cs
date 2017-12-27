@@ -55,9 +55,9 @@ namespace PoP.Model
             }
         }
 
-        private double popust;
+        private int popust;
 
-        public double Popust
+        public int Popust
         {
             get { return popust; }
             set {

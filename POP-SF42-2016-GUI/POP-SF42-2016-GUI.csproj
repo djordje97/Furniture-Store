@@ -81,15 +81,20 @@
     <Compile Include="UI\DodavanjeIzmenaKorisnik.xaml.cs">
       <DependentUpon>DodavanjeIzmenaKorisnik.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\DoubleValidation.cs" />
     <Compile Include="UI\GlavniProzor.xaml.cs">
       <DependentUpon>GlavniProzor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\IntValidation.cs" />
     <Compile Include="UI\IzlistajStavke.xaml.cs">
       <DependentUpon>IzlistajStavke.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\KolicinaValidation.cs" />
+    <Compile Include="UI\KorisnickoimeValidation.cs" />
     <Compile Include="UI\NamestajDodavanjeIzmena.xaml.cs">
       <DependentUpon>NamestajDodavanjeIzmena.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\PopustValidation.cs" />
     <Compile Include="UI\PreuzmiNamestaj.xaml.cs">
       <DependentUpon>PreuzmiNamestaj.xaml</DependentUpon>
     </Compile>
@@ -105,9 +110,11 @@
     <Compile Include="UI\StavkeWindow.xaml.cs">
       <DependentUpon>StavkeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\StringValidation.cs" />
     <Compile Include="UI\TipNamestajaDodavanejIzmena.xaml.cs">
       <DependentUpon>TipNamestajaDodavanejIzmena.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ValidationConverter.cs" />
     <Compile Include="Utils\GenericSerializer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

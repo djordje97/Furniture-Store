@@ -90,6 +90,7 @@ namespace PoP.Model
             get { return naziv; }
             set {
                 naziv = value;
+                OnPropertyChanged("Naziv");
             }
         }
 

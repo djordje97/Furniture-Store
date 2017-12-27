@@ -101,7 +101,7 @@ namespace POP_SF42_2016_GUI.DAO
 
                     for (int i = 0; i < p.StavkeProdaje.Count; i++)
                     {
-                        SqlCommand cm = new SqlCommand(@"INSERT INTO Stavka(Kolicina,Cena,NamestajId,ProdajaId,Obrisn) VALUES(@kolicina,@cena,@namestajId,@prodajaId,@obrisan) ", conn);
+                        SqlCommand cm = new SqlCommand(@"INSERT INTO Stavka(Kolicina,Cena,NamestajId,ProdajaId,Obrisan) VALUES(@kolicina,@cena,@namestajId,@prodajaId,@obrisan) ", conn);
                         cm.Parameters.Add(new SqlParameter("@kolicina", p.StavkeProdaje[i].Kolicina));
                         cm.Parameters.Add(new SqlParameter("@cena", p.StavkeProdaje[i].Cena));
                         cm.Parameters.Add(new SqlParameter("@namestajId", p.StavkeProdaje[i].NamestajProdaja.Id));
@@ -120,8 +120,8 @@ namespace POP_SF42_2016_GUI.DAO
 
                     for (int i = 0; i < p.DodatneUsluge.Count; i++)
                     {
-                        SqlCommand cm = new SqlCommand(@"INSERT INTO ProdateUsluge(UslugeId,ProdajaId,Obrisn) VALUES(@usluge,@prodajaId,@obrisan) ", conn);
-                        cm.Parameters.Add(new SqlParameter("@namestajId", p.DodatneUsluge[i].Id));
+                        SqlCommand cm = new SqlCommand(@"INSERT INTO ProdateUsluge(UslugeId,ProdajaId,Obrisan) VALUES(@usluge,@prodajaId,@obrisan) ", conn);
+                        cm.Parameters.Add(new SqlParameter("@usluge", p.DodatneUsluge[i].Id));
                         cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
                         cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
                         cm.ExecuteNonQuery();

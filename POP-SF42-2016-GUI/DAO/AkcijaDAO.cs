@@ -30,7 +30,7 @@ namespace POP_SF42_2016_GUI.DAO
                         Id = reader.GetInt32(0),
                         PocetakAkcije = (DateTime)reader.GetDateTime(1),
                         KrajAkcije = (DateTime)reader.GetDateTime(2),
-                        Popust = (double)reader.GetDecimal(3),
+                        Popust = reader.GetInt32(3),
                         Obrisan = false
                     };
                     if(DateTime.Today > a.KrajAkcije)
@@ -244,7 +244,7 @@ namespace POP_SF42_2016_GUI.DAO
                         Id = reader.GetInt32(0),
                         PocetakAkcije = (DateTime)reader.GetDateTime(1),
                         KrajAkcije = (DateTime)reader.GetDateTime(2),
-                        Popust = (double)reader.GetDecimal(3),
+                        Popust = reader.GetInt32(3),
                         Obrisan = false
                     };
 

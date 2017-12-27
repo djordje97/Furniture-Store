@@ -6,13 +6,42 @@
         xmlns:local="clr-namespace:POP_SF42_2016_GUI.UI"
         mc:Ignorable="d"
         Title="DodatneUslugeDodavanjeIzmena" Height="292" Width="497" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <ControlTemplate x:Key="TextBoxError">
+            <DockPanel LastChildFill="True">
+                <TextBlock DockPanel.Dock="Right" Foreground="Red" FontSize="12pt">Polje ne sme biti prazno!</TextBlock>
+                <Border BorderBrush="Red" BorderThickness="1">
+                    <AdornedElementPlaceholder />
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
+        <local:ValidationConverter x:Key="converter"/>
+    </Window.Resources>
     <Grid Background="#FF0066CC">
         <Label Content="Naziv:" HorizontalAlignment="Left" Height="32" Margin="95,51,0,0" VerticalAlignment="Top" Width="73" Foreground="White" FontSize="16"/>
         <Label Content="Cena:" HorizontalAlignment="Left" Height="34" Margin="95,97,0,0" VerticalAlignment="Top" Width="73" FontSize="16" Foreground="White"/>
-        <TextBox x:Name="tbNazivUsluge" Text="{Binding Path=Naziv}" HorizontalAlignment="Left" Height="23" Margin="155,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <TextBox x:Name="tbCenaUsluge" Text="{Binding Path=Cena}" HorizontalAlignment="Left" Height="23" Margin="155,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
-        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="34" Margin="133,197,0,0" VerticalAlignment="Top" Width="81" IsDefault="True" Click="Potvrdi"/>
-        <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="34" Margin="260,197,0,0" VerticalAlignment="Top" Width="81" IsCancel="True"/>
+        <TextBox x:Name="tbNazivUsluge" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" HorizontalAlignment="Left" Height="23" Margin="155,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127">
+            <TextBox.Text>
+                <Binding Path="Naziv" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:StringValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox x:Name="tbCenaUsluge"  HorizontalAlignment="Left" Height="23" Margin="155,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127">
+            <TextBox.Text>
+                <Binding Path="Cena" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local:DoubleValidation/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="34" Margin="134,219,0,0" VerticalAlignment="Top" Width="81" IsDefault="True" Click="Potvrdi"/>
+        <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="34" Margin="255,219,0,0" VerticalAlignment="Top" Width="81" IsCancel="True"/>
+        <TextBlock x:Name="tbIspisGreske" Foreground="Red" FontWeight="Bold" Margin="75,145,0,0"  Text="{Binding ElementName=tbCenaUsluge, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}" 
+                           HorizontalAlignment="Left" Width="364" Height="23" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

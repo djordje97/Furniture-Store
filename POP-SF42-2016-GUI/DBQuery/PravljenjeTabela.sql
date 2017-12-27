@@ -40,7 +40,7 @@ CREATE TABLE Akcija(
 Id INT IDENTITY (1, 1) PRIMARY KEY,
 Datum_Pocetka DATETIME,
 Datum_Kraja DATETIME,
-Popust DECIMAL,
+Popust INT,
 Obrisan BIT  DEFAULT 0,
 );
 
