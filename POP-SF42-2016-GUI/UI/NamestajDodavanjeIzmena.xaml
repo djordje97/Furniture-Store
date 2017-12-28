@@ -47,7 +47,7 @@
             <TextBox.Text>
                 <Binding Path="Cena" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
-                        <local:IntValidation/>
+                        <local:DoubleValidation/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
@@ -61,7 +61,7 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <ComboBox x:Name="cbTipNamestaja" SelectedItem="{Binding Path=TipNamestaja}" HorizontalAlignment="Left" Height="27" Margin="133,164,0,0" VerticalAlignment="Top" Width="143" />
+        <ComboBox x:Name="cbTipNamestaja"  SelectedItem="{Binding Path=TipNamestaja}" HorizontalAlignment="Left" Height="27" Margin="133,164,0,0" VerticalAlignment="Top" Width="143" />
         
         <TextBlock x:Name="tbIspisGreske" Margin="40,204,0,0" Foreground="Red" FontWeight="Bold" 
                            Text="{Binding ElementName=tbCenaNamestaja, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}" 

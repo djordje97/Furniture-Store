@@ -17,7 +17,7 @@ namespace POP_SF42_2016_GUI.UI
                 return new ValidationResult(false, "Morate popuniti polje");
             }
             else
-                return new ValidationResult(true, "");
+                return new ValidationResult(true, null);
         }
     }
 }

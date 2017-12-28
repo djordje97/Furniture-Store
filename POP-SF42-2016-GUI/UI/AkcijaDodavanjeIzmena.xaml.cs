@@ -48,8 +48,7 @@ namespace POP_SF42_2016_GUI.UI
             this.DialogResult = true;
             if(operacija == Operacija.DODAVANJE)
             {
-               AkcijaDAO.DodavanjeAkcije(akcija);
-               AkcijaDAO.DodavanjeNaAkciju(akcija, dodatNamestaj);
+                AkcijaDAO.DodavanjeAkcije(akcija);
              
             }
             AkcijaDAO.IzmenaAkcije(akcija);

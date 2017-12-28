@@ -18,7 +18,7 @@ namespace POP_SF42_2016_GUI.DAO
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(@"SELECT * FROM Namestaj n join TipNamestaja t on n.Tip_Namestaja=t.Id WHERE n.Obrisan=@obrisan", conn);
+                SqlCommand cmd = new SqlCommand(@"SELECT * FROM Namestaj  WHERE Obrisan=@obrisan", conn);
                 cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                 SqlDataReader reader = cmd.ExecuteReader();
                
@@ -37,7 +37,7 @@ namespace POP_SF42_2016_GUI.DAO
                         Naziv = reader.GetString(1),
                         Kolicina = reader.GetInt32(2),
                         Sifra = reader.GetString(3),
-                        TipNamestajaId = reader.GetInt32(8),
+                        TipNamestajaId = reader.GetInt32(4),
                         Cena = (double)reader.GetDecimal(5),
                         AkcijskaCena = (double)reader.GetDecimal(6)
                     };
@@ -101,6 +101,8 @@ namespace POP_SF42_2016_GUI.DAO
                     item.Naziv = n.Naziv;
                     item.Sifra = n.Sifra;
                     item.TipNamestaja = n.TipNamestaja;
+                    item.Cena = n.Cena;
+                    item.AkcijskaCena = n.AkcijskaCena;
                     item.Obrisan = n.Obrisan;
                 }
             }
@@ -135,40 +137,15 @@ namespace POP_SF42_2016_GUI.DAO
             return null;
         }
 
-        public static ObservableCollection<Namestaj> SortirajNamestaj(string tekst)
-        {
-            ObservableCollection<Namestaj> namestaj = new ObservableCollection<Namestaj>();
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(@"SELECT * FROM Namestaj join TipNamestaja on Namestaj.Tip_Namestaja=TipNamestaja.Id WHERE Namestaj.Obrisan=@obrisan ORDER BY " +tekst, conn);
-                cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                SqlDataReader reader = cmd.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    Namestaj n = new Namestaj()
-                    {
-                        Id = reader.GetInt32(0),
-                        Naziv = reader.GetString(1),
-                        Kolicina = reader.GetInt32(2),
-                        Sifra = reader.GetString(3),
-                        TipNamestaja = (TipNamestaja)TipNamestajaDAO.TipPoId(reader.GetInt32(4)),
-                        Cena = (double)reader.GetDecimal(5)
-                    };
-                    namestaj.Add(n);
-                }
-            }
-            return namestaj;
-        }
         public static ObservableCollection<Namestaj> PretraziNamestaj(string tekst)
         {
             ObservableCollection<Namestaj> namestaj = new ObservableCollection<Namestaj>();
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(@"SELECT * FROM Namestaj join TipNamestaja on Namestaj.Tip_Namestaja=TipNamestaja.Id WHERE Namestaj.Obrisan=@obrisan AND(Namestaj.Naziv like @tekst OR Kolicina like @tekst
-                 OR Sifra like @tekst OR Cena like @tekst OR TipNamestaja.Naziv like @tekst)", conn);
+                SqlCommand cmd = new SqlCommand(@"SELECT * FROM Namestaj JOIN TipNamestaja ON Namestaj.Tip_Namestaja=TipNamestaja.Id WHERE Namestaj.Obrisan=@obrisan AND(Namestaj.Naziv LIKE @tekst OR Kolicina LIKE @tekst
+                 OR Sifra LIKE @tekst OR Cena LIKE @tekst OR TipNamestaja.Naziv LIKE @tekst)", conn);
                 cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                 cmd.Parameters.Add(new SqlParameter("@tekst", "%"+tekst+"%"));
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -181,13 +158,22 @@ namespace POP_SF42_2016_GUI.DAO
                         Naziv = reader.GetString(1),
                         Kolicina = reader.GetInt32(2),
                         Sifra = reader.GetString(3),
-                        TipNamestaja = (TipNamestaja)TipNamestajaDAO.TipPoId(reader.GetInt32(4)),
+                        TipNamestajaId = reader.GetInt32(4),
                         Cena = (double)reader.GetDecimal(5),
                         AkcijskaCena = (double)reader.GetDecimal(6)
                     };
                     namestaj.Add(n);
                 }
             }
+            foreach(var tip in Projekat.Instance.TipNamestaja)
+            {
+                foreach(var nam in namestaj)
+                {
+                    if (nam.TipNamestajaId == tip.Id)
+                        nam.TipNamestaja = tip;
+                }
+            }
+
             return namestaj;
         }
     }

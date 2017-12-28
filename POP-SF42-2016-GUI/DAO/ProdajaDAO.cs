@@ -251,5 +251,92 @@ namespace POP_SF42_2016_GUI.DAO
             }
     
         }
+        public static ObservableCollection<ProdajaNamestaja> PretraziProdaju(string tekst)
+        {
+            ObservableCollection<ProdajaNamestaja> prodaje = new ObservableCollection<ProdajaNamestaja>();
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(@"SELECT Id,Kupac,Broj_Racuna,Datum_Prodaje,Ukupan_Iznos FROM Prodaja WHERE Obrisan=@obrisan 
+                AND(Kupac LIKE @tekst OR Broj_Racuna LIKE @tekst OR Datum_Prodaje LIKE @tekst OR Ukupan_Iznos LIKE @tekst)", conn);
+                cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                cmd.Parameters.Add(new SqlParameter("@tekst", "%"+tekst+"%"));
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    ProdajaNamestaja p = new ProdajaNamestaja()
+                    {
+                        Id = reader.GetInt32(0),
+                        Kupac = reader.GetString(1),
+                        BrojRacuna = reader.GetInt32(2),
+                        DatumProdaje = (DateTime)reader.GetDateTime(3),
+                        Obrisan = false
+
+                    };
+
+                    prodaje.Add(p);
+                }
+                reader.Close();
+                foreach (var prodaja in prodaje)
+                {
+                    ObservableCollection<StavkaProdaje> stavke = new ObservableCollection<StavkaProdaje>();
+                    cmd = new SqlCommand(@"SELECT Id, Kolicina,Cena,NamestajId FROM Stavka WHERE ProdajaId=@id AND Obrisan=@obrisan", conn);
+                    cmd.Parameters.Add(new SqlParameter("@id", prodaja.Id));
+                    cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                    reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        StavkaProdaje s = new StavkaProdaje()
+                        {
+                            Id = reader.GetInt32(0),
+                            Kolicina = reader.GetInt32(1),
+                            //NamestajProdaja = NamestajDAO.NametajPoId(reader.GetInt32(3)),
+                            NamestajProdajaId = reader.GetInt32(3),
+                            Obrisan = false
+                        };
+                        stavke.Add(s);
+                    }
+                    prodaja.StavkeProdaje = stavke;
+                    reader.Close();
+                }
+                reader.Close();
+                foreach (var prodaja in prodaje)
+                {
+                    ObservableCollection<DodatnaUsluga> usluge = new ObservableCollection<DodatnaUsluga>();
+                    cmd = new SqlCommand(@"SELECT UslugeId FROM ProdateUsluge WHERE ProdajaId=@id AND Obrisan=@obrisan", conn);
+                    cmd.Parameters.Add(new SqlParameter("@id", prodaja.Id));
+                    cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                    reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+
+                        //if (UslugeDAO.UslugaPoId(reader.GetInt32(0)) != null)
+                        //   usluge.Add(UslugeDAO.UslugaPoId(reader.GetInt32(0)));
+                        prodaja.DodatneUslugeId.Add(reader.GetInt32(0));
+
+                    }
+                    //prodaja.DodatneUsluge = usluge;
+                    reader.Close();
+                }
+            }
+
+            foreach (var prodaja in prodaje)
+            {
+                foreach (var stavka in prodaja.StavkeProdaje)
+                {
+                    stavka.NamestajProdaja = Namestaj.PronadjiNamestaj(stavka.NamestajProdajaId);
+                }
+                foreach (var u in prodaja.DodatneUslugeId)
+                {
+                    prodaja.DodatneUsluge.Add(DodatnaUsluga.PronadjiUslugu(u));
+                }
+            }
+
+            return prodaje;
+
+        }
+      
     }
 }

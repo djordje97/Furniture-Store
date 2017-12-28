@@ -37,16 +37,6 @@ namespace POP_SF42_2016_GUI.UI
             this.namestaj = namestaj;
             this.operacija = operacija;
             cbTipNamestaja.ItemsSource = Projekat.Instance.TipNamestaja;
-
-            foreach(var n in Projekat.Instance.TipNamestaja)
-            {
-                if(!n.Obrisan)
-                {
-                    namestaj.TipNamestaja = n;
-                    break;
-                    
-                }
-            }
             tbNazivNamestaja.DataContext = namestaj;
             tbCenaNamestaja.DataContext = namestaj;
             tbSifraNamestaja.DataContext = namestaj;
@@ -63,7 +53,7 @@ namespace POP_SF42_2016_GUI.UI
                 { 
                     NamestajDAO.DodavanjeNamestaja(namestaj);
                 }
-                 NamestajDAO.IzmenaNamestaja(namestaj);
+                NamestajDAO.IzmenaNamestaja(namestaj);
                 Close();
         }
     }

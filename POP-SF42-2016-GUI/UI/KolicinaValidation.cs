@@ -22,7 +22,7 @@ namespace POP_SF42_2016_GUI.UI
                         return new ValidationResult(false, "Morate uneti pozitivan broj");
                     if(broj> Nam.Kolicina)
                         return new ValidationResult(false, "Namestaja nema u datoj kolicini");
-                return new ValidationResult(true, "");
+                return new ValidationResult(true, null);
             }
                 catch (Exception)
                 {

@@ -23,7 +23,7 @@ namespace POP_SF42_2016_GUI.UI
                 else if (broj < 5 || broj > 90)
                     return new ValidationResult(false, "uneseni popust nije omogucen");
                 else
-                return new ValidationResult(true, "");
+                return new ValidationResult(true,null);
             }
             catch (Exception)
             {

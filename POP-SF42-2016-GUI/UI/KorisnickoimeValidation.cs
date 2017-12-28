@@ -29,7 +29,7 @@ namespace POP_SF42_2016_GUI.UI
                     return new ValidationResult(false, "To korisnicko ime vec postoji");
                 }
             }
-            return new ValidationResult(true, "");
+            return new ValidationResult(true, null);
           
         }
     }

@@ -82,6 +82,7 @@
       <DependentUpon>DodavanjeIzmenaKorisnik.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\DoubleValidation.cs" />
+    <Compile Include="UI\EmailValidation.cs" />
     <Compile Include="UI\GlavniProzor.xaml.cs">
       <DependentUpon>GlavniProzor.xaml</DependentUpon>
     </Compile>

@@ -99,12 +99,11 @@ namespace POP_SF42_2016_GUI.DAO
         public static ObservableCollection<Korisnik> PretragaKorisnika(string tekst)
         {
             ObservableCollection<Korisnik> korisnici = new ObservableCollection<Korisnik>();
-            int id = 1;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(@"SELECT * FROM Korisnik WHERE Obrisan=@obrisan AND (Ime LIKE (@tekst) OR Prezime LIKE (@tekst)" +
-                    "OR Korisnicko_Ime LIKE (@tekst) OR Lozinka LIKE (@tekst) OR Tip_Korisnika LIKE (@tekst))", conn);
+                SqlCommand cmd = new SqlCommand(@"SELECT * FROM Korisnik WHERE Obrisan=@obrisan AND (Ime LIKE @tekst OR Prezime LIKE @tekst" +
+                    " OR Korisnicko_Ime LIKE @tekst OR Lozinka LIKE @tekst OR Tip_Korisnika LIKE @tekst)", conn);
                 cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                cmd.Parameters.Add(new SqlParameter("@tekst", "%"+tekst+"%"));
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -113,12 +112,12 @@ namespace POP_SF42_2016_GUI.DAO
                 {
                     Korisnik k = new Korisnik()
                     {
-                        Id = id++,
-                        Ime = reader.GetString(0),
-                        Prezime = reader.GetString(1),
-                        Korisnicko_Ime = reader.GetString(2),
-                        Lozinka = reader.GetString(3),
-                        TipKorisnika = (TipKorisnika)Enum.Parse(typeof(TipKorisnika), reader.GetString(4)),
+                        Id = reader.GetInt32(0),
+                        Ime = reader.GetString(1),
+                        Prezime = reader.GetString(2),
+                        Korisnicko_Ime = reader.GetString(3),
+                        Lozinka = reader.GetString(4),
+                        TipKorisnika = (TipKorisnika)Enum.Parse(typeof(TipKorisnika), reader.GetString(5)),
                         Obrisan = false
 
                     };
@@ -127,35 +126,6 @@ namespace POP_SF42_2016_GUI.DAO
             }
             return korisnici;
         }
-        public static ObservableCollection<Korisnik> SortirajKorisnika(string tekst)
-        {
-            ObservableCollection<Korisnik> korisnici = new ObservableCollection<Korisnik>();
-            int id = 1;
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(@"SELECT * FROM Korisnik WHERE Obrisan=@obrisan ORDER BY " +tekst, conn);
-                cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                cmd.Parameters.Add(new SqlParameter("@tekst", tekst));
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    Korisnik k = new Korisnik()
-                    {
-                        Id = id++,
-                        Ime = reader.GetString(0),
-                        Prezime = reader.GetString(1),
-                        Korisnicko_Ime = reader.GetString(2),
-                        Lozinka = reader.GetString(3),
-                        TipKorisnika = (TipKorisnika)Enum.Parse(typeof(TipKorisnika), reader.GetString(4)),
-                        Obrisan = false
-
-                    };
-                    korisnici.Add(k);
-                }
-            }
-            return korisnici;
-        }
+    
     }
 }

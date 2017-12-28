@@ -109,7 +109,7 @@ namespace POP_SF42_2016_GUI.DAO
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(@"SELECT * FROM TipNamestaja WHERE Obrisan=@obrisan AND Naziv like @tekst", conn);
+                SqlCommand cmd = new SqlCommand(@"SELECT * FROM TipNamestaja WHERE Obrisan=@obrisan AND Naziv LIKE @tekst", conn);
                 cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                 cmd.Parameters.Add(new SqlParameter("@tekst", "%"+tekst+"%"));
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -126,28 +126,6 @@ namespace POP_SF42_2016_GUI.DAO
             }
             return tipovi;
         }
-        public static ObservableCollection<TipNamestaja> SortirajTipove(string tekst)
-        {
-            ObservableCollection<TipNamestaja> tipovi = new ObservableCollection<TipNamestaja>();
 
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(@"SELECT * FROM TipNamestaja WHERE Obrisan=@obrisan ORDER BY "+tekst, conn);
-                cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    TipNamestaja tip = new TipNamestaja()
-                    {
-                        Id = reader.GetInt32(0),
-                        Naziv = reader.GetString(1)
-                    };
-                    tipovi.Add(tip);
-                }
-            }
-            return tipovi;
-        }
     }
 }

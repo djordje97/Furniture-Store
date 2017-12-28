@@ -91,7 +91,7 @@ namespace POP_SF42_2016_GUI.DAO
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(@"SELECT * FROM DodatneUsluge WHERE Obrisan=@obrisan AND (Naziv like @tekst OR Cena like @tekst)", conn);
+                SqlCommand cmd = new SqlCommand(@"SELECT * FROM DodatneUsluge WHERE Obrisan=@obrisan AND (Naziv LIKE @tekst OR Cena LIKE @tekst)", conn);
                 cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                 cmd.Parameters.Add(new SqlParameter("@tekst", "%"+tekst+"%"));
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -110,55 +110,7 @@ namespace POP_SF42_2016_GUI.DAO
             }
             return usluge;
         }
-        public static ObservableCollection<DodatnaUsluga> SortirajUsluge(string tekst)
-        {
-            ObservableCollection<DodatnaUsluga> usluge = new ObservableCollection<DodatnaUsluga>();
 
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(@"SELECT * FROM DodatneUsluge WHERE Obrisan=@obrisan ORDER BY "+tekst, conn);
-                cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    DodatnaUsluga du = new DodatnaUsluga()
-                    {
-                        Id = reader.GetInt32(0),
-                        Naziv = reader.GetString(1),
-                        Cena = (double)reader.GetDecimal(2)
-                    };
-                    usluge.Add(du);
-
-                }
-            }
-            return usluge;
-        }
-        public static DodatnaUsluga UslugaPoId(int id)
-        {
-
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(@"SELECT * FROM DodatneUsluge WHERE Obrisan=@obrisan AND Id=@id", conn);
-                cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                cmd.Parameters.Add(new SqlParameter("@id", id));
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    DodatnaUsluga du = new DodatnaUsluga()
-                    {
-                        Id = reader.GetInt32(0),
-                        Naziv = reader.GetString(1),
-                        Cena = (double)reader.GetDecimal(2)
-                    };
-                    return du;
-                }
-               
-            }
-            return null;
-        }
+  
     }
 }

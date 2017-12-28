@@ -60,7 +60,6 @@ namespace POP_SF42_2016_GUI.UI
             if (operacija == Operacija.DODAVANJE)
             {
                 Stavka.NamestajProdaja = dgNamestaj.SelectedItem as Namestaj;
-                KolicinaValidation.Nam = dgNamestaj.SelectedItem as Namestaj;
                 Stavka.Cena = (Stavka.NamestajProdaja.Cena )* Stavka.Kolicina;
 
             }
