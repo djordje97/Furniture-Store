@@ -8,8 +8,12 @@
         Title="PreuzmiNamestaj" Height="355.2" Width="523" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Background="#FF0066CC">
         <DataGrid x:Name="dgNamestajPreuzimanje" IsReadOnly="True" CanUserAddRows="False" ColumnWidth="*" SelectionMode="Single" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="196" Margin="27,54,0,0" VerticalAlignment="Top" Width="465" AutoGeneratingColumn="dgNamestajPreuzimanje_AutoGeneratingColumn" />
-            <Label Content="Izaberite uslugu:" HorizontalAlignment="Left" Height="39" Margin="38,10,0,0" VerticalAlignment="Top" Width="142" Foreground="White" FontSize="16"/>
-            <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="32" Margin="123,282,0,0" VerticalAlignment="Top" Width="93" Click="btnPotvrdi_Click"/>
-        <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="32" Margin="253,282,0,0" VerticalAlignment="Top" Width="92" IsCancel="True" Click="btnOdustani_Click"/>
+        <Label Content="Izaberite uslugu:" HorizontalAlignment="Left" Height="39" Margin="38,10,0,0" VerticalAlignment="Top" Width="142" Foreground="White" FontSize="16"/>
+        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="123,273,0,0" VerticalAlignment="Top" Width="77" Click="btnPotvrdi_Click" BorderBrush="#FF0066CC" Background="#FF0066CC">
+            <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-document-save.ico"/>
+        </Button>
+        <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="254,273,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" Click="btnOdustani_Click" Background="#FF0066CC" BorderBrush="#FF0066CC">
+            <Image Height="43" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
+        </Button>
     </Grid>
 </Window>

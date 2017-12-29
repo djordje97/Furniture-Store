@@ -9,8 +9,12 @@
     <Grid Background="#FF0066CC">
         <Label Content="Naziv:" HorizontalAlignment="Left" Height="28" Margin="73,75,0,0" VerticalAlignment="Top" Width="77" FontSize="16" Foreground="White"/>
         <TextBox x:Name="tbNazivTipa" Text="{Binding Path=Naziv}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="155,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="141"/>
-        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="32" Margin="130,163,0,0" VerticalAlignment="Top" Width="81" Click="Potvrdi"/>
-        <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="32" Margin="241,163,0,0" VerticalAlignment="Top" Width="81" IsCancel="True"/>
+        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="130,163,0,0" VerticalAlignment="Top" Width="77" Click="Potvrdi" Background="#FF0066CC" BorderBrush="#FF0066CC">
+            <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-document-save.ico"/>
+        </Button>
+        <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="241,163,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" Background="#FF0066CC" BorderBrush="#FF0066CC">
+            <Image Height="43" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
+        </Button>
 
     </Grid>
 </Window>

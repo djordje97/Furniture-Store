@@ -23,18 +23,26 @@
             <Label Content="Pretraga:" HorizontalAlignment="Left" Height="31" Margin="0,10,0,0" VerticalAlignment="Top" Width="74" Foreground="White" FontSize="16"/>
             <TextBox Name="tbPretraga" HorizontalAlignment ="Left" Height="31" Margin="74,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160" VerticalContentAlignment="Center" />
             <Grid HorizontalAlignment="Left" Height="311" Margin="0,95,-1,-311" VerticalAlignment="Top" Width="606" Background="#FF0066CC"/>
-            <Button Name="btnDodaj" Content="Dodaj" HorizontalAlignment="Left" Height="36" Margin="34,19,0,0" VerticalAlignment="Top" Width="106" Grid.Row="2" Click="Dodaj"/>
-            <Button  Name="btnIzmeni" Content="Izmeni" HorizontalAlignment="Left" Height="36" Margin="203,19,0,0" VerticalAlignment="Top" Width="106" Grid.Row="2" Click="Izmena" />
-            <Button  Name="btnObrisi" HorizontalAlignment="Left" Height="36" Margin="370,19,0,0" VerticalAlignment="Top" Width="106" Grid.Row="2" Click="Brisanje" Content="Obrisi"/>
+            <Button Name="btnDodaj" ToolTip="Dodavanje" HorizontalAlignment="Left" Height="56" Margin="61,10,0,0" VerticalAlignment="Top" Width="72" Grid.Row="2" Click="Dodaj" Background="#FF0066CC" BorderBrush="#FF0066CC">
+                <Image Height="49" Width="62" Source="/POP-SF42-2016-GUI;component/Resursi/Kyo-Tux-Delikate-Add.ico"/>
+            </Button>
+            <Button  Name="btnIzmeni" ToolTip="Izmena" HorizontalAlignment="Left" Height="56" Margin="205,10,0,0" VerticalAlignment="Top" Width="72" Grid.Row="2" Click="Izmena" Background="#FF0066CC" BorderBrush="#FF0066CC" >
+                <Image Height="49" Width="62" Source="/POP-SF42-2016-GUI;component/Resursi/Custom-Icon-Design-Pretty-Office-10-Pencil.ico"/>
+            </Button>
+            <Button  Name="btnObrisi"  ToolTip="Brisanje" HorizontalAlignment="Left" Height="56" Margin="342,10,0,0" VerticalAlignment="Top" Width="72" Grid.Row="2" Click="Brisanje" Background="#FF0066CC" BorderBrush="#FF0066CC">
+                <Image Height="49" Width="62" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
+            </Button>
             <DataGrid ColumnWidth="*" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserReorderColumns="False"  Name="dgPrikaz" HorizontalAlignment="Left" Height="310" Grid.Row="1" VerticalAlignment="Top" Width="733" AutoGeneratingColumn="dgPrikaz_AutoGeneratingColumn" LoadingRow="dgPrikaz_LoadingRow" />
-            <Button x:Name="btnIzlistajStavke" Content="Detalji" HorizontalAlignment="Left" Height="36" Margin="565,19,0,0" Grid.Row="2" VerticalAlignment="Top" Width="106" Click="Izlistaj" />
+            <Button x:Name="btnIzlistajStavke" ToolTip="Detalji" HorizontalAlignment="Left" Height="56" Margin="562,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="72" Click="Izlistaj" Background="#FF0066CC" BorderBrush="#FF0066CC" >
+                <Image Height="49" Width="62" Source="/POP-SF42-2016-GUI;component/Resursi/Kyo-Tux-Delikate-Info.ico"/>
+            </Button>
             <ComboBox x:Name="cbSortiraj" HorizontalAlignment="Left" Height="28" Margin="455,13,0,0" VerticalAlignment="Top" Width="136" SelectionChanged="cbSortiraj_SelectionChanged"/>
             <Label Content="Sortiraj po:" HorizontalAlignment="Left" Height="31" Margin="342,10,0,0" VerticalAlignment="Top" Width="113" FontSize="16" Foreground="White"/>
             <Button x:Name="btnPretraga" Content="Pretrazi" HorizontalAlignment="Left" Height="28" Margin="239,13,0,0" VerticalAlignment="Top" Width="78" Click="Pretrazi"/>
-            <Button x:Name="btnLogout" HorizontalAlignment="Left" Height="42" Margin="678,10,0,0" VerticalAlignment="Top" Width="45" Background="#FF0066CC" Foreground="#FF0066CC" BorderThickness="0" Click="LogOut">
-                <Image Height="42" Width="45" Source="/POP-SF42-2016-GUI;component/Resursi/Alecive-Flatwoken-Apps-Dialog-Shutdown.ico" OpacityMask="#FF0066CC" RenderTransformOrigin="0.846,0.571"/>
+            <Button x:Name="btnLogout" ToolTip="Odjava" HorizontalAlignment="Left" Height="42" Margin="678,10,0,0" VerticalAlignment="Top" Width="45" Background="#FF0066CC" Foreground="#FF0066CC" BorderThickness="0" Click="LogOut">
+                <Image Height="42"  Width="45" Source="/POP-SF42-2016-GUI;component/Resursi/Alecive-Flatwoken-Apps-Dialog-Shutdown.ico" OpacityMask="#FF0066CC" RenderTransformOrigin="0.846,0.571"/>
             </Button>
-            <Button x:Name="btnSalon" HorizontalAlignment="Left" Margin="626,10,0,0" VerticalAlignment="Top" Width="45" Height="42" Background="#FF0066CC" BorderThickness="0" Click="btnSalon_Click">
+            <Button x:Name="btnSalon" ToolTip="Informacije o Salonu" HorizontalAlignment="Left" Margin="626,10,0,0" VerticalAlignment="Top" Width="45" Height="42" Background="#FF0066CC" BorderThickness="0" Click="btnSalon_Click">
                 <Image Height="42" Width="45" Source="/POP-SF42-2016-GUI;component/Resursi/Kyo-Tux-Delikate-Info.ico"/>
             </Button>
             <Label x:Name="lbNaAkciji" Content="Namestaj na akciji" HorizontalAlignment="Left" Height="28" Margin="10,60,0,0" VerticalAlignment="Top" Width="108" Background="#FFC86800" Foreground="White"/>

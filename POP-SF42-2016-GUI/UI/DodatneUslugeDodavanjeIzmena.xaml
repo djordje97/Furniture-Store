@@ -38,9 +38,13 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="34" Margin="134,219,0,0" VerticalAlignment="Top" Width="81" IsDefault="True" Click="Potvrdi"/>
-        <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="34" Margin="255,219,0,0" VerticalAlignment="Top" Width="81" IsCancel="True"/>
-        <TextBlock x:Name="tbIspisGreske" Foreground="Red" FontWeight="Bold" Margin="75,145,0,0"  Text="{Binding ElementName=tbCenaUsluge, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}" 
+        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="134,210,0,0" VerticalAlignment="Top" Width="77" IsDefault="True" Click="Potvrdi" Background="#FF0066CC" BorderBrush="#FF0066CC">
+            <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-document-save.ico"/>
+        </Button>
+        <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="233,210,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" Background="#FF0066CC" BorderBrush="#FF0066CC">
+            <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
+        </Button>
+        <TextBlock x:Name="tbIspisGreske" FontSize="12pt" Foreground="Red" FontWeight="Bold" Margin="75,145,0,0"  Text="{Binding ElementName=tbCenaUsluge, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}" 
                            HorizontalAlignment="Left" Width="364" Height="23" VerticalAlignment="Top"/>
 
     </Grid>

@@ -70,9 +70,13 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="34" Margin="173,380,0,0" VerticalAlignment="Top" Width="117" IsDefault="True" Click="PotvrdiUslugu"/>
-        <Button Content="Odustani" HorizontalAlignment="Left" Height="34" Margin="319,380,0,0" VerticalAlignment="Top" Width="118" IsCancel="True"/>
-        <TextBlock x:Name="tbIspisGreske"  Margin="290,280,0,0" Foreground="Red" FontWeight="Bold" 
+        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="173,373,0,0" VerticalAlignment="Top" Width="77" IsDefault="True" Click="PotvrdiUslugu" BorderBrush="#FF0066CC" Background="#FF0066CC">
+            <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-document-save.ico"/>
+        </Button>
+        <Button x:Name="Odustani"  ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="317,373,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" Background="#FF0066CC" BorderBrush="#FF0066CC">
+            <Image Height="43" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
+        </Button>
+        <TextBlock x:Name="tbIspisGreske" FontSize="12pt" Margin="290,280,0,0" Foreground="Red" FontWeight="Bold" 
                            Text="{Binding ElementName=tbKolicina, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}" 
                            HorizontalAlignment="Left" Width="296" Height="23" VerticalAlignment="Top" />
 

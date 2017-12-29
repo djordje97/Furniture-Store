@@ -16,17 +16,21 @@
             </DockPanel>
         </ControlTemplate>
         <local:ValidationConverter x:Key="converter"/>
-        
+
     </Window.Resources>
-    
+
     <Grid  Margin="0,0,2,0" Background="#FF0066CC">
         <Label Content="Naziv:" HorizontalAlignment="Left" Height="28" Margin="40,10,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
         <Label Content="Sifra:" HorizontalAlignment="Left" Height="27" Margin="40,43,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
         <Label Content="Cena:" HorizontalAlignment="Left" Margin="40,75,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
         <Label Content="Kolicina:" HorizontalAlignment="Left" Height="28" Margin="29,120,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
         <Label Content="Tip namestaja:" HorizontalAlignment="Left" Height="27" Margin="10,164,0,0" VerticalAlignment="Top" Width="105" FontSize="14" Foreground="White"/>
-        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="35" Margin="133,260,0,0" VerticalAlignment="Top" Width="81" IsDefault="True" Click="Potvrdi"/>
-        <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="35" Margin="249,260,0,0" VerticalAlignment="Top" Width="81" IsCancel="True"/>
+        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="133,252,0,0" VerticalAlignment="Top" Width="77" IsDefault="True" Click="Potvrdi" Background="#FF0066CC" BorderBrush="#FF0066CC">
+            <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-document-save.ico"/>
+        </Button>
+        <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="245,252,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" BorderBrush="#FF0066CC" Background="#FF0066CC">
+            <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
+        </Button>
         <TextBox x:Name="tbNazivNamestaja"  Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" HorizontalAlignment="Left" Height="28" Margin="133,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
             <TextBox.Text>
                 <Binding Path="Naziv" UpdateSourceTrigger="PropertyChanged">
@@ -64,11 +68,11 @@
             </TextBox.Text>
         </TextBox>
         <ComboBox x:Name="cbTipNamestaja"  SelectedItem="{Binding Path=TipNamestaja}" HorizontalAlignment="Left" Height="27" Margin="133,164,0,0" VerticalAlignment="Top" Width="143" />
-        
-        <TextBlock x:Name="tbIspisGreske" Margin="40,204,0,0" Foreground="Red" FontWeight="Bold" 
+
+        <TextBlock x:Name="tbIspisGreske" FontSize="12pt" Margin="40,199,0,0" Foreground="Red" FontWeight="Bold" 
                            Text="{Binding ElementName=tbCenaNamestaja, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}" 
                            HorizontalAlignment="Left" Width="364" Height="23" VerticalAlignment="Top"/>
-        <TextBlock x:Name="ispis" Margin="40,232,0,0" Foreground="Red" FontWeight="Bold" 
+        <TextBlock x:Name="ispis" FontSize="12pt" Margin="40,227,0,0" Foreground="Red" FontWeight="Bold" 
                            Text="{Binding ElementName=tbKolicinaNamestaja, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}"
                            HorizontalAlignment="Left" Width="364" Height="23" VerticalAlignment="Top"/>
     </Grid>

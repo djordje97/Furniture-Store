@@ -18,7 +18,7 @@ namespace POP_SF42_2016_GUI.UI
             {
 
                 int parsirano;
-                bool rezultat = Int32.TryParse(vrednost, out parsirano);
+                bool rezultat = int.TryParse(vrednost, out parsirano);
                 if (!rezultat)
                     return new ValidationResult(false, "Morate uneti pozitivan broj");
                 else if (parsirano < 0)

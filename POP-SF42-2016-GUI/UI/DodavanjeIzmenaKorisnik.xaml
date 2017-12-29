@@ -17,7 +17,7 @@
         </ControlTemplate>
         <local:ValidationConverter x:Key="converter"/>
     </Window.Resources>
-    <Grid Margin="0,0,2,0" Background="#FF0066CC">
+    <Grid Margin="0,0,4,0" Background="#FF0066CC">
         <Label Content="Ime:" HorizontalAlignment="Left"  HorizontalContentAlignment="Center" Height="30" Margin="99,29,0,0" VerticalAlignment="Top" Width="84" FontSize="16" Foreground="White"/>
         <TextBox x:Name="tbIme" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Height="27" Margin="183,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
             <TextBox.Text>
@@ -48,8 +48,12 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="33" Margin="155,279,0,0" VerticalAlignment="Top" Width="91" IsCancel="True" Click="Potvrdi"/>
-        <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="33" Margin="286,279,0,0" VerticalAlignment="Top" Width="91" IsCancel="True"/>
+        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="159,269,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" Click="Potvrdi" Background="#FF0066CC" BorderBrush="#FF0066CC">
+            <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-document-save.ico"/>
+        </Button>
+        <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="286,269,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" BorderBrush="#FF0066CC" Background="#FF0066CC">
+            <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
+        </Button>
         <Label Content="Lozinka:"   HorizontalAlignment="Left" Height="29" Margin="84,150,0,0" VerticalAlignment="Top" Width="99" FontSize="16" Foreground="White"/>
         <TextBox x:Name="tbLozinka" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Height="27" Margin="183,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
             <TextBox.Text>
@@ -62,7 +66,7 @@
         </TextBox>
         <ComboBox x:Name="cbTipKorisnika" HorizontalAlignment="Left" Height="25" Margin="183,201,0,0" VerticalAlignment="Top" Width="143" SelectedItem="{Binding Path=TipKorisnika}"/>
         <Label Content="Tip Korisnika:" HorizontalAlignment="Left" Height="36" Margin="67,201,0,0" VerticalAlignment="Top" Width="116" Foreground="White" FontSize="16"/>
-        <TextBlock x:Name="tbIspisGreske"  Margin="120,237,0,0" Foreground="Red" FontWeight="Bold" 
+        <TextBlock x:Name="tbIspisGreske" FontSize="12pt"  Margin="120,237,0,0" Foreground="Red" FontWeight="Bold" 
                            Text="{Binding ElementName=tbKorisnickoIme, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}"
                            HorizontalAlignment="Left" Width="364" Height="23" VerticalAlignment="Top"/>
 

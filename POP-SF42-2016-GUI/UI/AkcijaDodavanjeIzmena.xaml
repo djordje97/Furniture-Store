@@ -23,8 +23,8 @@
         <DatePicker x:Name="dpPocetak"   SelectedDate="{Binding Path=PocetakAkcije}"  IsEnabled="False" FontWeight="UltraBlack" HorizontalAlignment="Left" Height="33" Margin="191,46,0,0" VerticalAlignment="Top" Width="145" FirstDayOfWeek="Monday"/>
         <Label Content="Kraj akcije:" HorizontalAlignment="Left" Height="33" Margin="69,94,0,0" VerticalAlignment="Top" Width="122" FontSize="16" Foreground="White"/>
         <DatePicker x:Name="dpKraj" SelectedDate="{Binding Path=KrajAkcije}" HorizontalAlignment="Left" Height="33" Margin="191,94,0,0" VerticalAlignment="Top" Width="145"/>
-        <Label Content="Popust:" HorizontalAlignment="Left" Height="33" Margin="140,329,0,0" VerticalAlignment="Top" Width="88" Foreground="White" FontSize="16"/>
-        <TextBox x:Name="tbPopust"  VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="33" Margin="233,329,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150">
+        <Label Content="Popust:" HorizontalAlignment="Left" Height="33" Margin="103,328,0,0" VerticalAlignment="Top" Width="88" Foreground="White" FontSize="16"/>
+        <TextBox x:Name="tbPopust"  VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="33" Margin="191,329,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150">
             <TextBox.Text>
                 <Binding Path="Popust" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -33,14 +33,22 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button x:Name="btnPotvrdi" Content="Potvrdi" HorizontalAlignment="Left" Height="33" Margin="191,388,0,0" VerticalAlignment="Top" Width="90" IsDefault="True" Click="Potvrdi"/>
-        <Button x:Name="btnOdustani" Content="Odustani" HorizontalAlignment="Left" Height="33" Margin="324,388,0,0" VerticalAlignment="Top" Width="90" IsCancel="True"/>
+        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="191,378,0,0" VerticalAlignment="Top" Width="77" IsDefault="True" Click="Potvrdi" Background="#FF0066CC" BorderBrush="#FF0066CC">
+            <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-document-save.ico"/>
+        </Button>
+        <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="284,378,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" Background="#FF0066CC" BorderBrush="#FF0066CC">
+            <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
+        </Button>
         <DataGrid x:Name="dgNamestajAkcija" CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*" HorizontalAlignment="Left" Height="184" Margin="79,140,0,0" VerticalAlignment="Top" Width="386" AutoGeneratingColumn="dgNamestajAkcija_AutoGeneratingColumn"/>
-        <Button x:Name="btnDodaj" Content="Dodaj" HorizontalAlignment="Left" Height="33" Margin="485,140,0,0" VerticalAlignment="Top" Width="92" Click="btnDodaj_Click"/>
-        <Button x:Name="btnUkloni" Content="Ukloni" HorizontalAlignment="Left" Height="33" Margin="485,190,0,0" VerticalAlignment="Top" Width="92" Click="btnUkloni_Click"/>
-        <TextBlock x:Name="tbIspisGreske" Margin="400,338,0,0"  Foreground="Red" FontWeight="Bold" 
+        <Button x:Name="btnDodaj" ToolTip="Dodaj namestaj" HorizontalAlignment="Left" Height="35" Margin="485,140,0,0" VerticalAlignment="Top" Width="51" Click="btnDodaj_Click" Background="#FF0066CC" BorderBrush="#FF0066CC">
+            <Image Height="32" Width="50" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-list-add.ico"/>
+        </Button>
+        <Button x:Name="btnUkloni" ToolTip="Ukloni namestaj" HorizontalAlignment="Left" Height="35" Margin="485,190,0,0" VerticalAlignment="Top" Width="51" Click="btnUkloni_Click" BorderBrush="#FF0066CC" Background="#FF0066CC">
+            <Image Height="32" Width="50" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
+        </Button>
+        <TextBlock x:Name="tbIspisGreske" FontSize="12pt" Margin="346,338,0,0"  Foreground="Red" FontWeight="Bold" 
                            Text="{Binding ElementName=tbPopust, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}"
-                           HorizontalAlignment="Left" Width="364" Height="23" VerticalAlignment="Top"/>
+                           HorizontalAlignment="Left" Width="280" Height="23" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

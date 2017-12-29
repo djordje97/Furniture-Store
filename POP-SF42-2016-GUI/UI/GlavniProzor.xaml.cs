@@ -54,7 +54,6 @@ namespace POP_SF42_2016_GUI.UI
             dgPrikaz.ItemsSource = view;
             var ponudjeno = new List<string>() { "Naziv", "Sifra", "Cena", "Kolicina", "Tip Namestaja" };
             cbSortiraj.ItemsSource = ponudjeno;
-            btnIzmeni.Content = "Izmeni";
             lbNaAkciji.Visibility = Visibility.Visible;
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;
@@ -71,7 +70,6 @@ namespace POP_SF42_2016_GUI.UI
             dgPrikaz.ItemsSource = view;
             var ponudjeno = new List<string>() { "Naziv","Cena" };
             cbSortiraj.ItemsSource = ponudjeno;
-            btnIzmeni.Content = "Izmeni";
             lbNaAkciji.Visibility = Visibility.Hidden;
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;
@@ -86,7 +84,6 @@ namespace POP_SF42_2016_GUI.UI
             dgPrikaz.ItemsSource = view;
             var ponudjeno = new List<string>() {"Naziv"};
             cbSortiraj.ItemsSource = ponudjeno;
-            btnIzmeni.Content = "Izmeni";
             lbNaAkciji.Visibility = Visibility.Hidden;
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;
@@ -101,7 +98,6 @@ namespace POP_SF42_2016_GUI.UI
             dgPrikaz.ItemsSource = view;
             var ponudjeno = new List<string>() { "Kupac", "Datum Prodaje", "Broj Racuna","Ukupan Iznos" };
             cbSortiraj.ItemsSource = ponudjeno;
-            btnIzmeni.Content = "Storniraj";
             lbNaAkciji.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Hidden;
             btnIzlistajStavke.Visibility = Visibility.Visible;
@@ -118,7 +114,6 @@ namespace POP_SF42_2016_GUI.UI
             dgPrikaz.ItemsSource = view;
             var ponudjeno = new List<string>() { "Datum Pocetka", "Datum_Kraja", "Popust" };
             cbSortiraj.ItemsSource = ponudjeno;
-            btnIzmeni.Content = "Izmeni";
             lbNaAkciji.Visibility = Visibility.Hidden;
             btnIzlistajStavke.Visibility = Visibility.Visible;
             btnObrisi.Visibility = Visibility.Visible;
@@ -134,7 +129,6 @@ namespace POP_SF42_2016_GUI.UI
             cbSortiraj.SelectedItem = null;
             var ponudjeno = new List<string>() { "Ime","Prezime","Tip Korisnika","Korisnicko Ime","Lozinka"};
             cbSortiraj.ItemsSource = ponudjeno;
-            btnIzmeni.Content = "Izmeni";
             lbNaAkciji.Visibility = Visibility.Hidden;
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;

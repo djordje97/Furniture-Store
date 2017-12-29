@@ -117,6 +117,12 @@ namespace POP_SF42_2016_GUI.DAO
                         {
                             if (namestaj.Id == p.StavkeProdaje[i].NamestajProdaja.Id)
                                 namestaj.Kolicina = p.StavkeProdaje[i].NamestajProdaja.Kolicina;
+                            if (namestaj.Kolicina == 0)
+                            {
+                                namestaj.Obrisan = true;
+                                NamestajDAO.BrisanjeNamestaja(namestaj);
+                                Projekat.Instance.Namestaj.Remove(namestaj);
+                            }
                         }
 
                     }
@@ -225,6 +231,12 @@ namespace POP_SF42_2016_GUI.DAO
                             {
                                 namestaj.Kolicina = namestaj.Kolicina - stavke[i].Kolicina;
                                 NamestajDAO.IzmenaNamestaja(namestaj);
+                            }
+                            if (namestaj.Kolicina == 0)
+                            {
+                                namestaj.Obrisan = true;
+                                NamestajDAO.BrisanjeNamestaja(namestaj);
+                                Projekat.Instance.Namestaj.Remove(namestaj);
                             }
 
                         }
