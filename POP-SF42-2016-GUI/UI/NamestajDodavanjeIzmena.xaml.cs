@@ -52,9 +52,11 @@ namespace POP_SF42_2016_GUI.UI
                 if (operacija == Operacija.DODAVANJE)
                 { 
                     NamestajDAO.DodavanjeNamestaja(namestaj);
+                  
                 }
-                NamestajDAO.IzmenaNamestaja(namestaj);
-                Close();
+                else
+                  NamestajDAO.IzmenaNamestaja(namestaj);
+               this.Close();
         }
     }
 }

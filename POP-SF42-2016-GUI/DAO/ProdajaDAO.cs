@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace POP_SF42_2016_GUI.DAO
 {
@@ -85,10 +86,12 @@ namespace POP_SF42_2016_GUI.DAO
         }
         public static ProdajaNamestaja DodajProdaju(ProdajaNamestaja p)
         {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            try
             {
-                conn.Open();
-            
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+                {
+                    conn.Open();
+
                     SqlCommand cmd = new SqlCommand(@"INSERT INTO Prodaja(Kupac,Broj_Racuna,Datum_Prodaje,Ukupan_Iznos,Obrisan) VALUES(@kupac,@brojR,@datumProdaje,@ukupanIznos,@obrisan) ", conn);
                     cmd.CommandText += "SELECT SCOPE_IDENTITY();";
                     cmd.Parameters.Add(new SqlParameter("@kupac", p.Kupac));
@@ -108,14 +111,14 @@ namespace POP_SF42_2016_GUI.DAO
                         cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
                         cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
                         cm.ExecuteNonQuery();
-                        p.StavkeProdaje[i].NamestajProdaja.Kolicina =p.StavkeProdaje[i].NamestajProdaja.Kolicina - p.StavkeProdaje[i].Kolicina;
+                        p.StavkeProdaje[i].NamestajProdaja.Kolicina = p.StavkeProdaje[i].NamestajProdaja.Kolicina - p.StavkeProdaje[i].Kolicina;
                         NamestajDAO.IzmenaNamestaja(p.StavkeProdaje[i].NamestajProdaja);
                         foreach (var namestaj in Projekat.Instance.Namestaj)
                         {
                             if (namestaj.Id == p.StavkeProdaje[i].NamestajProdaja.Id)
                                 namestaj.Kolicina = p.StavkeProdaje[i].NamestajProdaja.Kolicina;
                         }
-                       
+
                     }
 
                     for (int i = 0; i < p.DodatneUsluge.Count; i++)
@@ -126,130 +129,158 @@ namespace POP_SF42_2016_GUI.DAO
                         cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
                         cm.ExecuteNonQuery();
                     }
-              
+
+                }
+                Projekat.Instance.Prodaja.Add(p);
+                return p;
             }
-            
-            Projekat.Instance.Prodaja.Add(p);
-            return p;
+            catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning); return null; }
+
         }
         public static bool IzmenaProdaje(ProdajaNamestaja p)
         {
-
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            try
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(@" UPDATE Prodaja SET Kupac=@kupac,Datum_Prodaje=@datum WHERE Id=@id", conn);
-                cmd.Parameters.Add(new SqlParameter("@Kupac", p.Kupac));
-                cmd.Parameters.Add(new SqlParameter("@datum", p.DatumProdaje));
-                cmd.Parameters.Add(new SqlParameter("@id", p.Id));
-                cmd.ExecuteNonQuery();
-
-                foreach(var item in Projekat.Instance.Prodaja)
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
                 {
-                    if (item.Id == p.Id)
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(@" UPDATE Prodaja SET Kupac=@kupac,Datum_Prodaje=@datum WHERE Id=@id", conn);
+                    cmd.Parameters.Add(new SqlParameter("@Kupac", p.Kupac));
+                    cmd.Parameters.Add(new SqlParameter("@datum", p.DatumProdaje));
+                    cmd.Parameters.Add(new SqlParameter("@id", p.Id));
+                    cmd.ExecuteNonQuery();
+
+                    foreach (var item in Projekat.Instance.Prodaja)
                     {
-                        item.Kupac = p.Kupac;
-                        item.DatumProdaje = p.DatumProdaje;
-                        item.StavkeProdaje = p.StavkeProdaje;
-                        item.DodatneUsluge = p.DodatneUsluge;
-                        item.UkupanIznos = p.UkupanIznos;
+                        if (item.Id == p.Id)
+                        {
+                            item.Kupac = p.Kupac;
+                            item.DatumProdaje = p.DatumProdaje;
+                            item.StavkeProdaje = p.StavkeProdaje;
+                            item.DodatneUsluge = p.DodatneUsluge;
+                            item.UkupanIznos = p.UkupanIznos;
+                        }
                     }
+                    return true;
                 }
-                return true;
             }
+            catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning); return false; }
+           
+            
         }
       
         public static bool ObrisiStavku(ProdajaNamestaja p, ObservableCollection<StavkaProdaje> stavke)
         {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            try
             {
-                conn.Open();
-                for (int i = 0; i < stavke.Count; i++)
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
                 {
-                    SqlCommand cm = new SqlCommand(@" UPDATE  Stavka SET Obrisan=@obrisan WHERE Id=@id AND ProdajaId=@prodajaId", conn);
-                    cm.Parameters.Add(new SqlParameter("@id", stavke[i].Id));
-                    cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                    cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
-                    cm.ExecuteNonQuery();
-
-                    var n = stavke[i].NamestajProdaja;
-                    n.Kolicina += stavke[i].Kolicina;
-                    foreach(var namestaj in Projekat.Instance.Namestaj)
+                    conn.Open();
+                    for (int i = 0; i < stavke.Count; i++)
                     {
-                        if (namestaj.Id == n.Id)
-                            namestaj.Kolicina = n.Kolicina;
+                        SqlCommand cm = new SqlCommand(@" UPDATE  Stavka SET Obrisan=@obrisan WHERE Id=@id AND ProdajaId=@prodajaId", conn);
+                        cm.Parameters.Add(new SqlParameter("@id", stavke[i].Id));
+                        cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
+                        cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
+                        cm.ExecuteNonQuery();
+
+                        var n = stavke[i].NamestajProdaja;
+                        n.Kolicina += stavke[i].Kolicina;
+                        foreach (var namestaj in Projekat.Instance.Namestaj)
+                        {
+                            if (namestaj.Id == n.Id)
+                                namestaj.Kolicina = n.Kolicina;
+                        }
+                        NamestajDAO.IzmenaNamestaja(n);
                     }
-                    NamestajDAO.IzmenaNamestaja(n);
+                    return true;
                 }
-                return true;
             }
-          
+            catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning); return false; }
             
+
+
         }
         public static bool DodajStavku(ProdajaNamestaja p, ObservableCollection<StavkaProdaje> stavke)
         {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            try
             {
-                conn.Open();
-                for (int i = 0; i < stavke.Count; i++)
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
                 {
-                    SqlCommand cm = new SqlCommand(@" INSERT INTO Stavka(Kolicina,Cena,NamestajId,ProdajaId,Obrisan) VALUES (@kolicina,@cena,@namestajId,@prodajaId,@obrisan)", conn);
-                    cm.Parameters.Add(new SqlParameter("@namestajId", stavke[i].NamestajProdaja.Id));
-                    cm.Parameters.Add(new SqlParameter("@kolicina", stavke[i].Kolicina));
-                    cm.Parameters.Add(new SqlParameter("@cena", stavke[i].Cena));
-                    cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                    cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                    cm.ExecuteNonQuery();
-
-
-                    foreach (var namestaj in Projekat.Instance.Namestaj)
+                    conn.Open();
+                    for (int i = 0; i < stavke.Count; i++)
                     {
-                        if (namestaj.Id == stavke[i].NamestajProdaja.Id)
-                        {
-                            namestaj.Kolicina = namestaj.Kolicina - stavke[i].Kolicina;
-                            NamestajDAO.IzmenaNamestaja(namestaj);
-                        }
+                        SqlCommand cm = new SqlCommand(@" INSERT INTO Stavka(Kolicina,Cena,NamestajId,ProdajaId,Obrisan) VALUES (@kolicina,@cena,@namestajId,@prodajaId,@obrisan)", conn);
+                        cm.Parameters.Add(new SqlParameter("@namestajId", stavke[i].NamestajProdaja.Id));
+                        cm.Parameters.Add(new SqlParameter("@kolicina", stavke[i].Kolicina));
+                        cm.Parameters.Add(new SqlParameter("@cena", stavke[i].Cena));
+                        cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
+                        cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                        cm.ExecuteNonQuery();
 
+
+                        foreach (var namestaj in Projekat.Instance.Namestaj)
+                        {
+                            if (namestaj.Id == stavke[i].NamestajProdaja.Id)
+                            {
+                                namestaj.Kolicina = namestaj.Kolicina - stavke[i].Kolicina;
+                                NamestajDAO.IzmenaNamestaja(namestaj);
+                            }
+
+                        }
                     }
+                    return true;
                 }
-                return true;
             }
+            catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning); return false; }
             
-         
+
+
         }
         public static bool ObrisiUslugu(ProdajaNamestaja p, ObservableCollection<DodatnaUsluga> usluge)
         {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            try
             {
-                conn.Open();
-                for (int i = 0; i < usluge.Count; i++)
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
                 {
-                    SqlCommand cm = new SqlCommand(@" UPDATE  ProdateUsluge SET Obrisan=@obrisan WHERE UslugeId=@id AND ProdajaId=@prodajaId", conn);
-                    cm.Parameters.Add(new SqlParameter("@id", usluge[i].Id));
-                    cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                    cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
-                    cm.ExecuteNonQuery();
+
+                    conn.Open();
+                    for (int i = 0; i < usluge.Count; i++)
+                    {
+                        SqlCommand cm = new SqlCommand(@" UPDATE  ProdateUsluge SET Obrisan=@obrisan WHERE UslugeId=@id AND ProdajaId=@prodajaId", conn);
+                        cm.Parameters.Add(new SqlParameter("@id", usluge[i].Id));
+                        cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
+                        cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
+                        cm.ExecuteNonQuery();
+                    }
+                    return true;
                 }
-                return true;
             }
-          
+            catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning); return false; }
+            
+
         }
         public static bool DodajUslugu(ProdajaNamestaja p,ObservableCollection<DodatnaUsluga> usluge)
         {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            try
             {
-                conn.Open();
-                for (int i = 0; i < usluge.Count; i++)
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
                 {
-                    SqlCommand cm = new SqlCommand(@" INSERT INTO ProdateUsluge(UslugeId,ProdajaId,Obrisan) VALUES (@uslugeId,@prodajaId,@obrisan)", conn);
-                    cm.Parameters.Add(new SqlParameter("@uslugeId", usluge[i].Id));
-                    cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                    cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                    cm.ExecuteNonQuery();
+                    conn.Open();
+                    for (int i = 0; i < usluge.Count; i++)
+                    {
+                        SqlCommand cm = new SqlCommand(@" INSERT INTO ProdateUsluge(UslugeId,ProdajaId,Obrisan) VALUES (@uslugeId,@prodajaId,@obrisan)", conn);
+                        cm.Parameters.Add(new SqlParameter("@uslugeId", usluge[i].Id));
+                        cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
+                        cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                        cm.ExecuteNonQuery();
+                    }
+                    return true;
                 }
-                return true;
             }
-    
+            catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning); return false; }
+          
+
         }
         public static ObservableCollection<ProdajaNamestaja> PretraziProdaju(string tekst)
         {

@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace POP_SF42_2016_GUI.DAO
 {
@@ -39,7 +40,7 @@ namespace POP_SF42_2016_GUI.DAO
                         Sifra = reader.GetString(3),
                         TipNamestajaId = reader.GetInt32(4),
                         Cena = (double)reader.GetDecimal(5),
-                        AkcijskaCena = (double)reader.GetDecimal(6)
+                        AkcijskaCena =(double)reader.GetDecimal(6)
                     };
                     namestaj.Add(n);
                 }
@@ -48,26 +49,32 @@ namespace POP_SF42_2016_GUI.DAO
         }
         public static Namestaj DodavanjeNamestaja(Namestaj n)
         {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            try
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(@" INSERT INTO Namestaj(Naziv,Kolicina,Sifra,Tip_Namestaja,Cena,AkcijskaCena,Obrisan) VALUES (@naziv,@kolicina,@sifra,@tip,@cena,@akcijskaCena,@Obrisan)", conn);
-                cmd.CommandText += "SELECT SCOPE_IDENTITY();";
-                cmd.Parameters.Add(new SqlParameter("@naziv", n.Naziv));
-                cmd.Parameters.Add(new SqlParameter("@kolicina", n.Kolicina));
-                cmd.Parameters.Add(new SqlParameter("@sifra",n.Sifra));
-                cmd.Parameters.Add(new SqlParameter("@tip", n.TipNamestaja.Id));
-                cmd.Parameters.Add(new SqlParameter("@cena", n.Cena));
-                cmd.Parameters.Add(new SqlParameter("@akcijskaCena", n.AkcijskaCena));
-                cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(@" INSERT INTO Namestaj(Naziv,Kolicina,Sifra,Tip_Namestaja,Cena,AkcijskaCena,Obrisan) VALUES (@naziv,@kolicina,@sifra,@tip,@cena,@akcijskaCena,@Obrisan)", conn);
+                    cmd.CommandText += "SELECT SCOPE_IDENTITY();";
+                    cmd.Parameters.Add(new SqlParameter("@naziv", n.Naziv));
+                    cmd.Parameters.Add(new SqlParameter("@kolicina", n.Kolicina));
+                    cmd.Parameters.Add(new SqlParameter("@sifra", n.Sifra));
+                    cmd.Parameters.Add(new SqlParameter("@tip", n.TipNamestaja.Id));
+                    cmd.Parameters.Add(new SqlParameter("@cena", n.Cena));
+                    cmd.Parameters.Add(new SqlParameter("@akcijskaCena", n.AkcijskaCena));
+                    cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
 
-                int newId = int.Parse(cmd.ExecuteScalar().ToString());
-                n.Id = newId;
+                    int newId = int.Parse(cmd.ExecuteScalar().ToString());
+                    n.Id = newId;
+                }
+                Projekat.Instance.Namestaj.Add(n);
+
+                return n;
             }
+            catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning); return null; }
 
-            Projekat.Instance.Namestaj.Add(n);
-
-            return n;
+            
+           
         }
         public static bool BrisanjeNamestaja(Namestaj n)
         {
@@ -77,36 +84,40 @@ namespace POP_SF42_2016_GUI.DAO
 
         public static bool IzmenaNamestaja(Namestaj n)
         {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            try
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(@" UPDATE Namestaj SET Naziv=@naziv,Kolicina=@kolicina,Sifra=@sifra,Tip_Namestaja=@tip,Cena=@cena,AkcijskaCena=@akcijskaCena,Obrisan=@obrisan WHERE Id=@id", conn);
-                cmd.Parameters.Add(new SqlParameter("@naziv", n.Naziv));
-                cmd.Parameters.Add(new SqlParameter("@kolicina", n.Kolicina));
-                cmd.Parameters.Add(new SqlParameter("@sifra",n.Sifra));
-                cmd.Parameters.Add(new SqlParameter("@tip",n.TipNamestaja.Id));
-                cmd.Parameters.Add(new SqlParameter("@cena",n.Cena));
-                cmd.Parameters.Add(new SqlParameter("@akcijskaCena", n.AkcijskaCena));
-                cmd.Parameters.Add(new SqlParameter("@id", n.Id));
-                cmd.Parameters.Add(new SqlParameter("@obrisan", n.Obrisan));
-                cmd.ExecuteNonQuery();
-            }
-
-            foreach (var item in Projekat.Instance.Namestaj)
-            {
-                if (item.Id == n.Id)
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
                 {
-                    item.Id = n.Id;
-                    item.Kolicina = n.Kolicina;
-                    item.Naziv = n.Naziv;
-                    item.Sifra = n.Sifra;
-                    item.TipNamestaja = n.TipNamestaja;
-                    item.Cena = n.Cena;
-                    item.AkcijskaCena = n.AkcijskaCena;
-                    item.Obrisan = n.Obrisan;
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(@" UPDATE Namestaj SET Naziv=@naziv,Kolicina=@kolicina,Sifra=@sifra,Tip_Namestaja=@tip,Cena=@cena,AkcijskaCena=@akcijskaCena,Obrisan=@obrisan WHERE Id=@id", conn);
+                    cmd.Parameters.Add(new SqlParameter("@naziv", n.Naziv));
+                    cmd.Parameters.Add(new SqlParameter("@kolicina", n.Kolicina));
+                    cmd.Parameters.Add(new SqlParameter("@sifra", n.Sifra));
+                    cmd.Parameters.Add(new SqlParameter("@tip", n.TipNamestaja.Id));
+                    cmd.Parameters.Add(new SqlParameter("@cena", n.Cena));
+                    cmd.Parameters.Add(new SqlParameter("@akcijskaCena", n.AkcijskaCena));
+                    cmd.Parameters.Add(new SqlParameter("@id", n.Id));
+                    cmd.Parameters.Add(new SqlParameter("@obrisan", n.Obrisan));
+                    cmd.ExecuteNonQuery();
                 }
+                foreach (var item in Projekat.Instance.Namestaj)
+                {
+                    if (item.Id == n.Id)
+                    {
+                        item.Id = n.Id;
+                        item.Kolicina = n.Kolicina;
+                        item.Naziv = n.Naziv;
+                        item.Sifra = n.Sifra;
+                        item.TipNamestaja = n.TipNamestaja;
+                        item.Cena = n.Cena;
+                        item.AkcijskaCena = n.AkcijskaCena;
+                        item.Obrisan = n.Obrisan;
+                    }
+                }
+                return true;
             }
-            return true;
+            catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning);return false; }
+           
         }
         public static Namestaj NametajPoId(int id)
         {

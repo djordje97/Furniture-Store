@@ -31,10 +31,10 @@ namespace POP_SF42_2016_GUI.UI
         };
         private ProdajaNamestaja prodaja;
         private Operacija operacija;
-        private ObservableCollection<StavkaProdaje> dodatestavke { get; set; } = new ObservableCollection<StavkaProdaje>();
-        private ObservableCollection<DodatnaUsluga> dodateusluge { get; set; } = new ObservableCollection<DodatnaUsluga>();
-        private ObservableCollection<StavkaProdaje> obrisanestavke { get; set; } = new ObservableCollection<StavkaProdaje>();
-        private ObservableCollection<DodatnaUsluga> obrisaneusluge { get; set; } = new ObservableCollection<DodatnaUsluga>();
+        public ObservableCollection<StavkaProdaje> dodatestavke = new ObservableCollection<StavkaProdaje>();
+        public ObservableCollection<DodatnaUsluga> dodateusluge  = new ObservableCollection<DodatnaUsluga>();
+        public ObservableCollection<StavkaProdaje> obrisanestavke  = new ObservableCollection<StavkaProdaje>();
+        public ObservableCollection<DodatnaUsluga> obrisaneusluge = new ObservableCollection<DodatnaUsluga>();
         public ProdajaWindow(ProdajaNamestaja prodaja, Operacija operacija)
         {
             InitializeComponent();
@@ -63,19 +63,23 @@ namespace POP_SF42_2016_GUI.UI
         {
             Random rn = new Random();
             this.DialogResult = true;
-            
+
             if (operacija == Operacija.DODAVANJE)
             {
-              
-                prodaja.BrojRacuna = rn.Next(100,10000);
+
+                prodaja.BrojRacuna = rn.Next(100, 10000);
                 ProdajaDAO.DodajProdaju(prodaja);
             }
-            ProdajaDAO.IzmenaProdaje(prodaja);
-            ProdajaDAO.DodajStavku(prodaja, dodatestavke);
-            ProdajaDAO.DodajUslugu(prodaja, dodateusluge);
-            ProdajaDAO.ObrisiStavku(prodaja, obrisanestavke);
-            ProdajaDAO.ObrisiUslugu(prodaja, obrisaneusluge);
-           
+            else
+            {
+                ProdajaDAO.IzmenaProdaje(prodaja);
+                if (dodatestavke.Count > 0)
+                    ProdajaDAO.DodajStavku(prodaja, dodatestavke);
+                if (dodateusluge.Count > 0)
+                    ProdajaDAO.DodajUslugu(prodaja, dodateusluge);
+                ProdajaDAO.ObrisiStavku(prodaja, obrisanestavke);
+                ProdajaDAO.ObrisiUslugu(prodaja, obrisaneusluge);
+            }
             this.Close();
         }
 
@@ -93,15 +97,7 @@ namespace POP_SF42_2016_GUI.UI
             StavkaProdaje izabrana = dgStavke.SelectedItem as StavkaProdaje;
             prodaja.StavkeProdaje.Remove(izabrana);
             obrisanestavke.Add(izabrana);
-            if(dodatestavke.Count>1)
-            foreach(var n in dodatestavke)
-            {
-                if(n.Id== izabrana.Id)
-                {
-                    dodatestavke.Remove(n);
-                }
-            }
-            
+            dodatestavke.Remove(izabrana);
          
         }
 
@@ -122,14 +118,7 @@ namespace POP_SF42_2016_GUI.UI
             var izabrana = dgUsluge.SelectedItem as DodatnaUsluga;
             prodaja.DodatneUsluge.Remove(izabrana);
             obrisaneusluge.Add(izabrana);
-            if (dodateusluge.Count > 1)
-                foreach (var n in dodateusluge)
-                {
-                    if (n.Id == izabrana.Id)
-                    {
-                        dodateusluge.Remove(n);
-                    }
-                }
+            dodateusluge.Remove(izabrana);
 
         }
 

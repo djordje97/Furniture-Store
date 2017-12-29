@@ -12,16 +12,19 @@ namespace POP_SF42_2016_GUI.UI
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-
+            var vrednost = value as string;
 
             try
             {
-                int vrednost = (int)value;
-                var broj = (int)value;
-                if (broj < 0)
+
+                int parsirano;
+                bool rezultat = Int32.TryParse(vrednost, out parsirano);
+                if (!rezultat)
                     return new ValidationResult(false, "Morate uneti pozitivan broj");
-                else if (broj < 5 || broj > 90)
-                    return new ValidationResult(false, "uneseni popust nije omogucen");
+                else if (parsirano < 0)
+                    return new ValidationResult(false, "Morate uneti pozitivan broj");
+                else if (parsirano < 5 || parsirano > 90)
+                    return new ValidationResult(false, "Uneseni popust nije omogucen");
                 else
                 return new ValidationResult(true,null);
             }

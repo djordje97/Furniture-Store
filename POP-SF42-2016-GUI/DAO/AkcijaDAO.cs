@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace POP_SF42_2016_GUI.DAO
 {
@@ -33,7 +34,7 @@ namespace POP_SF42_2016_GUI.DAO
                         Popust = reader.GetInt32(3),
                         Obrisan = false
                     };
-                    if(DateTime.Today > a.KrajAkcije)
+                    if(DateTime.Today >a.KrajAkcije)
                     {
                         a.Obrisan = true;
                         BrisanjeAkcije(a);
@@ -86,29 +87,86 @@ namespace POP_SF42_2016_GUI.DAO
         }
         public static Akcija DodavanjeAkcije(Akcija a)
         {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            try
             {
-                conn.Open();
-               
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
                 {
-                    SqlCommand cmd = new SqlCommand(@"INSERT INTO Akcija(Datum_Pocetka,Datum_Kraja,Popust,Obrisan) VALUES(@datP,@datK,@popust,@obrisan) ", conn);
-                    cmd.CommandText += "SELECT SCOPE_IDENTITY();";
-                    cmd.Parameters.Add(new SqlParameter("@datP", a.PocetakAkcije));
+                    conn.Open();
+
+                    {
+                        SqlCommand cmd = new SqlCommand(@"INSERT INTO Akcija(Datum_Pocetka,Datum_Kraja,Popust,Obrisan) VALUES(@datP,@datK,@popust,@obrisan) ", conn);
+                        cmd.CommandText += "SELECT SCOPE_IDENTITY();";
+                        cmd.Parameters.Add(new SqlParameter("@datP", a.PocetakAkcije));
+                        cmd.Parameters.Add(new SqlParameter("@datK", a.KrajAkcije));
+                        cmd.Parameters.Add(new SqlParameter("@popust", a.Popust));
+                        cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                        int newId = int.Parse(cmd.ExecuteScalar().ToString());
+                        a.Id = newId;
+                        for (int i = 0; i < a.NamestajPopust.Count; i++)
+                        {
+
+                            SqlCommand cm = new SqlCommand(@"INSERT INTO NaAkciji(NamestajId,AkcijaId,Obrisan) VALUES(@namestajId,@akcijaId,@obrisan) ", conn);
+                            cm.Parameters.Add(new SqlParameter("@namestajId", a.NamestajPopust[i].Id));
+                            cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
+                            cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                            cm.ExecuteNonQuery();
+
+                            foreach (var namestaj in Projekat.Instance.Namestaj)
+                            {
+                                if (namestaj.Id == a.NamestajPopust[i].Id)
+                                {
+                                    namestaj.AkcijskaCena = namestaj.Cena - ((namestaj.Cena * a.Popust) / 100);
+                                    NamestajDAO.IzmenaNamestaja(namestaj);
+                                }
+                            }
+                        }
+
+                    }
+                }
+                Projekat.Instance.Akcije.Add(a);
+                return a;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Upis u bazu nije uspeo,molimo da pokusate ponovo", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return null;
+                
+            }
+                
+            
+            
+        }
+        public static bool IzmenaAkcije(Akcija a)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(@" UPDATE Akcija SET Datum_Pocetka=@datP,Datum_Kraja=@datK,Popust=@popust,Obrisan=@obrisan WHERE Id=@id", conn);
+                    cmd.Parameters.Add(new SqlParameter("@datp", a.PocetakAkcije));
                     cmd.Parameters.Add(new SqlParameter("@datK", a.KrajAkcije));
                     cmd.Parameters.Add(new SqlParameter("@popust", a.Popust));
-                    cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                    int newId = int.Parse(cmd.ExecuteScalar().ToString());
-                    a.Id = newId;
+                    cmd.Parameters.Add(new SqlParameter("@id", a.Id));
+                    cmd.Parameters.Add(new SqlParameter("@obrisan", a.Obrisan));
+                    cmd.ExecuteNonQuery();
+
+                    foreach (var item in Projekat.Instance.Akcije)
+                    {
+                        if (item.Id == a.Id)
+                        {
+                            item.Id = a.Id;
+                            item.PocetakAkcije = a.PocetakAkcije;
+                            item.KrajAkcije = a.KrajAkcije;
+                            item.Popust = a.Popust;
+                            item.NamestajPopust = a.NamestajPopust;
+                            item.Obrisan = a.Obrisan;
+                        }
+                    }
                     for (int i = 0; i < a.NamestajPopust.Count; i++)
                     {
-                        
-                        SqlCommand cm = new SqlCommand(@"INSERT INTO NaAkciji(NamestajId,AkcijaId,Obrisan) VALUES(@namestajId,@akcijaId,@obrisan) ", conn);
-                        cm.Parameters.Add(new SqlParameter("@namestajId", a.NamestajPopust[i].Id));
-                        cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
-                        cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                        cm.ExecuteNonQuery();
 
-                       foreach(var namestaj in Projekat.Instance.Namestaj)
+                        foreach (var namestaj in Projekat.Instance.Namestaj)
                         {
                             if (namestaj.Id == a.NamestajPopust[i].Id)
                             {
@@ -117,115 +175,86 @@ namespace POP_SF42_2016_GUI.DAO
                             }
                         }
                     }
-     
+                    return true;
                 }
             }
-            Projekat.Instance.Akcije.Add(a);
-            return a;
-        }
-        public static bool IzmenaAkcije(Akcija a)
-        {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(@" UPDATE Akcija SET Datum_Pocetka=@datP,Datum_Kraja=@datK,Popust=@popust,Obrisan=@obrisan WHERE Id=@id", conn);
-                cmd.Parameters.Add(new SqlParameter("@datp", a.PocetakAkcije));
-                cmd.Parameters.Add(new SqlParameter("@datK", a.KrajAkcije));
-                cmd.Parameters.Add(new SqlParameter("@popust", a.Popust));
-                cmd.Parameters.Add(new SqlParameter("@id", a.Id));
-                cmd.Parameters.Add(new SqlParameter("@obrisan",a.Obrisan));
-                cmd.ExecuteNonQuery();
-
-                foreach (var item in Projekat.Instance.Akcije)
-                {
-                    if (item.Id == a.Id)
-                    {
-                        item.Id = a.Id;
-                        item.PocetakAkcije = a.PocetakAkcije;
-                        item.KrajAkcije = a.KrajAkcije;
-                        item.Popust = a.Popust;
-                        item.NamestajPopust = a.NamestajPopust;
-                        item.Obrisan = a.Obrisan;
-                    }
-                }
-                for (int i = 0; i < a.NamestajPopust.Count; i++)
-                {
-                  
-                    foreach (var namestaj in Projekat.Instance.Namestaj)
-                    {
-                        if (namestaj.Id == a.NamestajPopust[i].Id)
-                        {
-                            namestaj.AkcijskaCena = namestaj.Cena - ((namestaj.Cena * a.Popust) / 100);
-                            NamestajDAO.IzmenaNamestaja(namestaj);
-                        }
-                    }
-                }
-                return true;
-            }
+            catch (Exception) { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning); return false; }
+               
+            
         }
         public static bool DodavanjeNaAkciju(Akcija a,ObservableCollection<Namestaj> dodat)
         {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            try
             {
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+                {
 
-                conn.Open();
-                for (int i = 0; i < dodat.Count; i++)
-                {
-                    SqlCommand cm = new SqlCommand(@" INSERT INTO NaAkciji(NamestajId,AkcijaId,Obrisan) VALUES (@namestajId,@akcijaId,@obrisan)", conn);
-                    cm.Parameters.Add(new SqlParameter("@namestajId", dodat[i].Id));
-                    cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
-                    cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                    cm.ExecuteNonQuery();
-                }
-                foreach (var namestaj in dodat)
-                {
-                    namestaj.AkcijskaCena = namestaj.Cena - ((namestaj.Cena * a.Popust) / 100);
-                    NamestajDAO.IzmenaNamestaja(namestaj);
-                    foreach (var n in Projekat.Instance.Namestaj)
+                    conn.Open();
+                    for (int i = 0; i < dodat.Count; i++)
                     {
-                        if (n.Id == namestaj.Id)
+                        SqlCommand cm = new SqlCommand(@" INSERT INTO NaAkciji(NamestajId,AkcijaId,Obrisan) VALUES (@namestajId,@akcijaId,@obrisan)", conn);
+                        cm.Parameters.Add(new SqlParameter("@namestajId", dodat[i].Id));
+                        cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
+                        cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                        cm.ExecuteNonQuery();
+                    }
+                    foreach (var namestaj in dodat)
+                    {
+                        namestaj.AkcijskaCena = namestaj.Cena - ((namestaj.Cena * a.Popust) / 100);
+                        NamestajDAO.IzmenaNamestaja(namestaj);
+                        foreach (var n in Projekat.Instance.Namestaj)
                         {
-                            n.AkcijskaCena = n.Cena - ((n.Cena * a.Popust) / 100);
+                            if (n.Id == namestaj.Id)
+                            {
+                                n.AkcijskaCena = n.Cena - ((n.Cena * a.Popust) / 100);
+                            }
                         }
                     }
+                    return true;
                 }
-                return true;
             }
-           
-          
+            catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
            
         }
         public static bool BrisanjeSaAkcije(Akcija a,ObservableCollection<Namestaj> obrisan)
         {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            try
             {
-                conn.Open();
-                for (int i = 0; i < obrisan.Count; i++)
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
                 {
-                    SqlCommand cm = new SqlCommand(@" UPDATE NaAkciji SET Obrisan=@obrisan WHERE NamestajId=@namestajId AND AkcijaId=@akcijaId", conn);
-                    cm.Parameters.Add(new SqlParameter("@namestajId", obrisan[i].Id));
-                    cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
-                    cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
-                    cm.ExecuteNonQuery();
-                }
-                foreach (var namestaj in obrisan)
-                {
-                    namestaj.AkcijskaCena = 0;
-                    NamestajDAO.IzmenaNamestaja(namestaj);
-                    foreach (var n in Projekat.Instance.Namestaj)
+                    conn.Open();
+                    for (int i = 0; i < obrisan.Count; i++)
                     {
-                        if (n.Id == namestaj.Id)
+                        SqlCommand cm = new SqlCommand(@" UPDATE NaAkciji SET Obrisan=@obrisan WHERE NamestajId=@namestajId AND AkcijaId=@akcijaId", conn);
+                        cm.Parameters.Add(new SqlParameter("@namestajId", obrisan[i].Id));
+                        cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
+                        cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
+                        cm.ExecuteNonQuery();
+                    }
+                    foreach (var namestaj in obrisan)
+                    {
+                        namestaj.AkcijskaCena = 0;
+                        NamestajDAO.IzmenaNamestaja(namestaj);
+                        foreach (var n in Projekat.Instance.Namestaj)
                         {
-                            n.AkcijskaCena = 0;
+                            if (n.Id == namestaj.Id)
+                            {
+                                n.AkcijskaCena = 0;
+                            }
                         }
                     }
+                    return true;
                 }
-                return true;
             }
-
+            catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning); return false; }
+           
         }
         public static ObservableCollection<Akcija> PretraziAkcije(string tekst)
         {
+            
             ObservableCollection<Akcija> akcije = new ObservableCollection<Akcija>();
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {

@@ -22,11 +22,12 @@ namespace POP_SF42_2016_GUI.UI
     public partial class PreuzmiNamestaj : Window
     {
         public Namestaj Namestaj { get; set; }
+    
         public PreuzmiNamestaj()
         {
             InitializeComponent();
-            dgNamestajPreuzimanje.ItemsSource = Projekat.Instance.Namestaj;
-            dgNamestajPreuzimanje.SelectedIndex = 0;
+          dgNamestajPreuzimanje.ItemsSource = Projekat.Instance.Namestaj.Where(a => a.AkcijskaCena == 0);
+           dgNamestajPreuzimanje.SelectedIndex = 0;
         }
 
         private void btnPotvrdi_Click(object sender, RoutedEventArgs e)

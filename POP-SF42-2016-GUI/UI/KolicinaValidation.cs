@@ -14,15 +14,19 @@ namespace POP_SF42_2016_GUI.UI
         public static Namestaj Nam { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-          
-             try
+            string vrednost = value as string;
+            try
                 {
-                var broj = (int)value;
-                    if (broj < 0)
-                        return new ValidationResult(false, "Morate uneti pozitivan broj");
-                    if(broj> Nam.Kolicina)
+                int parsirano;
+                bool rezultat = Int32.TryParse(vrednost, out parsirano);
+                if (!rezultat)
+                    return new ValidationResult(false, "Morate uneti pozitivan ceo broj");
+                else if (parsirano < 0)
+                    return new ValidationResult(false, "Morate uneti pozitivan ceo broj");
+                else if (parsirano> Nam.Kolicina)
                         return new ValidationResult(false, "Namestaja nema u datoj kolicini");
-                return new ValidationResult(true, null);
+                else
+                     return new ValidationResult(true, null);
             }
                 catch (Exception)
                 {

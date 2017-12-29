@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using PoP.Model;
+using System.Windows;
 
 namespace POP_SF42_2016_GUI.DAO
 {
@@ -41,23 +42,28 @@ namespace POP_SF42_2016_GUI.DAO
         }
         public static Korisnik DodavanjeKorisnika(Korisnik k)
         {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            try
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(@" INSERT INTO Korisnik(Ime,Prezime,Korisnicko_Ime,Lozinka,Tip_Korisnika,Obrisan) VALUES (@ime,@prezime,@kIme,@lozinka,@tip,@Obrisan)", conn);
-                cmd.CommandText += "SELECT SCOPE_IDENTITY();";
-                cmd.Parameters.Add(new SqlParameter("@ime", k.Ime));
-                cmd.Parameters.Add(new SqlParameter("@prezime", k.Prezime));
-                cmd.Parameters.Add(new SqlParameter("@kIme", k.Korisnicko_Ime));
-                cmd.Parameters.Add(new SqlParameter("@lozinka", k.Lozinka));
-                cmd.Parameters.Add(new SqlParameter("@tip", k.TipKorisnika.ToString()));
-                cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(@" INSERT INTO Korisnik(Ime,Prezime,Korisnicko_Ime,Lozinka,Tip_Korisnika,Obrisan) VALUES (@ime,@prezime,@kIme,@lozinka,@tip,@Obrisan)", conn);
+                    cmd.CommandText += "SELECT SCOPE_IDENTITY();";
+                    cmd.Parameters.Add(new SqlParameter("@ime", k.Ime));
+                    cmd.Parameters.Add(new SqlParameter("@prezime", k.Prezime));
+                    cmd.Parameters.Add(new SqlParameter("@kIme", k.Korisnicko_Ime));
+                    cmd.Parameters.Add(new SqlParameter("@lozinka", k.Lozinka));
+                    cmd.Parameters.Add(new SqlParameter("@tip", k.TipKorisnika.ToString()));
+                    cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
 
-                int newId = int.Parse(cmd.ExecuteScalar().ToString());
-                k.Id = newId;
+                    int newId = int.Parse(cmd.ExecuteScalar().ToString());
+                    k.Id = newId;
+                }
+                Projekat.Instance.Korisnici.Add(k);
+                return k;
             }
-            Projekat.Instance.Korisnici.Add(k);
-            return k;
+            catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning); return null; }
+           
         }
         public static bool BrisanjeKorisnika(Korisnik k)
         {
@@ -66,35 +72,40 @@ namespace POP_SF42_2016_GUI.DAO
         }
         public static bool IzmenaKorisnika(Korisnik k)
         {
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
+            try
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(@" UPDATE Korisnik SET Ime=@ime, Prezime=@prezime, Korisnicko_Ime=@kIme, Lozinka=@lozinka, Tip_Korisnika=@tip, Obrisan=@obrisan WHERE Id=@id", conn);
-                cmd.Parameters.Add(new SqlParameter("@ime", k.Ime));
-                cmd.Parameters.Add(new SqlParameter("@prezime", k.Prezime));
-                cmd.Parameters.Add(new SqlParameter("@kIme", k.Korisnicko_Ime));
-                cmd.Parameters.Add(new SqlParameter("@lozinka", k.Lozinka));
-                cmd.Parameters.Add(new SqlParameter("@tip", k.TipKorisnika.ToString()));
-                cmd.Parameters.Add(new SqlParameter("@obrisan", k.Obrisan));
-                cmd.Parameters.Add(new SqlParameter("@id", k.Id));
-
-
-                cmd.ExecuteNonQuery();
-            }
-            foreach (var item in Projekat.Instance.Korisnici)
-            {
-                if (item.Id == k.Id)
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
                 {
-                    item.Id = k.Id;
-                    item.Ime = k.Ime;
-                    item.Prezime = k.Prezime;
-                    item.Korisnicko_Ime = k.Korisnicko_Ime;
-                    item.Lozinka = k.Lozinka;
-                    item.TipKorisnika = k.TipKorisnika;
-                    item.Obrisan = k.Obrisan;
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(@" UPDATE Korisnik SET Ime=@ime, Prezime=@prezime, Korisnicko_Ime=@kIme, Lozinka=@lozinka, Tip_Korisnika=@tip, Obrisan=@obrisan WHERE Id=@id", conn);
+                    cmd.Parameters.Add(new SqlParameter("@ime", k.Ime));
+                    cmd.Parameters.Add(new SqlParameter("@prezime", k.Prezime));
+                    cmd.Parameters.Add(new SqlParameter("@kIme", k.Korisnicko_Ime));
+                    cmd.Parameters.Add(new SqlParameter("@lozinka", k.Lozinka));
+                    cmd.Parameters.Add(new SqlParameter("@tip", k.TipKorisnika.ToString()));
+                    cmd.Parameters.Add(new SqlParameter("@obrisan", k.Obrisan));
+                    cmd.Parameters.Add(new SqlParameter("@id", k.Id));
+
+
+                    cmd.ExecuteNonQuery();
                 }
+                foreach (var item in Projekat.Instance.Korisnici)
+                {
+                    if (item.Id == k.Id)
+                    {
+                        item.Id = k.Id;
+                        item.Ime = k.Ime;
+                        item.Prezime = k.Prezime;
+                        item.Korisnicko_Ime = k.Korisnicko_Ime;
+                        item.Lozinka = k.Lozinka;
+                        item.TipKorisnika = k.TipKorisnika;
+                        item.Obrisan = k.Obrisan;
+                    }
+                }
+                return true;
             }
-            return true;
+            catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning); return false; }
+           
         }
         public static ObservableCollection<Korisnik> PretragaKorisnika(string tekst)
         {

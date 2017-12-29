@@ -38,6 +38,7 @@ namespace POP_SF42_2016_GUI.UI
             InicijalizacijaProdaje();
             dgPrikaz.IsSynchronizedWithCurrentItem = true;
             dgPrikaz.SelectedIndex = 0;
+            lbNaAkciji.Visibility = Visibility.Hidden;
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;
 
@@ -54,11 +55,12 @@ namespace POP_SF42_2016_GUI.UI
             var ponudjeno = new List<string>() { "Naziv", "Sifra", "Cena", "Kolicina", "Tip Namestaja" };
             cbSortiraj.ItemsSource = ponudjeno;
             btnIzmeni.Content = "Izmeni";
+            lbNaAkciji.Visibility = Visibility.Visible;
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;
-
+            
         }
-
+   
 
         private void DodatneUslugeMeni(object sender, RoutedEventArgs e)
         {
@@ -70,6 +72,7 @@ namespace POP_SF42_2016_GUI.UI
             var ponudjeno = new List<string>() { "Naziv","Cena" };
             cbSortiraj.ItemsSource = ponudjeno;
             btnIzmeni.Content = "Izmeni";
+            lbNaAkciji.Visibility = Visibility.Hidden;
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;
 
@@ -84,6 +87,7 @@ namespace POP_SF42_2016_GUI.UI
             var ponudjeno = new List<string>() {"Naziv"};
             cbSortiraj.ItemsSource = ponudjeno;
             btnIzmeni.Content = "Izmeni";
+            lbNaAkciji.Visibility = Visibility.Hidden;
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;
         }
@@ -98,6 +102,7 @@ namespace POP_SF42_2016_GUI.UI
             var ponudjeno = new List<string>() { "Kupac", "Datum Prodaje", "Broj Racuna","Ukupan Iznos" };
             cbSortiraj.ItemsSource = ponudjeno;
             btnIzmeni.Content = "Storniraj";
+            lbNaAkciji.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Hidden;
             btnIzlistajStavke.Visibility = Visibility.Visible;
             
@@ -114,6 +119,7 @@ namespace POP_SF42_2016_GUI.UI
             var ponudjeno = new List<string>() { "Datum Pocetka", "Datum_Kraja", "Popust" };
             cbSortiraj.ItemsSource = ponudjeno;
             btnIzmeni.Content = "Izmeni";
+            lbNaAkciji.Visibility = Visibility.Hidden;
             btnIzlistajStavke.Visibility = Visibility.Visible;
             btnObrisi.Visibility = Visibility.Visible;
 
@@ -129,6 +135,7 @@ namespace POP_SF42_2016_GUI.UI
             var ponudjeno = new List<string>() { "Ime","Prezime","Tip Korisnika","Korisnicko Ime","Lozinka"};
             cbSortiraj.ItemsSource = ponudjeno;
             btnIzmeni.Content = "Izmeni";
+            lbNaAkciji.Visibility = Visibility.Hidden;
             btnIzlistajStavke.Visibility = Visibility.Hidden;
             btnObrisi.Visibility = Visibility.Visible;
 
@@ -139,6 +146,7 @@ namespace POP_SF42_2016_GUI.UI
             var korisnik = Korisnik.PronadjiKorisnika(MainWindow.loggedUser);
             if (korisnik.TipKorisnika!=TipKorisnika.Administrator)
             {
+                lbNaAkciji.Visibility = Visibility.Hidden;
                 btnAkcije.Visibility = Visibility.Hidden;
                 btnDodatneUsluge.Visibility = Visibility.Hidden;
                 btnKorisnici.Visibility = Visibility.Hidden;
@@ -581,5 +589,20 @@ namespace POP_SF42_2016_GUI.UI
             SalonProzor sp = new SalonProzor(kopija, t);
             sp.Show();
         }
+
+        private void dgPrikaz_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            if (TrenutnoAktivno == "Namestaj")
+            {
+                Namestaj n = e.Row.DataContext as Namestaj;
+                if (n.AkcijskaCena > 0)
+                {
+                    SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(100, 255, 104, 0));
+                    e.Row.Background = brush;
+                }
+            }
+        }
+
+       
     }
 }

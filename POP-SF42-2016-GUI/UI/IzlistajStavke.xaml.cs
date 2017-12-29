@@ -64,7 +64,10 @@ namespace POP_SF42_2016_GUI.UI
                 else
                     ispis+=" "+stavka.NamestajProdaja.Cena + "\t\t" + stavka.Cena + "\n";
             }
-            ispis += crtice;
+            if(prodaja.DodatneUsluge.Count == 0)
+                ispis += crtice+"-----";
+            else
+                ispis += crtice;
             foreach(var usluga in prodaja.DodatneUsluge)
             {
                 ispis += "" + usluga.Naziv + "\t\t\t\t\t" + usluga.Cena + "\n";
@@ -73,7 +76,7 @@ namespace POP_SF42_2016_GUI.UI
             ispis += crtice;
             ispis += "PDV: " + 20+"%"+"\n";
             ispis += "Ukupan iznos: " + prodaja.UkupanIznos + "\n";
-            ispis += "Iznos sa PDV-om: " + (prodaja.UkupanIznos*1.2)+"\n";
+            ispis += "Iznos sa PDV-om: " + (prodaja.UkupanIznos *1.2)+"\n";
             ispis += "Datum: " + prodaja.DatumProdaje + "\n";
             ispis += "Prodavac: " + radnik.Ime + " " + radnik.Prezime + "\n";
             ispis += crtice2;

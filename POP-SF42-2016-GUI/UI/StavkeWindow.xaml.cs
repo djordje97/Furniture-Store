@@ -59,7 +59,7 @@ namespace POP_SF42_2016_GUI.UI
             this.DialogResult = true;
             if (operacija == Operacija.DODAVANJE)
             {
-                Stavka.NamestajProdaja = dgNamestaj.SelectedItem as Namestaj;
+               
                 Stavka.Cena = (Stavka.NamestajProdaja.Cena )* Stavka.Kolicina;
 
             }
@@ -75,6 +75,17 @@ namespace POP_SF42_2016_GUI.UI
             }
         }
 
-   
+        private void dgNamestaj_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Stavka.NamestajProdaja = dgNamestaj.SelectedItem as Namestaj;
+            KolicinaValidation.Nam = Stavka.NamestajProdaja;
+            
+        }
+       
+        private void dgNamestaj_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Stavka.NamestajProdaja = dgNamestaj.SelectedItem as Namestaj;
+            KolicinaValidation.Nam = Stavka.NamestajProdaja;
+        }
     }
 }

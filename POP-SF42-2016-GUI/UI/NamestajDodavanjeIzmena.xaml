@@ -16,7 +16,9 @@
             </DockPanel>
         </ControlTemplate>
         <local:ValidationConverter x:Key="converter"/>
+        
     </Window.Resources>
+    
     <Grid  Margin="0,0,2,0" Background="#FF0066CC">
         <Label Content="Naziv:" HorizontalAlignment="Left" Height="28" Margin="40,10,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
         <Label Content="Sifra:" HorizontalAlignment="Left" Height="27" Margin="40,43,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>

@@ -51,8 +51,9 @@ namespace POP_SF42_2016_GUI.UI
             {
                KorisnikDAO.DodavanjeKorisnika(korisnik);
             }
-            KorisnikDAO.IzmenaKorisnika(korisnik);
-            Close();
+            else
+                KorisnikDAO.IzmenaKorisnika(korisnik);
+            this.Close();
         }
 
     }

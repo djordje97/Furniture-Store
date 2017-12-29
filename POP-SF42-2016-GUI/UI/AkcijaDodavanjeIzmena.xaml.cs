@@ -30,8 +30,8 @@ namespace POP_SF42_2016_GUI.UI
         };
         public Akcija akcija;
         private Operacija operacija;
-        private ObservableCollection<Namestaj> dodatNamestaj = new ObservableCollection<Namestaj>();
-        private ObservableCollection<Namestaj> obrisanNamestaj = new ObservableCollection<Namestaj>();
+        public ObservableCollection<Namestaj> dodatNamestaj = new ObservableCollection<Namestaj>();
+        public ObservableCollection<Namestaj> obrisanNamestaj = new ObservableCollection<Namestaj>();
         public AkcijaDodavanjeIzmena(Akcija akcija,Operacija operacija)
         {
             InitializeComponent();
@@ -46,16 +46,20 @@ namespace POP_SF42_2016_GUI.UI
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-            if(operacija == Operacija.DODAVANJE)
+            if (operacija == Operacija.DODAVANJE)
             {
                 AkcijaDAO.DodavanjeAkcije(akcija);
-             
+
             }
-            AkcijaDAO.IzmenaAkcije(akcija);
-            AkcijaDAO.DodavanjeNaAkciju(akcija,dodatNamestaj);
-            AkcijaDAO.BrisanjeSaAkcije(akcija,obrisanNamestaj);
-            
-            Close();
+            else
+            {
+                AkcijaDAO.IzmenaAkcije(akcija);
+                if(dodatNamestaj.Count>0)
+                    AkcijaDAO.DodavanjeNaAkciju(akcija, dodatNamestaj);
+                if(obrisanNamestaj.Count>0)
+                    AkcijaDAO.BrisanjeSaAkcije(akcija, obrisanNamestaj);
+            }
+            this.Close();
         }
 
         private void btnDodaj_Click(object sender, RoutedEventArgs e)
@@ -74,16 +78,7 @@ namespace POP_SF42_2016_GUI.UI
             var izabrana = dgNamestajAkcija.SelectedItem as Namestaj;
             akcija.NamestajPopust.Remove(izabrana);
             obrisanNamestaj.Add(izabrana);
-            if (dodatNamestaj.Count > 1)
-            {
-                foreach(var n in obrisanNamestaj)
-                {
-                    if (n.Id == izabrana.Id)
-                    {
-                        dodatNamestaj.Remove(n);
-                    }
-                }
-            }
+            dodatNamestaj.Remove(izabrana);
         }
 
         private void dgNamestajAkcija_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

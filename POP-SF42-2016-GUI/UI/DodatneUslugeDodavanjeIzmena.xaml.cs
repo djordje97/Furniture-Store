@@ -51,8 +51,9 @@ namespace POP_SF42_2016_GUI.UI
             {
                 UslugeDAO.DodavanjeUsluge(dodatneUsluga);
             }
-            UslugeDAO.IzmenaUsluge(dodatneUsluga);
-            Close();
+            else
+                UslugeDAO.IzmenaUsluge(dodatneUsluga);
+            this.Close();
         }
     }
 }

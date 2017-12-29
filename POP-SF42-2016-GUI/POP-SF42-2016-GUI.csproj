@@ -231,12 +231,6 @@
       <SubType>Designer</SubType>
     </Resource>
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resursi\Icons8-Windows-8-Computer-Hardware-Shutdown.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resursi\Iconsmind-Outline-Information.ico" />
-  </ItemGroup>
   <ItemGroup />
   <ItemGroup Condition="$(VisualStudioVersion) == '15.0'">
     <Reference Include="Microsoft.Data.Tools.Schema.Sql, Version=13.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -255,6 +249,8 @@
   <ItemGroup>
     <Content Include="DBQuery\PravljenjeTabela.sql" />
     <Content Include="DBQuery\PunjenjeTabela.sql" />
+    <Resource Include="Resursi\Kyo-Tux-Delikate-Info.ico" />
+    <Resource Include="Resursi\Alecive-Flatwoken-Apps-Dialog-Shutdown.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
