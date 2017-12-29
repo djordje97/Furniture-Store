@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:POP_SF42_2016_GUI.UI"
         mc:Ignorable="d"
-        Title="AkcijaDodavanjeIzmena" Height="460" Width="632" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="AkcijaDodavanjeIzmena" Height="464" Width="635" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ControlTemplate x:Key="TextBoxError">
             <DockPanel LastChildFill="True">
@@ -33,10 +33,10 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="191,378,0,0" VerticalAlignment="Top" Width="77" IsDefault="True" Click="Potvrdi" Background="#FF0066CC" BorderBrush="#FF0066CC">
+        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="191,372,0,0" VerticalAlignment="Top" Width="77" IsDefault="True" Click="Potvrdi" Background="#FF0066CC" BorderBrush="#FF0066CC">
             <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-document-save.ico"/>
         </Button>
-        <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="284,378,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" Background="#FF0066CC" BorderBrush="#FF0066CC">
+        <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="285,372,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" Background="#FF0066CC" BorderBrush="#FF0066CC">
             <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
         </Button>
         <DataGrid x:Name="dgNamestajAkcija" CanUserAddRows="False" CanUserDeleteRows="False" ColumnWidth="*" HorizontalAlignment="Left" Height="184" Margin="79,140,0,0" VerticalAlignment="Top" Width="386" AutoGeneratingColumn="dgNamestajAkcija_AutoGeneratingColumn"/>

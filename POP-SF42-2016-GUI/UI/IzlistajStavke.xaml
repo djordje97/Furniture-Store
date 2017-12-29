@@ -12,6 +12,8 @@
             <TextBlock Name="tbIspis"  HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="571" Background="White" FontSize="20"  />
         </ScrollViewer>
         <DataGrid Name="dgAkcijePrikaz" IsReadOnly="True" CanUserAddRows="False" ColumnWidth="*" Margin="0,0,0,134" AutoGeneratingColumn="dgAkcijePrikaz_AutoGeneratingColumn" />
-        <Button Name="btnIzadji" Content="Izadji" HorizontalAlignment="Left" Height="34" Margin="242,306,0,0" VerticalAlignment="Top" Width="104" Click="Izlaz"/>
+        <Button Name="btnIzadji" ToolTip="Stampaj" HorizontalAlignment="Left" Height="62" Margin="223,278,0,0" VerticalAlignment="Top" Width="118" Click="Izlaz" Background="#FF0066CC" BorderBrush="#FF0066CC">
+            <Image Height="59" Width="78" Source="/POP-SF42-2016-GUI;component/Resursi/Avosoft-Warm-Toolbar-Print.ico"/>
+        </Button>
     </Grid>
 </Window>

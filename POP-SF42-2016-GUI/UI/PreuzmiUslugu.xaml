@@ -9,10 +9,10 @@
     <Grid Background="#FF0066CC">
         <DataGrid x:Name="dgUsluga" IsReadOnly="True" CanUserAddRows="False" ColumnWidth="*" SelectionMode="Single" AutoGenerateColumns="True" HorizontalAlignment="Left" Height="196" Margin="27,54,0,0" VerticalAlignment="Top" Width="465" AutoGeneratingColumn="dgUsluga_AutoGeneratingColumn"/>
         <Label Content="Izaberite uslugu:" HorizontalAlignment="Left" Height="39" Margin="38,10,0,0" VerticalAlignment="Top" Width="142" Foreground="White" FontSize="16"/>
-        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi"  HorizontalAlignment="Left" Height="53" Margin="124,273,0,0" VerticalAlignment="Top" Width="77" Click="btnPotvrdi_Click" BorderBrush="#FF0066CC" Background="#FF0066CC">
+        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi"  HorizontalAlignment="Left" Height="53" Margin="127,263,0,0" VerticalAlignment="Top" Width="77" Click="btnPotvrdi_Click" BorderBrush="#FF0066CC" Background="#FF0066CC">
             <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-document-save.ico"/>
         </Button>
-        <Button x:Name="btnOdustani"  HorizontalAlignment="Left" Height="53" Margin="250,273,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" Background="#FF0066CC" BorderBrush="#FF0066CC">
+        <Button x:Name="btnOdustani"  HorizontalAlignment="Left" Height="53" Margin="248,263,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" Background="#FF0066CC" BorderBrush="#FF0066CC">
             <Image Height="43" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
         </Button>
     </Grid>

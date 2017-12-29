@@ -70,10 +70,10 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="173,373,0,0" VerticalAlignment="Top" Width="77" IsDefault="True" Click="PotvrdiUslugu" BorderBrush="#FF0066CC" Background="#FF0066CC">
+        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="176,363,0,0" VerticalAlignment="Top" Width="77" IsDefault="True" Click="PotvrdiUslugu" BorderBrush="#FF0066CC" Background="#FF0066CC">
             <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-document-save.ico"/>
         </Button>
-        <Button x:Name="Odustani"  ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="317,373,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" Background="#FF0066CC" BorderBrush="#FF0066CC">
+        <Button x:Name="Odustani"  ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="317,363,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" Background="#FF0066CC" BorderBrush="#FF0066CC">
             <Image Height="43" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
         </Button>
         <TextBlock x:Name="tbIspisGreske" FontSize="12pt" Margin="290,280,0,0" Foreground="Red" FontWeight="Bold" 

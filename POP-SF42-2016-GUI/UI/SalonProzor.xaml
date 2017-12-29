@@ -98,16 +98,16 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="149,372,0,0" VerticalAlignment="Top" Width="77" Click="Potvrdi" BorderBrush="#FF0066CC" Background="#FF0066CC">
+        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="149,362,0,0" VerticalAlignment="Top" Width="77" Click="Potvrdi" BorderBrush="#FF0066CC" Background="#FF0066CC">
             <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-document-save.ico"/>
         </Button>
-        <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="270,372,0,0" VerticalAlignment="Top" Width="77"  Click="btnOdustani_Click" Background="#FF0066CC" BorderBrush="#FF0066CC">
+        <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="272,362,0,0" VerticalAlignment="Top" Width="77"  Click="btnOdustani_Click" Background="#FF0066CC" BorderBrush="#FF0066CC">
             <Image Height="43" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
         </Button>
         <TextBlock x:Name="tbcIspis" HorizontalAlignment="Left" Height="318" Margin="69,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="401" Background="White" FontSize="16" FontWeight="Bold"/>
         <TextBlock x:Name="tbGreskaMaticniBroj"  Margin="117,310,0,0" Foreground="Red" FontWeight="Bold" Text="{Binding ElementName=tbMaticni, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}" HorizontalAlignment="Left" Width="364" Height="23" VerticalAlignment="Top" />
 
-        <TextBlock x:Name="tbGreskaEmail" FontSize="12pt" Margin="119,337,0,0" Foreground="Red" FontWeight="Bold" 
+        <TextBlock x:Name="tbGreskaEmail" FontSize="12pt" Margin="97,334,0,0" Foreground="Red" FontWeight="Bold" 
                            Text="{Binding ElementName=tbEmail, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}" 
                            HorizontalAlignment="Left" Width="364" Height="23" VerticalAlignment="Top" />
     </Grid>
