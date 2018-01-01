@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:POP_SF42_2016_GUI.UI"
         mc:Ignorable="d"
-        Title="NamestajDodavanjeIzmena" Height="334" Width="477" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="NamestajDodavanjeIzmena" Height="335" Width="489" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ControlTemplate x:Key="TextBoxError">
             <DockPanel LastChildFill="True">
@@ -25,10 +25,26 @@
         <Label Content="Cena:" HorizontalAlignment="Left" Margin="40,75,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
         <Label Content="Kolicina:" HorizontalAlignment="Left" Height="28" Margin="29,120,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
         <Label Content="Tip namestaja:" HorizontalAlignment="Left" Height="27" Margin="10,164,0,0" VerticalAlignment="Top" Width="105" FontSize="14" Foreground="White"/>
-        <Button x:Name="btnPotvrdi" ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="133,250,0,0" VerticalAlignment="Top" Width="77" IsDefault="True" Click="Potvrdi" Background="#FF0066CC" BorderBrush="#FF0066CC">
+        <Button x:Name="btnPotvrdi"  ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="133,251,0,0" VerticalAlignment="Top" Width="77" IsDefault="True" Click="Potvrdi" Background="#FF0066CC" BorderBrush="#FF0066CC">
             <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-document-save.ico"/>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbKolicinaNamestaja}" Value="False"/>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbNazivNamestaja}" Value="False"/>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbSifraNamestaja}" Value="False"/>
+                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbCenaNamestaja}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
         </Button>
-        <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="245,250,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" BorderBrush="#FF0066CC" Background="#FF0066CC">
+        <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="253,251,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" BorderBrush="#FF0066CC" Background="#FF0066CC">
             <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
         </Button>
         <TextBox x:Name="tbNazivNamestaja"  Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" HorizontalAlignment="Left" Height="28" Margin="133,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
@@ -51,7 +67,7 @@
         </TextBox>
         <TextBox x:Name="tbCenaNamestaja"   HorizontalAlignment="Left" Height="26" Margin="133,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
             <TextBox.Text>
-                <Binding Path="Cena" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="Cena" UpdateSourceTrigger="LostFocus">
                     <Binding.ValidationRules>
                         <local:DoubleValidation/>
                     </Binding.ValidationRules>

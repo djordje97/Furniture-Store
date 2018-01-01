@@ -81,6 +81,7 @@ namespace POP_SF42_2016_GUI.UI
             KolicinaValidation.Nam = Stavka.NamestajProdaja;
             
         }
+
        
         private void dgNamestaj_LostFocus(object sender, RoutedEventArgs e)
         {

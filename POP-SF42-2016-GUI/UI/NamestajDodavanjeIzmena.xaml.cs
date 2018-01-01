@@ -42,6 +42,7 @@ namespace POP_SF42_2016_GUI.UI
             tbSifraNamestaja.DataContext = namestaj;
             tbKolicinaNamestaja.DataContext = namestaj;
             cbTipNamestaja.DataContext = namestaj;
+
         }
       
         private void Potvrdi(object sender, RoutedEventArgs e)

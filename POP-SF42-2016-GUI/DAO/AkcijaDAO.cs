@@ -69,6 +69,7 @@ namespace POP_SF42_2016_GUI.DAO
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 a.Obrisan = true;
+                if(a.NamestajPopust.Count>0)
                 for(int i = 0; i < a.NamestajPopust.Count; i++)
                 {
                     a.NamestajPopust[i].AkcijskaCena = 0;

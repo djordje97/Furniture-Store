@@ -10,6 +10,7 @@ namespace POP_SF42_2016_GUI.UI
 {
     public class IntValidation: ValidationRule
     {
+        public static bool uspesno { get; set; } =true;
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string vrednost = value as string; 
@@ -19,12 +20,21 @@ namespace POP_SF42_2016_GUI.UI
                 {
                     int parsirano;
                     bool rezultat = Int32.TryParse(vrednost, out parsirano);
-                    if (!rezultat)
-                        return new ValidationResult(false, "Morate uneti pozitivan ceo broj");
-                    else if(parsirano<0)
-                        return new ValidationResult(false, "Morate uneti pozitivan ceo broj");
-                    else
-                        return new ValidationResult(true, null);
+                if (!rezultat)
+                {
+                    uspesno = false;
+                    return new ValidationResult(false, "Morate uneti pozitivan ceo broj");
+                }
+                else if (parsirano < 0)
+                {
+                    uspesno = false;
+                    return new ValidationResult(false, "Morate uneti pozitivan ceo broj");
+                }
+                else
+                {
+                    uspesno = true;
+                    return new ValidationResult(true, null);
+                }
                 }
                 catch(Exception )
                 {

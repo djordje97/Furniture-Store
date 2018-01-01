@@ -56,6 +56,7 @@ namespace POP_SF42_2016_GUI.UI
                 "PIB:" + s.PIB + "\n" +
                 "Broj racuna: " + prodaja.BrojRacuna + "\n"+
                 "" + crtice2+"\n";
+            if(prodaja.StavkeProdaje.Count>0)
             foreach(var stavka in prodaja.StavkeProdaje)
             {
                 ispis += "" + stavka.NamestajProdaja.Naziv + "\n" + "\t\t" + stavka.Kolicina + "x";

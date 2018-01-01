@@ -12,14 +12,15 @@ namespace POP_SF42_2016_GUI.UI
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            string vrednost = value as string;   
-                try
+            string vrednost = value as string;
+
+            NumberStyles styles = NumberStyles.AllowCurrencySymbol | NumberStyles.Currency;
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("fr-FR");
+            try
                 {
-                    double broj;
-                    bool rezultat = Double.TryParse(vrednost, out broj);
+                    double broj=0;
+                     broj = Double.Parse(vrednost);
                 
-                    if(!rezultat)
-                        return new ValidationResult(false, "Morate uneti pozitivan broj");
                     if (broj < 0)
                         return new ValidationResult(false, "Morate uneti pozitivan broj");
                     else
@@ -27,7 +28,7 @@ namespace POP_SF42_2016_GUI.UI
                 }
                 catch (Exception)
                 {
-                    return new ValidationResult(false, "Morate uneti pozitivan ceo broj za cenu/kolicinu");
+                    return new ValidationResult(false, "Morate uneti pozitivan ceo broj ");
                 }
             
             
