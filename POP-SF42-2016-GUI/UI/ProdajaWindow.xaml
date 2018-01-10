@@ -42,7 +42,7 @@
             <Image Height="25" Width="41" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-list-add.ico"/>
         </Button>
         <Label Content="Kupac:"  HorizontalAlignment="Left" Height="31" Margin="199,29,0,0" VerticalAlignment="Top" Width="103" FontSize="16" Foreground="White"/>
-        <TextBox x:Name="tbKupac" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Margin="302,31,0,0">
+        <TextBox x:Name="tbKupac" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Margin="302,31,0,0" MaxLength="30">
             <TextBox.Text>
                 <Binding Path="Kupac" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>

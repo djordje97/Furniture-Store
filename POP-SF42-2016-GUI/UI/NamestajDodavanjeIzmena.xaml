@@ -45,7 +45,7 @@
         <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="253,251,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" BorderBrush="#FF0066CC" Background="#FF0066CC">
             <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
         </Button>
-        <TextBox x:Name="tbNazivNamestaja"  Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" HorizontalAlignment="Left" Height="28" Margin="133,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
+        <TextBox x:Name="tbNazivNamestaja"  Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" HorizontalAlignment="Left" Height="28" Margin="133,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" MaxLength="20">
             <TextBox.Text>
                 <Binding Path="Naziv" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>

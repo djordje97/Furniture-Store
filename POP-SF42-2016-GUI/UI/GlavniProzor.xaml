@@ -45,7 +45,10 @@
             <Button x:Name="btnSalon" ToolTip="Informacije o Salonu" HorizontalAlignment="Left" Margin="626,10,0,0" VerticalAlignment="Top" Width="45" Height="42" Background="#FF0066CC" BorderThickness="0" Click="btnSalon_Click">
                 <Image Height="42" Width="45" Source="/POP-SF42-2016-GUI;component/Resursi/Kyo-Tux-Delikate-Info.ico"/>
             </Button>
-            <Label x:Name="lbNaAkciji" Content="Namestaj na akciji" HorizontalAlignment="Left" Height="28" Margin="10,60,0,0" VerticalAlignment="Top" Width="108" Background="#FFC86800" Foreground="White"/>
+            <Label x:Name="lbNaAkciji" Content="Namestaj na akciji" HorizontalAlignment="Left" Height="28" Margin="126,60,0,0" VerticalAlignment="Top" Width="108" Background="#FFC86800" Foreground="White"/>
+            <Button x:Name="btnOsvezi" ToolTip="Osvezi sadrzaj" HorizontalAlignment="Left" Height="44" Margin="10,46,0,0" VerticalAlignment="Top" Width="44" Background="#FF0066CC" BorderBrush="#FF0066CC" Foreground="#FF0066CC" Click="btnOsvezi_Click">
+                <Image Height="40" Width="34" Source="/POP-SF42-2016-GUI;component/Resursi/Hopstarter-Soft-Scraps-Button-Refresh.ico"/>
+            </Button>
         </Grid>
 
 

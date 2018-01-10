@@ -20,7 +20,7 @@
     </Window.Resources>
     <Grid Background="#FF0066CC">
         <Label Content="Naziv:" HorizontalAlignment="Left" Height="28" Margin="73,75,0,0" VerticalAlignment="Top" Width="77" FontSize="16" Foreground="White"/>
-        <TextBox x:Name="tbNazivTipa" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="155,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="141">
+        <TextBox x:Name="tbNazivTipa" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="155,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="141" MaxLength="20">
             <TextBox.Text>
                 <Binding Path="Naziv" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>

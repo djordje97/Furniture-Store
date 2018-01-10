@@ -26,7 +26,7 @@ namespace POP_SF42_2016_GUI.UI
         public PreuzmiNamestaj()
         {
             InitializeComponent();
-          dgNamestajPreuzimanje.ItemsSource = Projekat.Instance.Namestaj.Where(a => a.AkcijskaCena == 0);
+          dgNamestajPreuzimanje.ItemsSource = Projekat.Instance.Namestaj.Where(a => a.AkcijskaCena == 0 && a.Obrisan==false);
            dgNamestajPreuzimanje.SelectedIndex = 0;
         }
 

@@ -15,7 +15,7 @@ namespace PoP.Model
 
         public ProdajaNamestaja()
         {
-            datumProdaje = DateTime.Today;
+            datumProdaje = DateTime.Now;
             stavkeProdaje = new ObservableCollection<StavkaProdaje>();
             dodatneUsluge = new ObservableCollection<DodatnaUsluga>();
             dodatneUslugeId = new List<int>();

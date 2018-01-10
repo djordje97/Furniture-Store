@@ -174,14 +174,15 @@ namespace POP_SF42_2016_GUI.DAO
                         cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
                         cm.ExecuteNonQuery();
 
-                        var n = stavke[i].NamestajProdaja;
-                        n.Kolicina += stavke[i].Kolicina;
+
+                        stavke[i].NamestajProdaja.Kolicina += stavke[i].Kolicina;
                         foreach (var namestaj in Projekat.Instance.Namestaj)
                         {
-                            if (namestaj.Id == n.Id)
-                                namestaj.Kolicina = n.Kolicina;
+                            if (namestaj.Id == stavke[i].NamestajProdaja.Id)
+                                namestaj.Kolicina = stavke[i].NamestajProdaja.Kolicina;
+                             
                         }
-                        NamestajDAO.IzmenaNamestaja(n);
+                        NamestajDAO.IzmenaNamestaja(stavke[i].NamestajProdaja);
                     }
                     return true;
                 }
@@ -214,12 +215,6 @@ namespace POP_SF42_2016_GUI.DAO
                             {
                                 namestaj.Kolicina = namestaj.Kolicina - stavke[i].Kolicina;
                                 NamestajDAO.IzmenaNamestaja(namestaj);
-                            }
-                            if (namestaj.Kolicina == 0)
-                            {
-                                namestaj.Obrisan = true;
-                                NamestajDAO.BrisanjeNamestaja(namestaj);
-                                Projekat.Instance.Namestaj.Remove(namestaj);
                             }
 
                         }

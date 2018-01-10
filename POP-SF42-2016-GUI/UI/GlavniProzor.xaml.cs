@@ -599,6 +599,41 @@ namespace POP_SF42_2016_GUI.UI
             }
         }
 
-       
+        private void btnOsvezi_Click(object sender, RoutedEventArgs e)
+        {
+            switch (TrenutnoAktivno)
+            {
+                case "Namestaj":
+                    view = CollectionViewSource.GetDefaultView(Projekat.Instance.Namestaj);
+                    view.Filter = NamestajFilter;
+                    dgPrikaz.ItemsSource = view;
+                    break;
+                case "TipoviNamestaja":
+                    view = CollectionViewSource.GetDefaultView(Projekat.Instance.TipNamestaja);
+                    view.Filter = TipNamestajaFilter;
+                    dgPrikaz.ItemsSource = view;
+                    break;
+                case "DodatneUsluge":
+                    view = CollectionViewSource.GetDefaultView(Projekat.Instance.DodatneUsluge);
+                    view.Filter = UslugeFilter;
+                    dgPrikaz.ItemsSource = view;
+                    break;
+                case "Korisnici":
+                    view = CollectionViewSource.GetDefaultView(Projekat.Instance.Korisnici);
+                    view.Filter = KorisnikFilter;
+                    dgPrikaz.ItemsSource = view;
+                    break;
+                case "Akcije":
+                    view = CollectionViewSource.GetDefaultView(Projekat.Instance.Akcije);
+                    view.Filter = AkcijaFilter;
+                    dgPrikaz.ItemsSource = view;
+                    break;
+                case "Prodaja":
+                    view = CollectionViewSource.GetDefaultView(Projekat.Instance.Prodaja);
+                    view.Filter = ProdajaFlter;
+                    dgPrikaz.ItemsSource = view;
+                    break;
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@
     </Window.Resources>
     <Grid Margin="0,0,4,0" Background="#FF0066CC">
         <Label Content="Ime:" HorizontalAlignment="Left"  HorizontalContentAlignment="Center" Height="30" Margin="99,29,0,0" VerticalAlignment="Top" Width="84" FontSize="16" Foreground="White"/>
-        <TextBox x:Name="tbIme" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Height="27" Margin="183,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
+        <TextBox x:Name="tbIme" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Height="27" Margin="183,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" MaxLength="20">
             <TextBox.Text>
                 <Binding Path="Ime" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -29,7 +29,7 @@
             </TextBox.Text>
         </TextBox>
         <Label Content="Prezime:" HorizontalAlignment="Left" Height="30" Margin="99,72,0,0" VerticalAlignment="Top" Width="84" FontSize="16" Foreground="White" RenderTransformOrigin="0.476,0.7"/>
-        <TextBox x:Name="tbPrezime" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Height="27" Margin="183,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
+        <TextBox x:Name="tbPrezime" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Height="27" Margin="183,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" MaxLength="20">
             <TextBox.Text>
                 <Binding Path="Prezime" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -39,7 +39,7 @@
             </TextBox.Text>
         </TextBox>
         <Label Content="Korisnicko ime:" HorizontalAlignment="Left" Height="30" Margin="56,108,0,0" VerticalAlignment="Top" Width="127" FontSize="16" Foreground="White" RenderTransformOrigin="0.488,0.667"/>
-        <TextBox x:Name="tbKorisnickoIme" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="183,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
+        <TextBox x:Name="tbKorisnickoIme" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="183,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" MaxLength="20">
             <TextBox.Text>
                 <Binding Path="Korisnicko_Ime" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -71,7 +71,7 @@
             <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
         </Button>
         <Label Content="Lozinka:"   HorizontalAlignment="Left" Height="29" Margin="84,150,0,0" VerticalAlignment="Top" Width="99" FontSize="16" Foreground="White"/>
-        <TextBox x:Name="tbLozinka" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Height="27" Margin="183,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
+        <TextBox x:Name="tbLozinka" Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Height="27" Margin="183,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143" MaxLength="20">
             <TextBox.Text>
                 <Binding Path="Lozinka" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
