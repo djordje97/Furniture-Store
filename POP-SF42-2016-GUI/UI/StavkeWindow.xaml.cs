@@ -61,15 +61,7 @@ namespace POP_SF42_2016_GUI.UI
                 e.Cancel = true;
             }
         }
-
-     /*   private void dgNamestaj_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Stavka.NamestajProdaja = dgNamestaj.SelectedItem as Namestaj;
-            KolicinaValidation.Nam = Stavka.NamestajProdaja;
-            
-        }
-        */
-       
+  
         private void dgNamestaj_LostFocus(object sender, RoutedEventArgs e)
         {
             Stavka.NamestajProdaja = dgNamestaj.SelectedItem as Namestaj;
