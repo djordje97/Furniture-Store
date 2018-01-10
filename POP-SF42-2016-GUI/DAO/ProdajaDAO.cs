@@ -42,9 +42,8 @@ namespace POP_SF42_2016_GUI.DAO
                 foreach (var prodaja in prodaje)
                 {
                     ObservableCollection<StavkaProdaje> stavke = new ObservableCollection<StavkaProdaje>();
-                    cmd = new SqlCommand(@"SELECT Id, Kolicina,Cena,NamestajId FROM Stavka WHERE ProdajaId=@id AND Obrisan=@obrisan", conn);
+                    cmd = new SqlCommand(@"SELECT Id, Kolicina,Cena,NamestajId FROM Stavka WHERE ProdajaId=@id ", conn);
                     cmd.Parameters.Add(new SqlParameter("@id", prodaja.Id));
-                    cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                     reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
@@ -52,7 +51,6 @@ namespace POP_SF42_2016_GUI.DAO
                         {
                             Id = reader.GetInt32(0),
                             Kolicina = reader.GetInt32(1),
-                            //NamestajProdaja = NamestajDAO.NametajPoId(reader.GetInt32(3)),
                             NamestajProdajaId = reader.GetInt32(3),
                             Obrisan = false 
                         };
@@ -65,19 +63,14 @@ namespace POP_SF42_2016_GUI.DAO
                 foreach (var prodaja in prodaje)
                 {
                     ObservableCollection<DodatnaUsluga> usluge = new ObservableCollection<DodatnaUsluga>();
-                    cmd = new SqlCommand(@"SELECT UslugeId FROM ProdateUsluge WHERE ProdajaId=@id AND Obrisan=@obrisan", conn);
+                    cmd = new SqlCommand(@"SELECT UslugeId FROM ProdateUsluge WHERE ProdajaId=@id", conn);
                     cmd.Parameters.Add(new SqlParameter("@id", prodaja.Id));
-                    cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                     reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-
-                        //if (UslugeDAO.UslugaPoId(reader.GetInt32(0)) != null)
-                        //   usluge.Add(UslugeDAO.UslugaPoId(reader.GetInt32(0)));
                         prodaja.DodatneUslugeId.Add(reader.GetInt32(0));
                         
                     }
-                 //prodaja.DodatneUsluge = usluge;
                     reader.Close();
                 }
             }
@@ -104,12 +97,11 @@ namespace POP_SF42_2016_GUI.DAO
 
                     for (int i = 0; i < p.StavkeProdaje.Count; i++)
                     {
-                        SqlCommand cm = new SqlCommand(@"INSERT INTO Stavka(Kolicina,Cena,NamestajId,ProdajaId,Obrisan) VALUES(@kolicina,@cena,@namestajId,@prodajaId,@obrisan) ", conn);
+                        SqlCommand cm = new SqlCommand(@"INSERT INTO Stavka(Kolicina,Cena,NamestajId,ProdajaId) VALUES(@kolicina,@cena,@namestajId,@prodajaId) ", conn);
                         cm.Parameters.Add(new SqlParameter("@kolicina", p.StavkeProdaje[i].Kolicina));
                         cm.Parameters.Add(new SqlParameter("@cena", p.StavkeProdaje[i].Cena));
                         cm.Parameters.Add(new SqlParameter("@namestajId", p.StavkeProdaje[i].NamestajProdaja.Id));
                         cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                        cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
                         cm.ExecuteNonQuery();
                         p.StavkeProdaje[i].NamestajProdaja.Kolicina = p.StavkeProdaje[i].NamestajProdaja.Kolicina - p.StavkeProdaje[i].Kolicina;
                         NamestajDAO.IzmenaNamestaja(p.StavkeProdaje[i].NamestajProdaja);
@@ -117,22 +109,15 @@ namespace POP_SF42_2016_GUI.DAO
                         {
                             if (namestaj.Id == p.StavkeProdaje[i].NamestajProdaja.Id)
                                 namestaj.Kolicina = p.StavkeProdaje[i].NamestajProdaja.Kolicina;
-                            if (namestaj.Kolicina == 0)
-                            {
-                                namestaj.Obrisan = true;
-                                NamestajDAO.BrisanjeNamestaja(namestaj);
-                                Projekat.Instance.Namestaj.Remove(namestaj);
-                            }
                         }
 
                     }
 
                     for (int i = 0; i < p.DodatneUsluge.Count; i++)
                     {
-                        SqlCommand cm = new SqlCommand(@"INSERT INTO ProdateUsluge(UslugeId,ProdajaId,Obrisan) VALUES(@usluge,@prodajaId,@obrisan) ", conn);
+                        SqlCommand cm = new SqlCommand(@"INSERT INTO ProdateUsluge(UslugeId,ProdajaId) VALUES(@usluge,@prodajaId) ", conn);
                         cm.Parameters.Add(new SqlParameter("@usluge", p.DodatneUsluge[i].Id));
                         cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                        cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
                         cm.ExecuteNonQuery();
                     }
 
@@ -184,10 +169,9 @@ namespace POP_SF42_2016_GUI.DAO
                     conn.Open();
                     for (int i = 0; i < stavke.Count; i++)
                     {
-                        SqlCommand cm = new SqlCommand(@" UPDATE  Stavka SET Obrisan=@obrisan WHERE Id=@id AND ProdajaId=@prodajaId", conn);
+                        SqlCommand cm = new SqlCommand(@" DELETE FROM  Stavka WHERE Id=@id AND ProdajaId=@prodajaId", conn);
                         cm.Parameters.Add(new SqlParameter("@id", stavke[i].Id));
                         cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                        cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
                         cm.ExecuteNonQuery();
 
                         var n = stavke[i].NamestajProdaja;
@@ -216,12 +200,11 @@ namespace POP_SF42_2016_GUI.DAO
                     conn.Open();
                     for (int i = 0; i < stavke.Count; i++)
                     {
-                        SqlCommand cm = new SqlCommand(@" INSERT INTO Stavka(Kolicina,Cena,NamestajId,ProdajaId,Obrisan) VALUES (@kolicina,@cena,@namestajId,@prodajaId,@obrisan)", conn);
+                        SqlCommand cm = new SqlCommand(@" INSERT INTO Stavka(Kolicina,Cena,NamestajId,ProdajaId) VALUES (@kolicina,@cena,@namestajId,@prodajaId)", conn);
                         cm.Parameters.Add(new SqlParameter("@namestajId", stavke[i].NamestajProdaja.Id));
                         cm.Parameters.Add(new SqlParameter("@kolicina", stavke[i].Kolicina));
                         cm.Parameters.Add(new SqlParameter("@cena", stavke[i].Cena));
                         cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                        cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
                         cm.ExecuteNonQuery();
 
 
@@ -259,10 +242,9 @@ namespace POP_SF42_2016_GUI.DAO
                     conn.Open();
                     for (int i = 0; i < usluge.Count; i++)
                     {
-                        SqlCommand cm = new SqlCommand(@" UPDATE  ProdateUsluge SET Obrisan=@obrisan WHERE UslugeId=@id AND ProdajaId=@prodajaId", conn);
+                        SqlCommand cm = new SqlCommand(@" DELETE FROM ProdateUsluge WHERE UslugeId=@id AND ProdajaId=@prodajaId", conn);
                         cm.Parameters.Add(new SqlParameter("@id", usluge[i].Id));
                         cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                        cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
                         cm.ExecuteNonQuery();
                     }
                     return true;
@@ -281,10 +263,9 @@ namespace POP_SF42_2016_GUI.DAO
                     conn.Open();
                     for (int i = 0; i < usluge.Count; i++)
                     {
-                        SqlCommand cm = new SqlCommand(@" INSERT INTO ProdateUsluge(UslugeId,ProdajaId,Obrisan) VALUES (@uslugeId,@prodajaId,@obrisan)", conn);
+                        SqlCommand cm = new SqlCommand(@" INSERT INTO ProdateUsluge(UslugeId,ProdajaId) VALUES (@uslugeId,@prodajaId)", conn);
                         cm.Parameters.Add(new SqlParameter("@uslugeId", usluge[i].Id));
                         cm.Parameters.Add(new SqlParameter("@prodajaId", p.Id));
-                        cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
                         cm.ExecuteNonQuery();
                     }
                     return true;
@@ -325,9 +306,8 @@ namespace POP_SF42_2016_GUI.DAO
                 foreach (var prodaja in prodaje)
                 {
                     ObservableCollection<StavkaProdaje> stavke = new ObservableCollection<StavkaProdaje>();
-                    cmd = new SqlCommand(@"SELECT Id, Kolicina,Cena,NamestajId FROM Stavka WHERE ProdajaId=@id AND Obrisan=@obrisan", conn);
+                    cmd = new SqlCommand(@"SELECT Id, Kolicina,Cena,NamestajId FROM Stavka WHERE ProdajaId=@id ", conn);
                     cmd.Parameters.Add(new SqlParameter("@id", prodaja.Id));
-                    cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                     reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
@@ -335,7 +315,6 @@ namespace POP_SF42_2016_GUI.DAO
                         {
                             Id = reader.GetInt32(0),
                             Kolicina = reader.GetInt32(1),
-                            //NamestajProdaja = NamestajDAO.NametajPoId(reader.GetInt32(3)),
                             NamestajProdajaId = reader.GetInt32(3),
                             Obrisan = false
                         };
@@ -348,19 +327,14 @@ namespace POP_SF42_2016_GUI.DAO
                 foreach (var prodaja in prodaje)
                 {
                     ObservableCollection<DodatnaUsluga> usluge = new ObservableCollection<DodatnaUsluga>();
-                    cmd = new SqlCommand(@"SELECT UslugeId FROM ProdateUsluge WHERE ProdajaId=@id AND Obrisan=@obrisan", conn);
+                    cmd = new SqlCommand(@"SELECT UslugeId FROM ProdateUsluge WHERE ProdajaId=@id", conn);
                     cmd.Parameters.Add(new SqlParameter("@id", prodaja.Id));
-                    cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                     reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-
-                        //if (UslugeDAO.UslugaPoId(reader.GetInt32(0)) != null)
-                        //   usluge.Add(UslugeDAO.UslugaPoId(reader.GetInt32(0)));
                         prodaja.DodatneUslugeId.Add(reader.GetInt32(0));
 
                     }
-                    //prodaja.DodatneUsluge = usluge;
                     reader.Close();
                 }
             }

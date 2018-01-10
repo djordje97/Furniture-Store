@@ -48,7 +48,6 @@ CREATE TABLE NaAkciji(
 Id INT IDENTITY (1, 1) PRIMARY KEY,
 NamestajId INT REFERENCES Namestaj(Id),
 AkcijaId INT REFERENCES Akcija(Id),
-Obrisan BIT DEFAULT 0,
 );
 
 CREATE TABLE Prodaja(
@@ -66,14 +65,12 @@ Kolicina INT,
 Cena DECIMAL,
 NamestajId INT REFERENCES Namestaj(Id),
 ProdajaId INT REFERENCES Prodaja(Id),
-Obrisan BIT DEFAULT 0,
 );
 
 CREATE TABLE ProdateUsluge(
 Id INT IDENTITY (1, 1) PRIMARY KEY,
 UslugeId INT REFERENCES DodatneUsluge(Id),
 ProdajaId INT REFERENCES Prodaja(Id),
-Obrisan BIT DEFAULT 0 ,
 );
 
 CREATE TABLE Salon(

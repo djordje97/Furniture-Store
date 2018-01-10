@@ -20,11 +20,10 @@
     </Window.Resources>
 
     <Grid  Margin="0,0,-6,-8" Background="#FF0066CC">
-        <Label Content="Naziv:" HorizontalAlignment="Left" Height="28" Margin="40,10,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
-        <Label Content="Sifra:" HorizontalAlignment="Left" Height="27" Margin="40,43,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
-        <Label Content="Cena:" HorizontalAlignment="Left" Margin="40,75,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
-        <Label Content="Kolicina:" HorizontalAlignment="Left" Height="28" Margin="29,120,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
-        <Label Content="Tip namestaja:" HorizontalAlignment="Left" Height="27" Margin="10,164,0,0" VerticalAlignment="Top" Width="105" FontSize="14" Foreground="White"/>
+        <Label Content="Naziv:" HorizontalAlignment="Left" Height="28" Margin="40,30,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
+        <Label Content="Cena:" HorizontalAlignment="Left" Margin="40,72,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
+        <Label Content="Kolicina:" HorizontalAlignment="Left" Height="28" Margin="40,118,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Foreground="White"/>
+        <Label Content="Tip namestaja:" HorizontalAlignment="Left" Height="27" Margin="10,162,0,0" VerticalAlignment="Top" Width="105" FontSize="14" Foreground="White"/>
         <Button x:Name="btnPotvrdi"  ToolTip="Potvrdi" HorizontalAlignment="Left" Height="53" Margin="133,251,0,0" VerticalAlignment="Top" Width="77" IsDefault="True" Click="Potvrdi" Background="#FF0066CC" BorderBrush="#FF0066CC">
             <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-document-save.ico"/>
             <Button.Style>
@@ -35,7 +34,6 @@
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbKolicinaNamestaja}" Value="False"/>
                                 <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbNazivNamestaja}" Value="False"/>
-                                <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbSifraNamestaja}" Value="False"/>
                                 <Condition Binding="{Binding Path=(Validation.HasError), ElementName=tbCenaNamestaja}" Value="False"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="IsEnabled" Value="True"/>
@@ -47,7 +45,7 @@
         <Button x:Name="btnOdustani" ToolTip="Odustani" HorizontalAlignment="Left" Height="53" Margin="253,251,0,0" VerticalAlignment="Top" Width="77" IsCancel="True" BorderBrush="#FF0066CC" Background="#FF0066CC">
             <Image Height="46" Width="67" Source="/POP-SF42-2016-GUI;component/Resursi/Oxygen-Icons.org-Oxygen-Actions-edit-delete.ico"/>
         </Button>
-        <TextBox x:Name="tbNazivNamestaja"  Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" HorizontalAlignment="Left" Height="28" Margin="133,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
+        <TextBox x:Name="tbNazivNamestaja"  Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}" HorizontalAlignment="Left" Height="28" Margin="133,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
             <TextBox.Text>
                 <Binding Path="Naziv" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -56,16 +54,7 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <TextBox x:Name="tbSifraNamestaja"  Validation.ErrorTemplate="{StaticResource ResourceKey=TextBoxError}"  HorizontalAlignment="Left" Height="27" Margin="133,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
-            <TextBox.Text>
-                <Binding Path="Sifra" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <local:StringValidation/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-        </TextBox>
-        <TextBox x:Name="tbCenaNamestaja"   HorizontalAlignment="Left" Height="26" Margin="133,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
+        <TextBox x:Name="tbCenaNamestaja"   HorizontalAlignment="Left" Height="26" Margin="133,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
             <TextBox.Text>
                 <Binding Path="Cena" UpdateSourceTrigger="LostFocus">
                     <Binding.ValidationRules>
@@ -74,7 +63,7 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <TextBox x:Name="tbKolicinaNamestaja"   HorizontalAlignment="Left" Height="28" Margin="133,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
+        <TextBox x:Name="tbKolicinaNamestaja"   HorizontalAlignment="Left" Height="28" Margin="133,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="143">
             <TextBox.Text>
                 <Binding Path="Kolicina" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -83,7 +72,7 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <ComboBox x:Name="cbTipNamestaja"  SelectedItem="{Binding Path=TipNamestaja}" HorizontalAlignment="Left" Height="27" Margin="133,164,0,0" VerticalAlignment="Top" Width="143" />
+        <ComboBox x:Name="cbTipNamestaja"  SelectedItem="{Binding Path=TipNamestaja}" HorizontalAlignment="Left" Height="27" Margin="133,162,0,0" VerticalAlignment="Top" Width="143" />
 
         <TextBlock x:Name="tbIspisGreske" FontSize="12pt" Margin="40,194,0,0" Foreground="Red" FontWeight="Bold" 
                            Text="{Binding ElementName=tbCenaNamestaja, Path=(Validation.Errors), Converter={StaticResource ResourceKey=converter}}" 

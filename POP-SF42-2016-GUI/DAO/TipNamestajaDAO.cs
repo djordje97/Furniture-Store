@@ -36,32 +36,7 @@ namespace POP_SF42_2016_GUI.DAO
             }
             return tipovi;
         }
-        public static TipNamestaja TipPoId( int id)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
-                {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand(@"SELECT * FROM TipNamestaja WHERE Obrisan=@obrisan and Id=@id", conn);
-                    cmd.Parameters.Add(new SqlParameter("@id", id));
-                    cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        TipNamestaja tip = new TipNamestaja()
-                        {
-                            Id = reader.GetInt32(0),
-                            Naziv = reader.GetString(1)
-                        };
-                        return tip;
-                    }
-                }
-            }
-            catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning); }
-            return null;
-        }
+      
         public static TipNamestaja DodavanjeTipa(TipNamestaja t)
         {
             try
@@ -86,6 +61,15 @@ namespace POP_SF42_2016_GUI.DAO
         public static bool BrisanjeTipa(TipNamestaja t)
         {
             t.Obrisan = true;
+            foreach(var n in Projekat.Instance.Namestaj)
+            {
+                if (n.TipNamestaja.Id == t.Id)
+                {
+                    n.TipNamestajaId = 0;
+                    n.TipNamestaja = null;
+                    NamestajDAO.IzmenaNamestaja(n);
+                }
+            }
            return  IzmenaTipa(t);
         }
         public static bool IzmenaTipa(TipNamestaja t)

@@ -93,6 +93,9 @@ namespace POP_SF42_2016_GUI.DAO
                     cmd.Parameters.Add(new SqlParameter("@naziv", n.Naziv));
                     cmd.Parameters.Add(new SqlParameter("@kolicina", n.Kolicina));
                     cmd.Parameters.Add(new SqlParameter("@sifra", n.Sifra));
+                    if(n.TipNamestaja==null)
+                        cmd.Parameters.Add(new SqlParameter("@tip", '0'));
+                    else
                     cmd.Parameters.Add(new SqlParameter("@tip", n.TipNamestaja.Id));
                     cmd.Parameters.Add(new SqlParameter("@cena", n.Cena));
                     cmd.Parameters.Add(new SqlParameter("@akcijskaCena", n.AkcijskaCena));
@@ -118,34 +121,6 @@ namespace POP_SF42_2016_GUI.DAO
             }
             catch { MessageBox.Show("Upis u bazu nije uspeo.\nMolimo da pokusate ponovo!", "Greska", MessageBoxButton.OK, MessageBoxImage.Warning);return false; }
            
-        }
-        public static Namestaj NametajPoId(int id)
-        {
-            
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(@"SELECT * FROM Namestaj WHERE Obrisan=@obrisan AND Id=@id", conn);
-                cmd.Parameters.Add(new SqlParameter("@id",id));
-                cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    Namestaj n = new Namestaj()
-                    {
-                        Id = reader.GetInt32(0),
-                        Naziv = reader.GetString(1),
-                        Kolicina = reader.GetInt32(2),
-                        Sifra = reader.GetString(3),
-                        TipNamestaja = (TipNamestaja)TipNamestajaDAO.TipPoId(reader.GetInt32(4)),
-                        Cena = (double)reader.GetDecimal(5)
-
-                    };
-                    return n;
-                }
-            }
-            return null;
         }
 
 

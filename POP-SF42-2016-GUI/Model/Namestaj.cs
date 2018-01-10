@@ -20,6 +20,46 @@ namespace PoP.Model
         private string sifra;
         private int kolicina;
         private TipNamestaja tipNamestaja;
+        public string Naziv
+        {
+            get { return naziv; }
+            set
+            {
+                naziv = value;
+                OnPropertyChanged("Naziv");
+            }
+        }
+
+        public string Sifra
+        {
+            get { return sifra; }
+            set
+            {
+                sifra = value;
+                OnPropertyChanged("Sifra");
+            }
+        }
+
+        public int Kolicina
+        {
+            get { return kolicina; }
+            set
+            {
+                kolicina = value;
+                OnPropertyChanged("Kolicina");
+            }
+        }
+
+        public double Cena
+        {
+            get { return cena; }
+            set
+            {
+                cena = value;
+                OnPropertyChanged("Cena");
+            }
+        }
+
 
         private int tipNamestajaId;
 
@@ -40,30 +80,17 @@ namespace PoP.Model
             set
             {
                 tipNamestaja = value;
-                TipNamestajaId = tipNamestaja.Id;
+                if(TipNamestaja!=null)
+                    TipNamestajaId = tipNamestaja.Id;
                 OnPropertyChanged("TipNamestaja");
             }
         }
 
 
-        public int Kolicina
-        {
-            get { return kolicina; }
-            set {
-                kolicina = value;
-                OnPropertyChanged("Kolicina");
-            }
-        }
 
 
-        public string Sifra
-        {
-            get { return sifra; }
-            set {
-                sifra = value;
-                OnPropertyChanged("Sifra");
-            }
-        }
+
+
 
 
         public bool Obrisan
@@ -75,24 +102,9 @@ namespace PoP.Model
             }
         }
 
-        public double Cena
-        {
-            get { return cena; }
-            set {
-                cena = value;
-                OnPropertyChanged("Cena");
-            }
-        }
+      
 
-
-        public string Naziv
-        {
-            get { return naziv; }
-            set {
-                naziv = value;
-                OnPropertyChanged("Naziv");
-            }
-        }
+      
 
 
         public int Id

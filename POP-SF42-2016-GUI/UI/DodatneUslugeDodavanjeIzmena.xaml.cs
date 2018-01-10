@@ -44,6 +44,10 @@ namespace POP_SF42_2016_GUI.UI
 
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
+            if (Provera() == true)
+            {
+                return;
+            }
             this.DialogResult = true;
             
 
@@ -54,6 +58,18 @@ namespace POP_SF42_2016_GUI.UI
             else
                 UslugeDAO.IzmenaUsluge(dodatneUsluga);
             this.Close();
+        }
+        public bool Provera()
+        {
+            BindingExpression be1 = tbNazivUsluge.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            BindingExpression be3 = tbCenaUsluge.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            if (Validation.GetHasError(tbNazivUsluge) == true || Validation.GetHasError(tbCenaUsluge) == true)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

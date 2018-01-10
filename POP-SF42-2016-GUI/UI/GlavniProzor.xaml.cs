@@ -49,6 +49,7 @@ namespace POP_SF42_2016_GUI.UI
         {
             TrenutnoAktivno = "Namestaj";
             cbSortiraj.SelectedItem = null;
+            var korisnik = Korisnik.PronadjiKorisnika(MainWindow.loggedUser);
             view = CollectionViewSource.GetDefaultView(Projekat.Instance.Namestaj);
             view.Filter = NamestajFilter;
             dgPrikaz.ItemsSource = view;
@@ -147,6 +148,7 @@ namespace POP_SF42_2016_GUI.UI
                 btnNamestaj.Visibility = Visibility.Hidden;
                 btnTipoviNamestaja.Visibility=Visibility.Hidden;
                 btnAkcije.Visibility = Visibility.Hidden;
+                btnIzmeni.Visibility = Visibility.Hidden;
             }
            
          

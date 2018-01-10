@@ -61,6 +61,10 @@ namespace POP_SF42_2016_GUI.UI
 
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
+            if (Provera() == true)
+            {
+                return;
+            }
             Random rn = new Random();
             this.DialogResult = true;
 
@@ -97,7 +101,8 @@ namespace POP_SF42_2016_GUI.UI
             StavkaProdaje izabrana = dgStavke.SelectedItem as StavkaProdaje;
             prodaja.StavkeProdaje.Remove(izabrana);
             obrisanestavke.Add(izabrana);
-            dodatestavke.Remove(izabrana);
+            if(dodatestavke.Contains(izabrana)==true)
+                dodatestavke.Remove(izabrana);
          
         }
 
@@ -118,7 +123,8 @@ namespace POP_SF42_2016_GUI.UI
             var izabrana = dgUsluge.SelectedItem as DodatnaUsluga;
             prodaja.DodatneUsluge.Remove(izabrana);
             obrisaneusluge.Add(izabrana);
-            dodateusluge.Remove(izabrana);
+            if(dodateusluge.Contains(izabrana)==true)
+                dodateusluge.Remove(izabrana);
 
         }
 
@@ -128,6 +134,16 @@ namespace POP_SF42_2016_GUI.UI
                 e.Cancel = true;
         }
 
-     
+        public bool Provera()
+        {
+            BindingExpression be1 = tbKupac.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            if (Validation.GetHasError(tbKupac) == true)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

@@ -39,7 +39,6 @@ namespace POP_SF42_2016_GUI.UI
             cbTipNamestaja.ItemsSource = Projekat.Instance.TipNamestaja;
             tbNazivNamestaja.DataContext = namestaj;
             tbCenaNamestaja.DataContext = namestaj;
-            tbSifraNamestaja.DataContext = namestaj;
             tbKolicinaNamestaja.DataContext = namestaj;
             cbTipNamestaja.DataContext = namestaj;
 
@@ -47,9 +46,14 @@ namespace POP_SF42_2016_GUI.UI
       
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
-           
+            if (Provera() == true)
+            {
+                return;
+            }
                 this.DialogResult = true;
-                var izabraniTip = (TipNamestaja)cbTipNamestaja.SelectedItem;
+                 if(cbTipNamestaja.SelectedItem!=null)
+                    namestaj.Sifra = tbNazivNamestaja.Text.Substring(0, 2).ToUpper() + tbKolicinaNamestaja.Text + cbTipNamestaja.Text.Substring(0, 2).ToUpper();
+                 var izabraniTip = (TipNamestaja)cbTipNamestaja.SelectedItem;
                 if (operacija == Operacija.DODAVANJE)
                 { 
                     NamestajDAO.DodavanjeNamestaja(namestaj);
@@ -58,6 +62,20 @@ namespace POP_SF42_2016_GUI.UI
                 else
                   NamestajDAO.IzmenaNamestaja(namestaj);
                this.Close();
+        }
+        public bool Provera()
+        {
+            BindingExpression be1 = tbNazivNamestaja.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            BindingExpression be2 = tbKolicinaNamestaja.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            BindingExpression be3 = tbCenaNamestaja.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            if(Validation.GetHasError(tbNazivNamestaja)==true || Validation.GetHasError(tbKolicinaNamestaja) == true || Validation.GetHasError(tbCenaNamestaja) == true )
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

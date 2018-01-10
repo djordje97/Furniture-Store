@@ -47,17 +47,14 @@ namespace POP_SF42_2016_GUI.DAO
                 foreach (var akcija in akcije)
                 {
                     ObservableCollection<Namestaj> namestaj = new ObservableCollection<Namestaj>();
-                    cmd = new SqlCommand(@"SELECT NamestajId FROM NaAkciji WHERE AkcijaId=@id AND Obrisan=@obrisan", conn);
+                    cmd = new SqlCommand(@"SELECT NamestajId FROM NaAkciji WHERE AkcijaId=@id", conn);
                     cmd.Parameters.Add(new SqlParameter("@id", akcija.Id));
-                    cmd.Parameters.Add(new SqlParameter("@obrisan",'0'));
                     reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        //  if (NamestajDAO.NametajPoId(reader.GetInt32(0)) != null)
-                        //  namestaj.Add(NamestajDAO.NametajPoId(reader.GetInt32(0)));
+                       
                         akcija.NamestajPopustId.Add(reader.GetInt32(0));
                     }
-                    //akcija.NamestajPopust = namestaj;
                     reader.Close();
                 }
             }
@@ -106,10 +103,9 @@ namespace POP_SF42_2016_GUI.DAO
                         for (int i = 0; i < a.NamestajPopust.Count; i++)
                         {
 
-                            SqlCommand cm = new SqlCommand(@"INSERT INTO NaAkciji(NamestajId,AkcijaId,Obrisan) VALUES(@namestajId,@akcijaId,@obrisan) ", conn);
+                            SqlCommand cm = new SqlCommand(@"INSERT INTO NaAkciji(NamestajId,AkcijaId) VALUES(@namestajId,@akcijaId) ", conn);
                             cm.Parameters.Add(new SqlParameter("@namestajId", a.NamestajPopust[i].Id));
                             cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
-                            cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
                             cm.ExecuteNonQuery();
 
                             foreach (var namestaj in Projekat.Instance.Namestaj)
@@ -193,10 +189,9 @@ namespace POP_SF42_2016_GUI.DAO
                     conn.Open();
                     for (int i = 0; i < dodat.Count; i++)
                     {
-                        SqlCommand cm = new SqlCommand(@" INSERT INTO NaAkciji(NamestajId,AkcijaId,Obrisan) VALUES (@namestajId,@akcijaId,@obrisan)", conn);
+                        SqlCommand cm = new SqlCommand(@" INSERT INTO NaAkciji(NamestajId,AkcijaId) VALUES (@namestajId,@akcijaId)", conn);
                         cm.Parameters.Add(new SqlParameter("@namestajId", dodat[i].Id));
                         cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
-                        cm.Parameters.Add(new SqlParameter("@obrisan", '0'));
                         cm.ExecuteNonQuery();
                     }
                     foreach (var namestaj in dodat)
@@ -229,10 +224,9 @@ namespace POP_SF42_2016_GUI.DAO
                     conn.Open();
                     for (int i = 0; i < obrisan.Count; i++)
                     {
-                        SqlCommand cm = new SqlCommand(@" UPDATE NaAkciji SET Obrisan=@obrisan WHERE NamestajId=@namestajId AND AkcijaId=@akcijaId", conn);
+                        SqlCommand cm = new SqlCommand(@" DELETE FROM NaAkciji WHERE NamestajId=@namestajId AND AkcijaId=@akcijaId", conn);
                         cm.Parameters.Add(new SqlParameter("@namestajId", obrisan[i].Id));
                         cm.Parameters.Add(new SqlParameter("@akcijaId", a.Id));
-                        cm.Parameters.Add(new SqlParameter("@obrisan", '1'));
                         cm.ExecuteNonQuery();
                     }
                     foreach (var namestaj in obrisan)
@@ -284,17 +278,14 @@ namespace POP_SF42_2016_GUI.DAO
                 foreach (var akcija in akcije)
                 {
                     ObservableCollection<Namestaj> namestaj = new ObservableCollection<Namestaj>();
-                    cmd = new SqlCommand(@"SELECT NamestajId FROM NaAkciji WHERE AkcijaId=@id AND Obrisan=@obrisan", conn);
+                    cmd = new SqlCommand(@"SELECT NamestajId FROM NaAkciji WHERE AkcijaId=@id ", conn);
                     cmd.Parameters.Add(new SqlParameter("@id", akcija.Id));
-                    cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                     reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        // if (NamestajDAO.NametajPoId(reader.GetInt32(0)) != null)
-                        //  namestaj.Add(NamestajDAO.NametajPoId(reader.GetInt32(0)));
+
                         akcija.NamestajPopustId.Add(reader.GetInt32(0));
                     }
-                  //  akcija.NamestajPopust = namestaj;
                     reader.Close();
                 }
             }

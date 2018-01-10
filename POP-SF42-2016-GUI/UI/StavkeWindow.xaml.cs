@@ -35,32 +35,19 @@ namespace POP_SF42_2016_GUI.UI
             InitializeComponent();
             Stavka = stavka;
             this.operacija = operacija;
-            dgNamestaj.ItemsSource = NamestajPrikaz();
+            dgNamestaj.ItemsSource = Projekat.Instance.Namestaj.Where(n => n.Obrisan==false && n.Kolicina > 0);
             dgNamestaj.SelectedIndex = 0;
             tbKolicina.DataContext = Stavka;
            
         }
        
-        public List<Namestaj> NamestajPrikaz()
-        {
-            var namestaj = Projekat.Instance.Namestaj;
-            List<Namestaj> zaPrikaz = new List<Namestaj>();
-            foreach (var trenutni in namestaj)
-            {
-                if (trenutni.Obrisan == false)
-                    zaPrikaz.Add(trenutni);
-
-
-            }
-            return zaPrikaz;
-        }
         private void PotvrdiUslugu(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
             if (operacija == Operacija.DODAVANJE)
             {
                
-                Stavka.Cena = (Stavka.NamestajProdaja.Cena )* Stavka.Kolicina;
+                Stavka.Cena = (Stavka.NamestajProdaja.Cena ) * Stavka.Kolicina;
 
             }
             this.Close();
@@ -75,13 +62,13 @@ namespace POP_SF42_2016_GUI.UI
             }
         }
 
-        private void dgNamestaj_SelectionChanged(object sender, SelectionChangedEventArgs e)
+     /*   private void dgNamestaj_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Stavka.NamestajProdaja = dgNamestaj.SelectedItem as Namestaj;
             KolicinaValidation.Nam = Stavka.NamestajProdaja;
             
         }
-
+        */
        
         private void dgNamestaj_LostFocus(object sender, RoutedEventArgs e)
         {

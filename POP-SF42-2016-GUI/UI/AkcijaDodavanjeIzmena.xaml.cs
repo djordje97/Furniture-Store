@@ -45,6 +45,10 @@ namespace POP_SF42_2016_GUI.UI
 
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
+            if (Provera() == true)
+            {
+                return;
+            }
             this.DialogResult = true;
             if (operacija == Operacija.DODAVANJE)
             {
@@ -86,7 +90,16 @@ namespace POP_SF42_2016_GUI.UI
             if ((string)e.Column.Header == "Obrisan" || (string)e.Column.Header == "Id" || (string)e.Column.Header == "TipNamestajaId")
                 e.Cancel = true;
         }
+        public bool Provera()
+        {
+            BindingExpression be1 = tbPopust.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            if (Validation.GetHasError(tbPopust) == true )
+            {
+                return true;
+            }
+            return false;
+        }
 
-      
     }
 }

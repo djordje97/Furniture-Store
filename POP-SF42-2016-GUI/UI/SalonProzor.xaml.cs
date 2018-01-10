@@ -74,6 +74,10 @@ namespace POP_SF42_2016_GUI.UI
 
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
+            if (Provera() == true)
+            {
+                return;
+            }
             if (t == TipKorisnika.Administrator)
             {
                 SalonDAO.IzmenaSalona(s);
@@ -84,6 +88,33 @@ namespace POP_SF42_2016_GUI.UI
         private void btnOdustani_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+        public bool Provera()
+        {
+            BindingExpression be1 = tbNaziv.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            BindingExpression be2 = tbAdresa.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            BindingExpression be3 = tbTelefon.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            BindingExpression be4 = tbEmail.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            BindingExpression be5 = tbZiroRacun.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            BindingExpression be6 = tbMaticni.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            BindingExpression be7 = tbPIB.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            BindingExpression be8 = tbSajt.GetBindingExpression(TextBox.TextProperty);
+            be1.UpdateSource();
+            if (Validation.GetHasError(tbNaziv) == true || Validation.GetHasError(tbAdresa) == true
+                || Validation.GetHasError(tbTelefon) == true || Validation.GetHasError(tbEmail) == true
+                || Validation.GetHasError(tbZiroRacun) == true || Validation.GetHasError(tbMaticni) == true
+                || Validation.GetHasError(tbPIB) == true || Validation.GetHasError(tbSajt) == true)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
