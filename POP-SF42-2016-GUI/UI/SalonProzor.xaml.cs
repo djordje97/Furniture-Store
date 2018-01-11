@@ -51,7 +51,7 @@ namespace POP_SF42_2016_GUI.UI
                 tbPIB.Visibility = Visibility.Hidden;
                 tbMaticni.Visibility = Visibility.Hidden;
                 tbZiroRacun.Visibility = Visibility.Hidden;
-                btnPotvrdi.Content = "Zatvori";
+                btnPotvrdi.ToolTip = "Zatvori";
                 btnOdustani.Visibility = Visibility.Hidden;
                 tbcIspis.Text = IspisPodataka();
             }

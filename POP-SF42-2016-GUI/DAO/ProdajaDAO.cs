@@ -276,8 +276,9 @@ namespace POP_SF42_2016_GUI.DAO
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(@"SELECT Id,Kupac,Broj_Racuna,Datum_Prodaje,Ukupan_Iznos FROM Prodaja WHERE Obrisan=@obrisan 
-                AND(Kupac LIKE @tekst OR Broj_Racuna LIKE @tekst OR Datum_Prodaje LIKE @tekst OR Ukupan_Iznos LIKE @tekst)", conn);
+                SqlCommand cmd = new SqlCommand(@"SELECT DISTINCT p.Id,Kupac,Broj_Racuna,Datum_Prodaje,Ukupan_Iznos FROM Prodaja p JOIN Stavka s ON s.ProdajaId=p.Id JOIN Namestaj
+    n ON n.Id = s.NamestajId JOIN ProdateUsluge pu ON pu.ProdajaId=p.Id JOIN DodatneUsluge du ON du.Id=pu.UslugeId WHERE p.Obrisan=@obrisan 
+                AND(Kupac LIKE @tekst OR Broj_Racuna LIKE @tekst OR Datum_Prodaje LIKE @tekst OR Ukupan_Iznos LIKE @tekst OR n.Naziv LIKE @tekst OR du.Naziv LIKE @tekst)", conn);
                 cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                 cmd.Parameters.Add(new SqlParameter("@tekst", "%"+tekst+"%"));
                 SqlDataReader reader = cmd.ExecuteReader();

@@ -254,8 +254,8 @@ namespace POP_SF42_2016_GUI.DAO
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Konekcija"].ToString()))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(@"SELECT * FROM Akcija  WHERE Obrisan=@obrisan AND
-        (Datum_Pocetka LIKE @tekst OR Datum_Kraja LIKE @tekst OR Popust LIKE @tekst)", conn);
+                SqlCommand cmd = new SqlCommand(@"SELECT * FROM Akcija a JOIN NaAkciji na ON a.Id=na.AkcijaId JOIN Namestaj n ON n.Id=na.NamestajId  WHERE a.Obrisan=@obrisan AND
+        (Datum_Pocetka LIKE @tekst OR Datum_Kraja LIKE @tekst OR Popust LIKE @tekst  OR n.Naziv LIKE @tekst)", conn);
                 cmd.Parameters.Add(new SqlParameter("@obrisan", '0'));
                 cmd.Parameters.Add(new SqlParameter("@tekst", "%"+tekst+"%"));
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -297,7 +297,5 @@ namespace POP_SF42_2016_GUI.DAO
 
             return akcije;
         }
-
-      
     }
 }

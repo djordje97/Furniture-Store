@@ -149,6 +149,7 @@ namespace POP_SF42_2016_GUI.UI
                 btnTipoviNamestaja.Visibility=Visibility.Hidden;
                 btnAkcije.Visibility = Visibility.Hidden;
                 btnIzmeni.Visibility = Visibility.Hidden;
+                btnObrisi.Visibility = Visibility.Hidden;
             }
            
          
